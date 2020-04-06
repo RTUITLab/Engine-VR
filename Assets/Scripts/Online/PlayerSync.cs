@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+[RequireComponent(typeof(PhotonView))]
 public class PlayerSync : MonoBehaviour
 {
     //[SerializeField] private GameObject LeftHend;
     //[SerializeField] private GameObject RightHend;
-
+    [SerializeField] private GameObject body;
+    [SerializeField] private GameObject[] usless; //не нужные другому пользователю
+    [SerializeField] private PhotonView photonView;
     private void Start()
     {
-        
+        for(int i = 0; i < usless.Length; ++i)
+        {
+            usless[i].SetActive(photonView.IsMine);
+        }
+        body.SetActive(!photonView.IsMine);
     }
 }
