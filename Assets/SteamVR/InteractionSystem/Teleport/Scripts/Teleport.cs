@@ -184,7 +184,7 @@ namespace Valve.VR.InteractionSystem
 
 			CheckForSpawnPoint();
 
-			Invoke( "ShowTeleportHint", 5.0f );
+			//Invoke( "ShowTeleportHint", 5.0f );
 		}
 
 
@@ -233,7 +233,9 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void Update()
 		{
-			Hand oldPointerHand = pointerHand;
+            player = InteractionSystem.Player.instance;
+
+            Hand oldPointerHand = pointerHand;
 			Hand newPointerHand = null;
 
 			foreach ( Hand hand in player.hands )
