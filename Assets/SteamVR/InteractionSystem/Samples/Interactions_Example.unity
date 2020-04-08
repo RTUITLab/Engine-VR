@@ -20266,7 +20266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Version: 1.0
   maxPlayers: 4
-  player: {fileID: 1106996053497334530, guid: f07cd6354ed3b174ab6110970a1abfb8, type: 3}
+  player: {fileID: 4638564954855383560, guid: f07cd6354ed3b174ab6110970a1abfb8, type: 3}
   spawnPoint: {fileID: 2042185354}
 --- !u!4 &1454232910
 Transform:
