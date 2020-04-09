@@ -11,7 +11,7 @@ public class PlayerSync : MonoBehaviour
     [SerializeField] private GameObject body;
     [SerializeField] private GameObject[] usless; //не нужные другому пользователю
     [SerializeField] private PhotonView photonView;
-    [SerializeField] private GameObject[] hands;
+    //[SerializeField] private GameObject[] hands;
     private void Start()
     {
         for(int i = 0; i < usless.Length; ++i)
@@ -20,10 +20,10 @@ public class PlayerSync : MonoBehaviour
         }
         body.SetActive(!photonView.IsMine);
 
-        if (!photonView.IsMine)
-        {
-            PhotonNetwork.Instantiate(hands[0].name, Vector3.zero, Quaternion.identity);
-            PhotonNetwork.Instantiate(hands[1].name, Vector3.zero, Quaternion.identity);
-        }
+        //if (!photonView.IsMine)
+        //{
+        //    PhotonNetwork.Instantiate(hands[0].name, Vector3.zero, Quaternion.identity);
+        //    PhotonNetwork.Instantiate(hands[1].name, Vector3.zero, Quaternion.identity);
+        //}
     }
 }
