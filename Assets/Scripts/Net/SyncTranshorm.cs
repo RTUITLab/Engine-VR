@@ -28,17 +28,13 @@ public class SyncTranshorm : MonoBehaviour
 
     private void Update()
     {
-        if(position && lastPosition != _transform.position && _rigidbody.isKinematic)
+        if(position && lastPosition != _transform.position)
         {
             photonView.RPC("SyncPosition", RpcTarget.All, _transform.position.x, _transform.position.y, _transform.position.z);
         }
-        if(rotation && lastRotation != _transform.rotation && _rigidbody.isKinematic)
+        if(rotation && lastRotation != _transform.rotation)
         {
             photonView.RPC("SyncRotation", RpcTarget.All, _transform.rotation.x, _transform.rotation.y, _transform.rotation.z, _transform.rotation.w);
-        }
-        if(lastKinematic != _rigidbody.isKinematic)
-        {
-            photonView.RPC("SyncKinrmatic", RpcTarget.All, _rigidbody.isKinematic);
         }
     }
 
@@ -56,11 +52,5 @@ public class SyncTranshorm : MonoBehaviour
         Quaternion newQuaternion = new Quaternion(x, y, z, w);
         lastRotation = newQuaternion;
         _transform.rotation = newQuaternion;
-    }
-
-    [PunRPC]
-    private void SyncKinrmatic(bool kin)
-    {
-        _rigidbody.isKinematic = lastKinematic = kin;
     }
 }
