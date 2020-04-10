@@ -38,5 +38,19 @@ public class Networking : MonoBehaviourPunCallbacks
             Player.GetComponent<PlayerOnline>().isLocal();
             MasterPlayer.GetComponent<PlayerOnline>().Disable();
         }
+        
+    }
+
+    private void Update()
+    {
+
+        try
+        {
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+        }
+        catch
+        {
+
+        }
     }
 }
