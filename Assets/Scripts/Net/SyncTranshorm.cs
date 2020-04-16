@@ -36,6 +36,17 @@ public class SyncTranshorm : MonoBehaviour
         {
             photonView.RPC("SyncRotation", RpcTarget.All, _transform.rotation.x, _transform.rotation.y, _transform.rotation.z, _transform.rotation.w);
         }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            _rigidbody.useGravity = true;
+            _rigidbody.isKinematic = false;
+        }
+        else
+        {
+            _rigidbody.useGravity = false;
+            _rigidbody.isKinematic = false;
+        }
     }
 
     [PunRPC]

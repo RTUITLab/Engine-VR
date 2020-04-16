@@ -5,11 +5,8 @@ using Photon.Pun;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private string Version = "1.0";
+    [SerializeField] private string Version = "1.1";
     [SerializeField] [Range(2, 20)] private byte maxPlayers = 2;
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private GameObject MasterPlayer;
-    [SerializeField] private GameObject Player;
     void Start()
     {
         PhotonNetwork.GameVersion = Version;
@@ -23,22 +20,13 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
+        Debug.LogError(message);
         PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = maxPlayers });
     }
 
     public override void OnJoinedRoom()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Player.GetComponent<PlayerOnline>().Disable();
-            MasterPlayer.GetComponent<PlayerOnline>().isLocal();
-        }
-        else
-        {
-            Player.GetComponent<PlayerOnline>().isLocal();
-            MasterPlayer.GetComponent<PlayerOnline>().Disable();
-        }
-        
+        Debug.LogError(PhotonNetwork.CurrentRoom.PlayerCount);
     }
 
     private void Update()
