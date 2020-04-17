@@ -21,7 +21,7 @@ public class Networking : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.LogError(message);
-        PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = maxPlayers });
+        PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = maxPlayers, PublishUserId = true });
     }
 
     public override void OnJoinedRoom()
