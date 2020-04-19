@@ -3,7 +3,7 @@ using Photon.Pun;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(PhotonView))]
-public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лучше, его можно будет потом не так сложно переделать под множество игроков
+public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лучше, его можно будет потом не так сложно переделать под множество игроков.
 {
     [SerializeField] private GameObject CapsulePrefab;
     [SerializeField] private Transform Player;
@@ -31,8 +31,8 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
     [PunRPC]
     private void SyncCapsulePos(float x, float y, float z, int id)
     {
-        id = (PhotonNetwork.LocalPlayer.ActorNumber < id) ? id - 2 : id - 1;
-        Capsules[id - 1].position = new Vector3(x, y, z);
+        id = (PhotonNetwork.LocalPlayer.ActorNumber < id) ? id - 2 : id - 1; //Сделано так, ибо мы пропукаем номер того, кто отправляет создание своего персонажа у всех.
+        Capsules[id].position = new Vector3(x, y, z);
     }
 
     [PunRPC]
@@ -42,7 +42,7 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
         Capsules[id].rotation = new Quaternion(x, y, z, w);
     }
 
-    public override void OnJoinedRoom() //Нужно добавить одну капсулу всем клиентам, кроме себя
+    public override void OnJoinedRoom() //Нужно добавить одну капсулу всем клиентам, кроме себя.
     {
         photonView.RPC("CreateCapsule", RpcTarget.OthersBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
     }

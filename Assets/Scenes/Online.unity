@@ -268,6 +268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonView: {fileID: 37869589}
+  interaclable: {fileID: 37869588}
+  throwable: {fileID: 37869587}
   position: 1
   rotation: 1
 --- !u!54 &37869591
@@ -487,7 +489,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &252971943 stripped
 GameObject:
@@ -636,6 +638,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonView: {fileID: 252971946}
+  interaclable: {fileID: 252971945}
+  throwable: {fileID: 252971944}
   position: 1
   rotation: 1
 --- !u!54 &252971948
@@ -723,6 +727,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1905740917064020074, guid: 2c96d6bb60322a149b7c17abc2bf2974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9184153552996636496, guid: 2c96d6bb60322a149b7c17abc2bf2974,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -806,6 +815,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cube (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905740917064020074, guid: 2c96d6bb60322a149b7c17abc2bf2974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9184153552996636496, guid: 2c96d6bb60322a149b7c17abc2bf2974,
         type: 3}
@@ -923,7 +937,7 @@ Transform:
   m_Children:
   - {fileID: 1882369811}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1015,7 +1029,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &878872951
 PrefabInstance:
@@ -1028,6 +1042,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cube (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905740917064020074, guid: 2c96d6bb60322a149b7c17abc2bf2974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9184153552996636496, guid: 2c96d6bb60322a149b7c17abc2bf2974,
         type: 3}
@@ -1305,10 +1324,32 @@ MonoBehaviour:
   restoreOriginalParent: 0
   onPickUp:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1317084755}
+        m_MethodName: CatchObj
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onDetachFromHand:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1317084755}
+        m_MethodName: CatchObj
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHeldUpdate:
     m_PersistentCalls:
       m_Calls: []
@@ -1416,6 +1457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonView: {fileID: 1317084752}
+  interaclable: {fileID: 1317084750}
+  throwable: {fileID: 1317084746}
   position: 1
   rotation: 1
 --- !u!1001 &1497120232
@@ -1429,6 +1472,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cube (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905740917064020074, guid: 2c96d6bb60322a149b7c17abc2bf2974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9184153552996636496, guid: 2c96d6bb60322a149b7c17abc2bf2974,
         type: 3}
@@ -1687,6 +1735,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonView: {fileID: 1792281322}
+  interaclable: {fileID: 1792281321}
+  throwable: {fileID: 1792281320}
   position: 1
   rotation: 1
 --- !u!54 &1792281324
@@ -1724,6 +1774,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonView: {fileID: 1793055820}
+  interaclable: {fileID: 1793055821}
+  throwable: {fileID: 1793055822}
   position: 1
   rotation: 1
 --- !u!114 &1793055820
@@ -2017,7 +2069,7 @@ PrefabInstance:
     - target: {fileID: 9184153552996636496, guid: 2c96d6bb60322a149b7c17abc2bf2974,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9184153552996636496, guid: 2c96d6bb60322a149b7c17abc2bf2974,
         type: 3}
