@@ -10,7 +10,7 @@ using Valve.VR.InteractionSystem;
 [RequireComponent(typeof(Throwable))]
 [RequireComponent(typeof(PhotonView))]
 
-public class SyncTranshorm : MonoBehaviour
+public class SyncTranshorm : MonoBehaviourPunCallbacks
 {
     [SerializeField] private PhotonView photonView;
     [SerializeField] private Interactable interaclable;
@@ -36,25 +36,27 @@ public class SyncTranshorm : MonoBehaviour
 
     private void Update()
     {
-        if (!syncCathed && (cathed || PhotonNetwork.IsMasterClient)) //Если он не взят другим игроком и ты мастер клиент или его держатель.
-        {
-            if (position && lastPosition != _transform.position)
+        if (PhotonNetwork.InRoom) {
+            if (!syncCathed && (cathed || PhotonNetwork.IsMasterClient)) //Если он не взят другим игроком и ты мастер клиент или его держатель.
             {
-                photonView.RPC("SyncPosition", RpcTarget.All, _transform.position.x, _transform.position.y, _transform.position.z);
+                if (position && lastPosition != _transform.position)
+                {
+                    photonView.RPC("SyncPosition", RpcTarget.All, _transform.position.x, _transform.position.y, _transform.position.z);
+                }
+                if (rotation && lastRotation != _transform.rotation)
+                {
+                    photonView.RPC("SyncRotation", RpcTarget.All, _transform.rotation.x, _transform.rotation.y, _transform.rotation.z, _transform.rotation.w);
+                }
             }
-            if (rotation && lastRotation != _transform.rotation)
+            else if (syncCathed && cathed) //Нужно проверить, но это не должно быть достигнуто.
             {
-                photonView.RPC("SyncRotation", RpcTarget.All, _transform.rotation.x, _transform.rotation.y, _transform.rotation.z, _transform.rotation.w);
+                Debug.LogError("Обьект схвачен двумя игроками. Не достижимый вариант событий.");
             }
-        }
-        else if (syncCathed && cathed) //Нужно проверить, но это не должно быть достигнуто.
-        {
-            Debug.LogError("Обьект схвачен двумя игроками. Не достижимый вариант событий.");
-        }
-        else //Если ничего не происходит, то последняя позиция - наша позиция.
-        {
-            _transform.position = lastPosition;
-            _transform.rotation = lastRotation;
+            else //Если ничего не происходит, то последняя позиция - наша позиция.
+            {
+                _transform.position = lastPosition;
+                _transform.rotation = lastRotation;
+            }
         }
     }
 
@@ -75,7 +77,7 @@ public class SyncTranshorm : MonoBehaviour
     public void CatchObj(bool active) //Вызываеться когда игрок схватил или отпустил предмет.
     {
         cathed = active;
-        photonView.RPC("Interactable", RpcTarget.Others, active);
+        photonView.RPC("Interactable", RpcTarget.OthersBuffered, active);
         if (!active) //При отпускании предмета передавать ускорение мастеру для просчета траектории.
         {
             photonView.RPC("SendVelocity", RpcTarget.MasterClient, _rigidbody.velocity.x, _rigidbody.velocity.y, _rigidbody.velocity.z);
@@ -95,5 +97,11 @@ public class SyncTranshorm : MonoBehaviour
     [PunRPC] private void SendVelocity(float x, float y, float z)
     {
         _rigidbody.velocity = new Vector3(x, y, z);
+    }
+
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer) //При вроде передача информации о последнем положении предмета. Нужно что бы человек мог с ним взаимодействовать.
+    {
+        photonView.RPC("SyncPosition", RpcTarget.All, _transform.position.x, _transform.position.y, _transform.position.z);
+        photonView.RPC("SyncRotation", RpcTarget.All, _transform.rotation.x, _transform.rotation.y, _transform.rotation.z, _transform.rotation.w);
     }
 }
