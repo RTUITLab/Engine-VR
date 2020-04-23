@@ -23,8 +23,9 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     [SerializeField] private bool rotation = true;
     private Quaternion lastRotation = Quaternion.identity;
 
-    private bool cathed = false; //локальная переменная, если обьект схвачен, то true
-    private bool syncCathed = false;
+    private bool cathed = false; //Локальная переменная, если обьект схвачен, то true.
+    private bool syncCathed = false; //Если кто то другой хватает, то у всех это истино.
+    private bool lastOwner = false; //КТо будет просчитывать физику данного предмета (Последний держатель предмета).
 
     private void Start()
     {
@@ -37,7 +38,7 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     private void Update()
     {
         if (PhotonNetwork.InRoom) {
-            if (!syncCathed && (cathed || PhotonNetwork.IsMasterClient)) //Если он не взят другим игроком и ты мастер клиент или его держатель.
+            if (!syncCathed && (cathed || lastOwner)) //Если он не взят другим игроком и ты мастер клиент или его держатель.
             {
                 if (position && lastPosition != _transform.position)
                 {
@@ -78,19 +79,19 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     {
         cathed = active;
         photonView.RPC("Interactable", RpcTarget.OthersBuffered, active);
-        if (!active) //При отпускании предмета передавать ускорение мастеру для просчета траектории.
+        if (active)
         {
-            photonView.RPC("SendVelocity", RpcTarget.MasterClient, _rigidbody.velocity.x, _rigidbody.velocity.y, _rigidbody.velocity.z);
+            lastOwner = true;
         }
     }
 
     [PunRPC] private void Interactable(bool active) //Изменение активности VR скриптов.
     {
-        interaclable.enabled = throwable.enabled = !active;
+        interaclable.enabled = throwable.enabled = !active; //Выключаем или включаем у всех кто не держал предмет.
         syncCathed = active;
-        if (syncCathed) 
+        if (active) 
         {
-            cathed = false;
+            cathed = lastOwner = false;
         }
     }
 
@@ -103,5 +104,11 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     {
         photonView.RPC("SyncPosition", RpcTarget.All, _transform.position.x, _transform.position.y, _transform.position.z);
         photonView.RPC("SyncRotation", RpcTarget.All, _transform.rotation.x, _transform.rotation.y, _transform.rotation.z, _transform.rotation.w);
+        Debug.Log(newPlayer.UserId);
+    }
+
+    public override void OnJoinedRoom() //Запускаеться только при локальномКоннекте, что бы можно было передвигать предметы.
+    {
+        lastOwner = PhotonNetwork.IsMasterClient;
     }
 }

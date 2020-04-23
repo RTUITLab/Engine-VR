@@ -30,11 +30,6 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
             photonView.RPC("SyncCapsuleRotation", RpcTarget.Others, Player.rotation.x, Player.rotation.y, Player.rotation.z, Player.rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
             photonView.RPC("SyncHandsPos", RpcTarget.Others, Hands[0].position.x, Hands[0].position.y, Hands[0].position.z, Hands[1].position.x, Hands[1].position.y, Hands[1].position.z, PhotonNetwork.LocalPlayer.ActorNumber);
             photonView.RPC("SyncHandsRot", RpcTarget.Others, Hands[0].rotation.x, Hands[0].rotation.y, Hands[0].rotation.z, Hands[0].rotation.w, Hands[1].rotation.x, Hands[1].rotation.y, Hands[1].rotation.z, Hands[1].rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
-
-            //Debug.Log($"id человека {PhotonNetwork.LocalPlayer.ActorNumber}"); //При переподключении старые юзеры не стираються
-
-            //Debug.LogError($"Кол во трансформов в листе {Capsules.Count}");
-            Debug.LogError($"Кол во игроков в листе {Players.Count}");
         }
     }
 
@@ -73,8 +68,8 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
     [PunRPC]
     private void CreateCapsule(int id)
     {
-        Debug.LogError("Добавляем капсулу");
         Players.Add(new GamePerson(CapsulePrefab, HandsPrefabs[0], HandsPrefabs[1]));
+        Debug.LogError($"Добавляем капсулу. Кол во игроков в листе {Players.Count}.");
     }
 
 
