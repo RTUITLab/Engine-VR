@@ -40,6 +40,11 @@ MonoBehaviour:
   - SyncRotation
   - SyncCapsulePos
   - SyncCapsuleRotation
+  - CreateCapsule
+  - Interactable
+  - SendVelocity
+  - SyncHandsPos
+  - SyncHandsRot
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
