@@ -910,9 +910,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Version: 1.0
   maxPlayers: 2
-  spawnPoint: {fileID: 1882369811}
-  MasterPlayer: {fileID: 1816949978}
-  Player: {fileID: 1644328285}
 --- !u!4 &651944674
 Transform:
   m_ObjectHideFlags: 0
@@ -1367,7 +1364,7 @@ PrefabInstance:
     - target: {fileID: 4846572421295364872, guid: caeda7ff664600547b51ff2958dda937,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4846572421295364877, guid: caeda7ff664600547b51ff2958dda937,
         type: 3}
@@ -1515,12 +1512,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c96d6bb60322a149b7c17abc2bf2974, type: 3}
---- !u!1 &1644328285 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4846572421295364872, guid: caeda7ff664600547b51ff2958dda937,
-    type: 3}
-  m_PrefabInstance: {fileID: 1416618180}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1716556844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,12 +1874,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &1816949978 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4846572421295364872, guid: caeda7ff664600547b51ff2958dda937,
-    type: 3}
-  m_PrefabInstance: {fileID: 4846572420562137042}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1825468492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1902,11 +1887,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.64
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2070,7 +2055,7 @@ PrefabInstance:
     - target: {fileID: 4846572421295364872, guid: caeda7ff664600547b51ff2958dda937,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4846572421295364877, guid: caeda7ff664600547b51ff2958dda937,
         type: 3}

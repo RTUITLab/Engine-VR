@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class Part : MonoBehaviour
 {
+    [HideInInspector] public FixedPart connecntedFixed;
+
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    public void IsReadyChanger(bool IsReady)
+    {
+        connecntedFixed.IsReadyToMove = IsReady;
     }
 
     // Update is called once per frame
@@ -15,6 +22,4 @@ public class Part : MonoBehaviour
     {
         
     }
-
-
 }
