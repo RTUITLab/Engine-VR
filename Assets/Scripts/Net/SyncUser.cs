@@ -7,12 +7,17 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
 {
     [Header("Префабы для создания чужого юзера")]
     [SerializeField] private GameObject CapsulePrefab;
+    [SerializeField] private GameObject HeadsetPrefab;
     [SerializeField] private GameObject[] HandsPrefabs;
 
     [Header("Локальный плеер")]
     [SerializeField] private Transform Player;
+        private Transform lastPlayerTransform;
+
+    [SerializeField] private Transform Headset;
+        private Transform lastHeadsetTransform;
     [SerializeField] private Transform[] Hands;
-    //private List<Transform> Capsules = new List<Transform>();
+
     private List<GamePerson> Players = new List<GamePerson>();
     private bool isMaster;
     private PhotonView photonView;
@@ -20,16 +25,29 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
     {
         isMaster = PhotonNetwork.IsMasterClient;
         photonView = gameObject.GetComponent<PhotonView>();
+        lastPlayerTransform = Player.transform;
     }
 
     void FixedUpdate()
     {
         if (PhotonNetwork.InRoom)
         {
-            photonView.RPC("SyncCapsulePos", RpcTarget.Others, Player.position.x, Player.position.y, Player.position.z, PhotonNetwork.LocalPlayer.ActorNumber);
-            photonView.RPC("SyncCapsuleRotation", RpcTarget.Others, Player.rotation.x, Player.rotation.y, Player.rotation.z, Player.rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
+            if (lastPlayerTransform != Player.transform)
+            {
+                photonView.RPC("SyncCapsulePos", RpcTarget.Others, Player.position.x, Player.position.y, Player.position.z, PhotonNetwork.LocalPlayer.ActorNumber);
+                photonView.RPC("SyncCapsuleRotation", RpcTarget.Others, Player.rotation.x, Player.rotation.y, Player.rotation.z, Player.rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
+                lastPlayerTransform = Player.transform;
+            }
+
             photonView.RPC("SyncHandsPos", RpcTarget.Others, Hands[0].position.x, Hands[0].position.y, Hands[0].position.z, Hands[1].position.x, Hands[1].position.y, Hands[1].position.z, PhotonNetwork.LocalPlayer.ActorNumber);
             photonView.RPC("SyncHandsRot", RpcTarget.Others, Hands[0].rotation.x, Hands[0].rotation.y, Hands[0].rotation.z, Hands[0].rotation.w, Hands[1].rotation.x, Hands[1].rotation.y, Hands[1].rotation.z, Hands[1].rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
+
+            if (lastHeadsetTransform != Headset.transform)
+            {
+                photonView.RPC("SyncHeadsetPosition", RpcTarget.Others, Headset.position.x, Headset.position.y, Headset.position.z, PhotonNetwork.LocalPlayer);
+                photonView.RPC("SyncHeadsetRotation", RpcTarget.Others, Headset.rotation.x, Headset.rotation.y, Headset.rotation.z, Headset.rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
+                lastHeadsetTransform = Headset.transform;
+            }
         }
     }
 
@@ -59,16 +77,27 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
         Players[id].SetHandRotation(new Quaternion(xR, yR, zR, wR), true);
     }
 
+    [PunRPC] private void SyncHeadsetRotation(float x, float y, float z, float w, int id)
+    {
+        id = (PhotonNetwork.LocalPlayer.ActorNumber < id) ? id - 2 : id - 1;
+        Players[id].SetHeadsetRotation(new Quaternion(x, y, z, w));
+    }
+
+    [PunRPC] private void SyncHeadsetPosition(float x, float y, float z, int id)
+    {
+        id = (PhotonNetwork.LocalPlayer.ActorNumber < id) ? id - 2 : id - 1;
+        Players[id].SetHeadsetPosition(new Vector3(x, y, z));
+    }
+
 
     public override void OnJoinedRoom() //Нужно добавить одну капсулу всем клиентам, кроме себя.
     {
         photonView.RPC("CreateCapsule", RpcTarget.OthersBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
-    [PunRPC]
-    private void CreateCapsule(int id)
+    [PunRPC] private void CreateCapsule(int id)
     {
-        Players.Add(new GamePerson(CapsulePrefab, HandsPrefabs[0], HandsPrefabs[1]));
+        Players.Add(new GamePerson(CapsulePrefab, HandsPrefabs[0], HandsPrefabs[1], HeadsetPrefab));
         Debug.LogError($"Добавляем капсулу. Кол во игроков в листе {Players.Count}.");
     }
 
@@ -79,17 +108,25 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
 
         private GameObject LeftHand;
         private Transform LeftHandTransform;
+
         private GameObject RightHand;
         private Transform RightHandTransform;
 
-        public GamePerson(GameObject Body, GameObject LeftHand, GameObject RightHand)
+        private GameObject Headset;
+        private Transform HeadsetTransform;
+
+        public GamePerson(GameObject Body, GameObject LeftHand, GameObject RightHand, GameObject Headset)
         {
             this.Body = Instantiate(Body);
             BodyTransform = this.Body.GetComponent<Transform>();
+
             this.LeftHand = Instantiate(LeftHand, BodyTransform);
             this.RightHand = Instantiate(RightHand, BodyTransform);
             LeftHandTransform = this.LeftHand.GetComponent<Transform>();
             RightHandTransform = this.RightHand.GetComponent<Transform>();
+
+            this.Headset = Instantiate(Headset, BodyTransform);
+            HeadsetTransform = this.Headset.transform;
         }
 
         ~GamePerson()
@@ -141,6 +178,16 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
             {
                 LeftHandTransform.rotation = rotation;
             }
+        }
+
+        public void SetHeadsetRotation(Quaternion rotation)
+        {
+            HeadsetTransform.rotation = rotation;
+        }
+
+        public void SetHeadsetPosition(Vector3 position) 
+        {
+            HeadsetTransform.position = position;
         }
     }
 }

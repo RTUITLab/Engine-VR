@@ -45,6 +45,8 @@ MonoBehaviour:
   - SendVelocity
   - SyncHandsPos
   - SyncHandsRot
+  - SyncHeadsetRotation
+  - SyncHeadsetPosition
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

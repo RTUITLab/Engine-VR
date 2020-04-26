@@ -418,6 +418,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Version: 1.0
   maxPlayers: 2
+  PhotonLimit: 20
 --- !u!4 &651944674
 Transform:
   m_ObjectHideFlags: 0
@@ -797,6 +798,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1114040581 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 429506, guid: dc06161b6d97feb419f45f03b62e14b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1825468492}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1277129806 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1905740917064020074, guid: 2c96d6bb60322a149b7c17abc2bf2974,
@@ -1018,10 +1025,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CapsulePrefab: {fileID: 1401656998054177621, guid: 2e125efc8bbcfc74da0f826c5bc03fed,
     type: 3}
+  HeadsetPrefab: {fileID: 4409621241085291970, guid: 324f9fddbab5bf548b6c890c08980d9e,
+    type: 3}
   HandsPrefabs:
   - {fileID: 1000013597184258, guid: 41d5312f3fe169b4d8194076ff11b372, type: 3}
   - {fileID: 1000010184414672, guid: e4282277fbb5cdc449a0782289d42cf6, type: 3}
-  Player: {fileID: 1785622347}
+  Player: {fileID: 1577749884}
+  Headset: {fileID: 1114040581}
   Hands:
   - {fileID: 1392615879}
   - {fileID: 140451201}
@@ -1064,6 +1074,12 @@ Transform:
 --- !u!4 &1392615879 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 476540, guid: dc06161b6d97feb419f45f03b62e14b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1825468492}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1577749884 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 476076, guid: dc06161b6d97feb419f45f03b62e14b9,
     type: 3}
   m_PrefabInstance: {fileID: 1825468492}
   m_PrefabAsset: {fileID: 0}
@@ -1456,12 +1472,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c96d6bb60322a149b7c17abc2bf2974, type: 3}
---- !u!4 &1785622347 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1825468492}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1825468492
 PrefabInstance:
   m_ObjectHideFlags: 0
