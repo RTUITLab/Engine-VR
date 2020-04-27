@@ -12,10 +12,8 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
 
     [Header("Локальный плеер")]
     [SerializeField] private Transform Player;
-        private Transform lastPlayerTransform;
 
     [SerializeField] private Transform Headset;
-        private Transform lastHeadsetTransform;
     [SerializeField] private Transform[] Hands;
 
     private List<GamePerson> Players = new List<GamePerson>();
@@ -25,29 +23,21 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
     {
         isMaster = PhotonNetwork.IsMasterClient;
         photonView = gameObject.GetComponent<PhotonView>();
-        lastPlayerTransform = Player.transform;
     }
 
     void FixedUpdate()
     {
         if (PhotonNetwork.InRoom)
         {
-            if (lastPlayerTransform != Player.transform)
-            {
-                photonView.RPC("SyncCapsulePos", RpcTarget.Others, Player.position.x, Player.position.y, Player.position.z, PhotonNetwork.LocalPlayer.ActorNumber);
-                photonView.RPC("SyncCapsuleRotation", RpcTarget.Others, Player.rotation.x, Player.rotation.y, Player.rotation.z, Player.rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
-                lastPlayerTransform = Player.transform;
-            }
+            photonView.RPC("SyncCapsulePos", RpcTarget.Others, Player.position.x, Player.position.y, Player.position.z, PhotonNetwork.LocalPlayer.ActorNumber);
+            photonView.RPC("SyncCapsuleRotation", RpcTarget.Others, Player.rotation.x, Player.rotation.y, Player.rotation.z, Player.rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
 
             photonView.RPC("SyncHandsPos", RpcTarget.Others, Hands[0].position.x, Hands[0].position.y, Hands[0].position.z, Hands[1].position.x, Hands[1].position.y, Hands[1].position.z, PhotonNetwork.LocalPlayer.ActorNumber);
             photonView.RPC("SyncHandsRot", RpcTarget.Others, Hands[0].rotation.x, Hands[0].rotation.y, Hands[0].rotation.z, Hands[0].rotation.w, Hands[1].rotation.x, Hands[1].rotation.y, Hands[1].rotation.z, Hands[1].rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
 
-            if (lastHeadsetTransform != Headset.transform)
-            {
-                photonView.RPC("SyncHeadsetPosition", RpcTarget.Others, Headset.position.x, Headset.position.y, Headset.position.z, PhotonNetwork.LocalPlayer);
-                photonView.RPC("SyncHeadsetRotation", RpcTarget.Others, Headset.rotation.x, Headset.rotation.y, Headset.rotation.z, Headset.rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
-                lastHeadsetTransform = Headset.transform;
-            }
+            photonView.RPC("SyncHeadsetPosition", RpcTarget.Others, Headset.position.x, Headset.position.y, Headset.position.z, PhotonNetwork.LocalPlayer.ActorNumber);
+            photonView.RPC("SyncHeadsetRotation", RpcTarget.Others, Headset.rotation.x, Headset.rotation.y, Headset.rotation.z, Headset.rotation.w, PhotonNetwork.LocalPlayer.ActorNumber);
+
         }
     }
 

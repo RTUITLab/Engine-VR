@@ -75,7 +75,7 @@ public class FixedPart : MonoBehaviour
                 connectingPart.transform.rotation = Quaternion.RotateTowards(connectingPart.transform.rotation, transform.rotation, Time.deltaTime * 360);
                 if (connectingPart.transform.position == transform.position && connectingPart.transform.rotation == transform.rotation)
                 {
-                    photonView.RPC("EditStage", RpcTarget.All, (byte)Stage.Visable);
+                    photonView.RPC("EditStage", RpcTarget.All, (int)Stage.Visable);
                 }
             }
             
@@ -99,7 +99,7 @@ public class FixedPart : MonoBehaviour
         
     }
 
-    [PunRPC] private void EditStage(byte StageNum)
+    [PunRPC] private void EditStage(int StageNum)
     {
         currentStage = (Stage)StageNum;
     }
