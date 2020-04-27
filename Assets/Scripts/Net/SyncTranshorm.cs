@@ -111,4 +111,19 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     {
         lastOwner = PhotonNetwork.IsMasterClient;
     }
+
+    public bool isLastOwner()
+    {
+        return lastOwner;
+    }
+
+    public void SendGrav(bool grav) //Изменение гравитайии в Rigidbody
+    {
+        photonView.RPC("sendGrav", RpcTarget.All, grav);
+    }
+
+    [PunRPC] private void sendGrav(bool grav)
+    {
+        _rigidbody.useGravity = grav;
+    }
 }

@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class FixedPart : MonoBehaviour
 {
+    private PhotonView photonView;
+
     [SerializeField] Material Highlited;
     Material VisibleMaterial;
 
     [SerializeField] GameObject connectingPart;
+    private Part part;
+    private SyncTranshorm syncTranshorm;
 
     [HideInInspector] public bool IsReadyToMove;
 
@@ -50,25 +54,28 @@ public class FixedPart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        photonView = gameObject.GetComponent<PhotonView>();
+        syncTranshorm = connectingPart.GetComponent<SyncTranshorm>();
         VisibleMaterial = GetComponent<MeshRenderer>().material;
         currentStage = Stage.Hidden;
         IsReadyToMove = false;
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
-        connectingPart.GetComponent<Part>().connecntedFixed = GetComponent<FixedPart>();
+        part = connectingPart.GetComponent<Part>();
+        part.connecntedFixed = GetComponent<FixedPart>();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject == connectingPart)
+        if(other.gameObject == connectingPart && syncTranshorm.isLastOwner())
         {
             if (IsReadyToMove)
             {
-                connectingPart.GetComponent<Rigidbody>().useGravity = false;
+                syncTranshorm.SendGrav(false);
                 connectingPart.transform.position = Vector3.MoveTowards(connectingPart.transform.position, transform.position, Time.deltaTime);
                 connectingPart.transform.rotation = Quaternion.RotateTowards(connectingPart.transform.rotation, transform.rotation, Time.deltaTime * 360);
                 if (connectingPart.transform.position == transform.position && connectingPart.transform.rotation == transform.rotation)
                 {
-                    currentStage = Stage.Visable;
+                    photonView.RPC("EditStage", RpcTarget.All, (byte)Stage.Visable);
                 }
             }
             
@@ -78,9 +85,9 @@ public class FixedPart : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
 
-        if (other.gameObject == connectingPart)
+        if (other.gameObject == connectingPart && syncTranshorm.isLastOwner())
         {
-            connectingPart.GetComponent<Rigidbody>().useGravity = true;
+            syncTranshorm.SendGrav(true);
         }
     }
 
@@ -92,6 +99,10 @@ public class FixedPart : MonoBehaviour
         
     }
 
+    [PunRPC] private void EditStage(byte StageNum)
+    {
+        currentStage = (Stage)StageNum;
+    }
     
 }
 
