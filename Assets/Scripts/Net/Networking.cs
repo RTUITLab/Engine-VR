@@ -7,6 +7,7 @@ public class Networking : MonoBehaviourPunCallbacks
 {
     [SerializeField] private string Version = "1.1";
     [SerializeField] [Range(2, 20)] private byte maxPlayers = 2;
+    [SerializeField] private int PhotonLimit = 20; //Лимит максимального кол-ва подключений.
     void Start()
     {
         PhotonNetwork.GameVersion = Version;
@@ -21,24 +22,27 @@ public class Networking : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.LogError(message);
-        PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = maxPlayers, PublishUserId = true });
+        byte FreeSlots = (byte)(PhotonLimit - PhotonNetwork.CountOfPlayers); //Колчичество свободных мест в данном приложении.
+        if (FreeSlots > 0)
+        {
+            PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = (FreeSlots > maxPlayers ? maxPlayers : FreeSlots), PublishUserId = true });
+        }
+        else
+        {
+            Debug.LogError("Свободных мест нет. Сервер приложения переполнен.");
+        }
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.LogError(PhotonNetwork.CurrentRoom.PlayerCount);
+        Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
     }
 
     private void Update()
     {
-
-        try
+        if(PhotonNetwork.InRoom)
         {
             Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-        }
-        catch
-        {
-
         }
     }
 }
