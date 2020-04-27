@@ -36,6 +36,7 @@ public class FixedPart : MonoBehaviour
                 gameObject.GetComponent<Collider>().enabled = true;
                 gameObject.GetComponent<MeshRenderer>().enabled = true;
                 gameObject.GetComponent<Collider>().isTrigger = true;
+                connectingPart.GetComponent<Part>().state = Part.State.HighLighted;
             }
             else if (value == Stage.Visable)
             {
