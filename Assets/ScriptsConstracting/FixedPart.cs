@@ -73,9 +73,11 @@ public class FixedPart : MonoBehaviour
                 syncTranshorm.SendGrav(false);
                 connectingPart.transform.position = Vector3.MoveTowards(connectingPart.transform.position, transform.position, Time.deltaTime);
                 connectingPart.transform.rotation = Quaternion.RotateTowards(connectingPart.transform.rotation, transform.rotation, Time.deltaTime * 360);
+
                 if (connectingPart.transform.position == transform.position && connectingPart.transform.rotation == transform.rotation)
                 {
-                    photonView.RPC("EditStage", RpcTarget.All, (int)Stage.Visable);
+                    currentStage = Stage.Visable;
+                    photonView.RPC("EditStage", RpcTarget.OthersBuffered, (int)Stage.Visable);
                 }
             }
             
@@ -84,7 +86,6 @@ public class FixedPart : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
         if (other.gameObject == connectingPart && syncTranshorm.isLastOwner())
         {
             syncTranshorm.SendGrav(true);
