@@ -1236,8 +1236,8 @@ MonoBehaviour:
   HeadsetPrefab: {fileID: 4409621241085291970, guid: 324f9fddbab5bf548b6c890c08980d9e,
     type: 3}
   HandsPrefabs:
-  - {fileID: 1000013597184258, guid: 41d5312f3fe169b4d8194076ff11b372, type: 3}
-  - {fileID: 1000010184414672, guid: e4282277fbb5cdc449a0782289d42cf6, type: 3}
+  - {fileID: 1000013597184258, guid: 3c8823cf353ef954e9871f1264c85d2f, type: 3}
+  - {fileID: 1000010184414672, guid: 69da06cdc7a1b0b4eb039bdf1630c2b3, type: 3}
   Player: {fileID: 1529799059}
   Headset: {fileID: 1114040581}
   Hands:
