@@ -15,6 +15,7 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     [SerializeField] private PhotonView photonView;
     [SerializeField] private Interactable interaclable;
     [SerializeField] private Throwable throwable;
+    [SerializeField] private Collider colider;
     private Rigidbody _rigidbody;
     private Transform _transform;
 
@@ -87,7 +88,7 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
 
     [PunRPC] private void Interactable(bool active) //Изменение активности VR скриптов.
     {
-        interaclable.enabled = throwable.enabled = !active; //Выключаем или включаем у всех кто не держал предмет.
+        interaclable.enabled = throwable.enabled  = colider.enabled = !active; //Выключаем или включаем у всех кто не держал предмет.
         syncCathed = active;
         if (active) 
         {
