@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571409, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -696,6 +696,7 @@ MonoBehaviour:
   photonView: {fileID: 900906467}
   interaclable: {fileID: 900906468}
   throwable: {fileID: 900906469}
+  colider: {fileID: 900906473}
   position: 1
   rotation: 1
 --- !u!114 &900906467
@@ -923,6 +924,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!65 &900906473 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2640045001260061658, guid: 2c96d6bb60322a149b7c17abc2bf2974,
+    type: 3}
+  m_PrefabInstance: {fileID: 1767197219}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1019,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1825468492}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1206857160 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7757004241773019203, guid: 9d1fb099fa93cdb4baac355d3429b321,
+    type: 3}
+  m_PrefabInstance: {fileID: 8532870679643154846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1277129806 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1905740917064020074, guid: 2c96d6bb60322a149b7c17abc2bf2974,
@@ -1033,6 +1046,7 @@ MonoBehaviour:
   photonView: {fileID: 1277129808}
   interaclable: {fileID: 1277129809}
   throwable: {fileID: 1277129810}
+  colider: {fileID: 1277129812}
   position: 1
   rotation: 1
 --- !u!114 &1277129808
@@ -1201,6 +1215,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1277129812 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2640045001260061658, guid: 2c96d6bb60322a149b7c17abc2bf2974,
+    type: 3}
+  m_PrefabInstance: {fileID: 2012661060}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1302632723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,6 +1462,7 @@ MonoBehaviour:
   photonView: {fileID: 1687373429}
   interaclable: {fileID: 1687373430}
   throwable: {fileID: 1687373431}
+  colider: {fileID: 1687373433}
   position: 1
   rotation: 1
 --- !u!114 &1687373429
@@ -1610,6 +1631,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1687373433 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2640045001260061658, guid: 2c96d6bb60322a149b7c17abc2bf2974,
+    type: 3}
+  m_PrefabInstance: {fileID: 1671172487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1716556844
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,6 +2168,7 @@ MonoBehaviour:
   photonView: {fileID: 1966251079}
   interaclable: {fileID: 1966251078}
   throwable: {fileID: 1966251077}
+  colider: {fileID: 1966251082}
   position: 1
   rotation: 1
 --- !u!54 &1966251081
@@ -2159,6 +2187,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1966251082 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2640045001260061658, guid: 2c96d6bb60322a149b7c17abc2bf2974,
+    type: 3}
+  m_PrefabInstance: {fileID: 1827209707}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1990226488 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 475244, guid: 7a135b1a2cb9c8f488d4dd00c55ab283,
@@ -2409,6 +2443,10 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1317084755, guid: 9d1fb099fa93cdb4baac355d3429b321, type: 3}
+      propertyPath: colider
+      value: 
+      objectReference: {fileID: 1206857160}
     - target: {fileID: 3490732048588670153, guid: 9d1fb099fa93cdb4baac355d3429b321,
         type: 3}
       propertyPath: m_LocalPosition.x
