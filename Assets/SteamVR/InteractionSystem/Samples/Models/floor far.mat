@@ -96,7 +96,11 @@ Material:
     - _Color: {r: 0.875, g: 0.875, b: 0.875, a: 0.397}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+<<<<<<< HEAD
+--- !u!114 &1608994429477619854
+=======
 --- !u!114 &1634250502376139148
+>>>>>>> fullOnline
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

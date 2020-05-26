@@ -2,14 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+
+[System.Serializable]
+[HideInInspector]
+public class VisablePart
+{
+    public MeshRenderer mesh;
+    public Material startMaterial;
+    public Collider collider;
+    public VisablePart(MeshRenderer Mesh, Material StartMaterial, Collider Collider)
+    {
+        mesh = Mesh;
+        startMaterial = StartMaterial;
+        collider = Collider;
+    }
+    
+}
+
+public class AdditionalParts
+{
+    public MeshRenderer mesh;
+    public AdditionalParts(MeshRenderer Mesh)
+    {
+        mesh = Mesh;
+    }
+
+}
+
 public class FixedPart : MonoBehaviour
 {
     private PhotonView photonView;
 
-    [SerializeField] Material Highlited;
-    Material VisibleMaterial;
+    public List<VisablePart> PartMeshes = new List<VisablePart>();
+    public List<AdditionalParts> AddPartMeshes = new List<AdditionalParts>();
 
-    [SerializeField] GameObject connectingPart;
+    public Material Highlited;
+
+    public GameObject connectingPart;
     private Part part;
     private SyncTranshorm syncTranshorm;
 
@@ -19,7 +48,6 @@ public class FixedPart : MonoBehaviour
 
     [HideInInspector] public enum Stage { Hidden, Highlighted, Visable }
     Stage _currentStage;
-
     public Stage currentStage
     {
         get
@@ -31,20 +59,32 @@ public class FixedPart : MonoBehaviour
             _currentStage = value; 
             if(value == Stage.Hidden)
             {
-                gameObject.GetComponent<MeshRenderer>().enabled = false;
+                foreach (VisablePart visablePart in PartMeshes)
+                {
+                    visablePart.mesh.enabled = false;
+                    visablePart.collider.enabled = false;
+                }
                 gameObject.GetComponent<Collider>().enabled = false;
             }
             else if (value == Stage.Highlighted)
             {
-                gameObject.GetComponent<MeshRenderer>().material = Highlited;
+                foreach (VisablePart visablePart in PartMeshes)
+                {
+                    visablePart.mesh.enabled = true;
+                    visablePart.mesh.material = Highlited;
+                }
                 gameObject.GetComponent<Collider>().enabled = true;
-                gameObject.GetComponent<MeshRenderer>().enabled = true;
                 gameObject.GetComponent<Collider>().isTrigger = true;
             }
             else if (value == Stage.Visable)
             {
-                gameObject.GetComponent<MeshRenderer>().material = VisibleMaterial;
-                gameObject.GetComponent<Collider>().isTrigger = false;
+                foreach (VisablePart visablePart in PartMeshes)
+                {
+                    visablePart.mesh.material = visablePart.startMaterial;
+                    visablePart.collider.enabled = true;
+
+                }
+                Destroy(GetComponent<Collider>());
                 connectingPart.SetActive(false);
                 manager.NextFixedPart();
             }
@@ -56,7 +96,6 @@ public class FixedPart : MonoBehaviour
     {
         photonView = gameObject.GetComponent<PhotonView>();
         syncTranshorm = connectingPart.GetComponent<SyncTranshorm>();
-        VisibleMaterial = GetComponent<MeshRenderer>().material;
         currentStage = Stage.Hidden;
         IsReadyToMove = false;
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
