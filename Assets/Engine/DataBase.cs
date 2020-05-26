@@ -47,7 +47,7 @@ public class DataBase : MonoBehaviour
             {
                 if (child.name.Contains("дополнительно"))
                 {
-                    list.Add(child.gameObject);
+                    AllParts(child, list);
                 }
             }
             Parts parts = new Parts(list);
