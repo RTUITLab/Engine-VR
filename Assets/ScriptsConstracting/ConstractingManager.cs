@@ -9,7 +9,7 @@ public class ConstractingManager : MonoBehaviour
     [SerializeField] List<List<FixedPart>> fixedParts = new List<List<FixedPart>>();
     [SerializeField] DataBase dataBase;
     [SerializeField] GameObject MovingPartExample;
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] List<Transform> spawnPoints;
     [SerializeField] Material HighlightMaterial;
     [SerializeField] Material DisolveMaterial;
     
@@ -46,8 +46,9 @@ public class ConstractingManager : MonoBehaviour
                 }
             }
 
-            GameObject connectedPart = Instantiate(part, spawnPoint.position, spawnPoint.rotation);
-            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoint.position, spawnPoint.rotation);
+            int PartIndex = fixedParts[depth].Count;
+            GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
+            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             connectedPart.transform.SetParent(connectedPartRoot.transform);
             Destroy(connectedPart.GetComponent<FixedPart>());
             if (structure.additionalRoot)
