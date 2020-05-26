@@ -10,6 +10,7 @@ public class ConstractingManager : MonoBehaviour
     [SerializeField] DataBase dataBase;
     [SerializeField] GameObject MovingPartExample;
     [SerializeField] Transform spawnPoint;
+    [SerializeField] Material HighlightMaterial;
     int ID = 20;
 
 
@@ -17,13 +18,13 @@ public class ConstractingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //fixedParts.Add(new List<FixedPart>());
+        SettingUpEngine();
         Invoke("StartFunc", 1);
     }
 
-    void StartFunc()
+    void SettingUpEngine()
     {
-        foreach(DataBase.ObjStructure structure in dataBase.objStructures)
+        foreach (DataBase.ObjStructure structure in dataBase.objStructures)
         {
             GameObject part = GameObject.Find(structure.name);
             int depth = structure.depth.count;
@@ -34,10 +35,7 @@ public class ConstractingManager : MonoBehaviour
                 fixedParts.Add(new List<FixedPart>());
             }
 
-            GameObject connectedPart = Instantiate(part, spawnPoint.position, spawnPoint.rotation);
-            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoint.position, spawnPoint.rotation);
 
-            connectedPart.transform.SetParent(connectedPartRoot.transform);
 
             fixedPart = part.AddComponent<FixedPart>();
 
@@ -47,23 +45,21 @@ public class ConstractingManager : MonoBehaviour
                 {
                     SetPartsProps(smallPart, fixedPart);
                 }
-                else
-                {
-                    foreach(Transform piece in smallPart.transform.GetComponentInChildren<Transform>())
-                    {
-                        if (piece.GetComponent<MeshRenderer>())
-                        {
-                            SetPartsProps(piece.gameObject, fixedPart);
-                        }
-                    }
-                }
+
             }
+
+            GameObject connectedPart = Instantiate(part, spawnPoint.position, spawnPoint.rotation);
+            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoint.position, spawnPoint.rotation);
+
+            connectedPart.transform.SetParent(connectedPartRoot.transform);
+            Destroy(connectedPart.GetComponent<FixedPart>());
+
             fixedParts[depth].Add(fixedPart);
             part.AddComponent<BoxCollider>();
 
             foreach (Transform child in connectedPart.transform)
             {
-                foreach(DataBase.ObjStructure name in dataBase.objStructures)
+                foreach (DataBase.ObjStructure name in dataBase.objStructures)
                 {
                     if (child.name == name.name)
                     {
@@ -80,8 +76,14 @@ public class ConstractingManager : MonoBehaviour
             ID++;
 
             fixedPart.connectingPart = connectedPartRoot;
+            fixedPart.Highlited = HighlightMaterial;
+
             connectedPartRoot.SetActive(true);
         }
+    }
+
+    void StartFunc()
+    { 
         currentFixedPartIndex = 0;
         NextFixedPart();
     }
@@ -89,7 +91,8 @@ public class ConstractingManager : MonoBehaviour
     void SetPartsProps(GameObject part, FixedPart addToFixedPart)
     {
         MeshRenderer mesh = part.GetComponent<MeshRenderer>();
-        Collider collider = part.AddComponent<MeshCollider>();
+        MeshCollider collider = part.AddComponent<MeshCollider>();
+        collider.convex = true;
         addToFixedPart.PartMeshes.Add(new VisablePart(mesh, mesh.material, collider));
 
     }

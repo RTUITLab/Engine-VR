@@ -36,8 +36,7 @@ public class FixedPart : MonoBehaviour
     public List<VisablePart> PartMeshes = new List<VisablePart>();
     public List<AdditionalParts> AddPartMeshes = new List<AdditionalParts>();
 
-    [SerializeField] Material Highlited;
-    //Material VisibleMaterial;
+    public Material Highlited;
 
     public GameObject connectingPart;
     private Part part;
@@ -63,6 +62,7 @@ public class FixedPart : MonoBehaviour
                 foreach (VisablePart visablePart in PartMeshes)
                 {
                     visablePart.mesh.enabled = false;
+                    visablePart.collider.enabled = false;
                 }
                 gameObject.GetComponent<Collider>().enabled = false;
             }
@@ -81,6 +81,8 @@ public class FixedPart : MonoBehaviour
                 foreach (VisablePart visablePart in PartMeshes)
                 {
                     visablePart.mesh.material = visablePart.startMaterial;
+                    visablePart.collider.enabled = true;
+
                 }
                 Destroy(GetComponent<Collider>());
                 connectingPart.SetActive(false);
