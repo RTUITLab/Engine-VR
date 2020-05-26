@@ -54,6 +54,18 @@ public class DataBase : MonoBehaviour
             return parts;
         }
 
+        public static GameObject AdditionalPartRoot(GameObject obj) //Находит дополнительный объект в дочерних у объекта
+        {
+            foreach (Transform child in obj.transform)
+            {
+                if (child.name.Contains("дополнительно"))
+                {
+                    return child.gameObject;
+                }
+            }
+            return null;
+        }
+
         public static void AllParts(Transform obj, List<GameObject> objects) //Метод находит все детали объекта obj и запихивает их в массив objects
         {
             foreach (Transform child in obj.transform)
@@ -120,6 +132,7 @@ public class DataBase : MonoBehaviour
         public NameContainer status;
         public Parts parts;
         public Parts additionalParts;
+        public GameObject additionalRoot;
         public GameObject moving; // ВОТ ТУТ СКРИПТ МАКСА ТИПА
 
         public static void DataCollection(List<ObjStructure> objects, Transform transform)
@@ -128,21 +141,10 @@ public class DataBase : MonoBehaviour
             {
                 if (!child.name.Contains("Деталь") && !child.name.Contains("дополнительно"))
                 {
-                    objects.Add(new ObjStructure(child.name, new Depth(Depth.FindDepth(child, 0)), new NameContainer("Visible"), Parts.PartCollection(child.gameObject), Parts.AdditionalPartCollection(child.gameObject)));
+                    objects.Add(new ObjStructure(child.name, new Depth(Depth.FindDepth(child, 0)), new NameContainer("Visible"), Parts.PartCollection(child.gameObject), Parts.AdditionalPartCollection(child.gameObject), Parts.AdditionalPartRoot(child.gameObject)));
                 }
             }
         }
-
-        public ObjStructure(string Name, Depth Depth, NameContainer Status, Parts Parts, Parts AdditionalParts, GameObject Moving)
-        {
-            name = Name;
-            depth = Depth;
-            status = Status;
-            parts = Parts;
-            additionalParts = AdditionalParts;
-            moving = Moving;
-        }
-
 
         public ObjStructure(string Name, Depth Depth, NameContainer Status, Parts Parts)
         {
@@ -158,13 +160,14 @@ public class DataBase : MonoBehaviour
 
         }
 
-        public ObjStructure(string Name, Depth Depth, NameContainer Status, Parts Parts, Parts AdditionalParts)
+        public ObjStructure(string Name, Depth Depth, NameContainer Status, Parts Parts, Parts AdditionalParts,GameObject AdditionalRoot)
         {
             name = Name;
             depth = Depth;
             status = Status;
             parts = Parts;
             additionalParts = AdditionalParts;
+            additionalRoot = AdditionalRoot;
         }
 
         public ObjStructure(string Name)
