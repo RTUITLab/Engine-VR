@@ -525,6 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartMeshes: []
+  AddPartMeshes: []
   Highlited: {fileID: 2100000, guid: a1313a5fd0b97df4798c301e337a1eb8, type: 2}
   connectingPart: {fileID: 1966251074}
   IsReadyToMove: 0
@@ -1433,7 +1434,9 @@ MonoBehaviour:
   dataBase: {fileID: 496722499}
   MovingPartExample: {fileID: 1793071471}
   spawnPoint: {fileID: 2130118841}
-  HighlightMaterial: {fileID: 2100000, guid: a1313a5fd0b97df4798c301e337a1eb8, type: 2}
+  HighlightMaterial: {fileID: 2100000, guid: e9612839499c557428c736cc3bb042ca, type: 2}
+  DisolveMaterial: {fileID: 2100000, guid: 85106e699e240184181f54c50599a7ea, type: 2}
+  Education: 1
 --- !u!4 &1529799059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9,
@@ -2856,6 +2859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartMeshes: []
+  AddPartMeshes: []
   Highlited: {fileID: 2100000, guid: a1313a5fd0b97df4798c301e337a1eb8, type: 2}
   connectingPart: {fileID: 900906465}
   IsReadyToMove: 0
