@@ -53,14 +53,21 @@ public class DataBase : MonoBehaviour
             Parts parts = new Parts(list);
             return parts;
         }
-        public static Parts PartCollection(GameObject obj) // Находит все дочерние детали объекта
+
+        public static void AllParts(Transform obj, List<GameObject> objects) //Метод находит все детали объекта obj и запихивает их в массив objects
         {
-            List<GameObject> list = new List<GameObject>();
             foreach (Transform child in obj.transform)
             {
                 if (child.name.Contains("Деталь"))
-                    list.Add(child.gameObject);
+                objects.Add(child.gameObject);
+                if (child.childCount != 0 && child.name.Contains("Деталь"))
+                    AllParts(child, objects);
             }
+        }
+        public static Parts PartCollection(GameObject obj) // Находит все дочерние детали объекта
+        {
+            List<GameObject> list = new List<GameObject>();
+            AllParts(obj.transform, list); //тут заполняем массив list всеми "Деталями" объекта obj
             Parts parts = new Parts(list);
             return parts;
         }
@@ -126,7 +133,7 @@ public class DataBase : MonoBehaviour
             }
         }
 
-        public ObjStructure(string Name,Depth Depth, NameContainer Status, Parts Parts, Parts AdditionalParts, GameObject Moving)
+        public ObjStructure(string Name, Depth Depth, NameContainer Status, Parts Parts, Parts AdditionalParts, GameObject Moving)
         {
             name = Name;
             depth = Depth;
@@ -169,7 +176,6 @@ public class DataBase : MonoBehaviour
         public ObjStructure()
         { }
     }
-
     public List<ObjStructure> objStructures = new List<ObjStructure>();
     public List<Depth> depths = new List<Depth>();
     public List<NameContainer> statuses = new List<NameContainer>();
@@ -178,16 +184,14 @@ public class DataBase : MonoBehaviour
     public List<Parts> additionalParts = new List<Parts>();
     public List<Materials> customMaterials = new List<Materials>();
     public List<NameContainer> sources = new List<NameContainer>();
-
     void Start()
     {
         depths.Add(new Depth(0)); depths.Add(new Depth(1)); depths.Add(new Depth(2)); depths.Add(new Depth(3)); depths.Add(new Depth(4)); depths.Add(new Depth(5)); depths.Add(new Depth(6)); depths.Add(new Depth(7)); depths.Add(new Depth(8));
         statuses.Add(new NameContainer("Visable")); statuses.Add(new NameContainer("Invisible")); statuses.Add(new NameContainer("Highlighted"));
-        for (int i =0; i<=materials.Count-1;i++)
-        colors.Add(new Colors(materials[i].color.r, materials[i].color.g, materials[i].color.b));
+        for (int i = 0; i <= materials.Count - 1; i++)
+            colors.Add(new Colors(materials[i].color.r, materials[i].color.g, materials[i].color.b));
         //----------------------------------------------------------------------------------------------------------------
         ObjStructure.DataCollection(objStructures, transform);
-
 
     }
 
@@ -197,6 +201,5 @@ public class DataBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
