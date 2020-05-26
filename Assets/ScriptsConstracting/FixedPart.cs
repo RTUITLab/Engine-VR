@@ -10,6 +10,7 @@ public class VisablePart
     public MeshRenderer mesh;
     public Material startMaterial;
     public Collider collider;
+    public DisolveScript disolve;
     public VisablePart(MeshRenderer Mesh, Material StartMaterial, Collider Collider)
     {
         mesh = Mesh;
@@ -19,22 +20,12 @@ public class VisablePart
     
 }
 
-public class AdditionalParts
-{
-    public MeshRenderer mesh;
-    public AdditionalParts(MeshRenderer Mesh)
-    {
-        mesh = Mesh;
-    }
-
-}
-
 public class FixedPart : MonoBehaviour
 {
     private PhotonView photonView;
 
     public List<VisablePart> PartMeshes = new List<VisablePart>();
-    public List<AdditionalParts> AddPartMeshes = new List<AdditionalParts>();
+    public List<VisablePart> AddPartMeshes = new List<VisablePart>();
 
     public Material Highlited;
 
@@ -64,6 +55,13 @@ public class FixedPart : MonoBehaviour
                     visablePart.mesh.enabled = false;
                     visablePart.collider.enabled = false;
                 }
+
+                foreach (VisablePart visablePart in AddPartMeshes)
+                {
+                    visablePart.mesh.enabled = false;
+                    visablePart.collider.enabled = false;
+                }
+
                 gameObject.GetComponent<Collider>().enabled = false;
             }
             else if (value == Stage.Highlighted)
@@ -75,6 +73,10 @@ public class FixedPart : MonoBehaviour
                 }
                 gameObject.GetComponent<Collider>().enabled = true;
                 gameObject.GetComponent<Collider>().isTrigger = true;
+                if (manager.Education)
+                {
+                    connectingPart.SetActive(true);
+                }
             }
             else if (value == Stage.Visable)
             {
@@ -82,7 +84,13 @@ public class FixedPart : MonoBehaviour
                 {
                     visablePart.mesh.material = visablePart.startMaterial;
                     visablePart.collider.enabled = true;
+                }
 
+                foreach (VisablePart visablePart in AddPartMeshes)
+                {
+                    visablePart.mesh.enabled = false;
+                    visablePart.collider.enabled = false;
+                    visablePart.disolve.DisolveProcess(false);
                 }
                 Destroy(GetComponent<Collider>());
                 connectingPart.SetActive(false);
@@ -105,7 +113,7 @@ public class FixedPart : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject == connectingPart && syncTranshorm.isLastOwner())
+        if(other.tag == "smallPart" && syncTranshorm.isLastOwner())
         {
             if (IsReadyToMove)
             {

@@ -9,10 +9,13 @@ public class ConstractingManager : MonoBehaviour
     [SerializeField] List<List<FixedPart>> fixedParts = new List<List<FixedPart>>();
     [SerializeField] DataBase dataBase;
     [SerializeField] GameObject MovingPartExample;
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] List<Transform> spawnPoints;
     [SerializeField] Material HighlightMaterial;
+    [SerializeField] Material DisolveMaterial;
+    
     int ID = 20;
 
+    public bool Education;
 
     int currentFixedPartIndex;
     // Start is called before the first frame update
@@ -28,34 +31,39 @@ public class ConstractingManager : MonoBehaviour
         {
             GameObject part = GameObject.Find(structure.name);
             int depth = structure.depth.count;
-            FixedPart fixedPart;
+            FixedPart fixedPart = part.AddComponent<FixedPart>();
 
             while (depth > fixedParts.Count - 1)
             {
                 fixedParts.Add(new List<FixedPart>());
             }
 
-
-
-            fixedPart = part.AddComponent<FixedPart>();
-
             foreach (GameObject smallPart in structure.parts.parts)
             {
                 if (smallPart.GetComponent<MeshRenderer>())
                 {
-                    SetPartsProps(smallPart, fixedPart);
+                    SetPartsProps(smallPart, fixedPart.PartMeshes, false);
                 }
-
             }
 
-            GameObject connectedPart = Instantiate(part, spawnPoint.position, spawnPoint.rotation);
-            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoint.position, spawnPoint.rotation);
-
+            int PartIndex = fixedParts[depth].Count;
+            GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
+            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             connectedPart.transform.SetParent(connectedPartRoot.transform);
             Destroy(connectedPart.GetComponent<FixedPart>());
+            if (structure.additionalRoot)
+            {
+                Destroy(connectedPart.transform.Find(structure.additionalRoot.name).gameObject);
+            }
 
-            fixedParts[depth].Add(fixedPart);
-            part.AddComponent<BoxCollider>();
+
+            foreach (GameObject addPart in structure.additionalParts.parts)
+            {
+                if (addPart.GetComponent<MeshRenderer>())
+                {
+                    SetPartsProps(addPart, fixedPart.AddPartMeshes, true);
+                }
+            }
 
             foreach (Transform child in connectedPart.transform)
             {
@@ -68,17 +76,24 @@ public class ConstractingManager : MonoBehaviour
                 }
             }
 
+
             part.AddComponent<PhotonView>().ViewID = ID;
             ID++;
-
 
             connectedPartRoot.GetComponent<PhotonView>().ViewID = ID;
             ID++;
 
             fixedPart.connectingPart = connectedPartRoot;
-            fixedPart.Highlited = HighlightMaterial;
+            fixedPart.Highlited = Instantiate(HighlightMaterial);
+            fixedPart.Highlited.SetColor("_TintColor", Random.ColorHSV(0,1,0.2f,0.5f,0.2f,0.5f));
+            part.AddComponent<BoxCollider>();
+            fixedParts[depth].Add(fixedPart);
 
-            connectedPartRoot.SetActive(true);
+
+            if (!Education)
+            {
+                connectedPartRoot.SetActive(true);
+            }
         }
     }
 
@@ -88,13 +103,19 @@ public class ConstractingManager : MonoBehaviour
         NextFixedPart();
     }
 
-    void SetPartsProps(GameObject part, FixedPart addToFixedPart)
+    void SetPartsProps(GameObject part, List<VisablePart> PartsList, bool AddDisolving)
     {
         MeshRenderer mesh = part.GetComponent<MeshRenderer>();
         MeshCollider collider = part.AddComponent<MeshCollider>();
+        part.tag = "smallPart";
         collider.convex = true;
-        addToFixedPart.PartMeshes.Add(new VisablePart(mesh, mesh.material, collider));
+        if (AddDisolving)
+        {
+            part.AddComponent<DisolveScript>().DisolveMaterial = DisolveMaterial;
+            part.GetComponent<DisolveScript>().DisolveProcess(true);
 
+        }
+        PartsList.Add(new VisablePart(mesh, mesh.material, collider));
     }
 
     public void NextFixedPart()
