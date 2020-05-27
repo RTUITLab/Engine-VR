@@ -8,6 +8,7 @@ public class ConstractingManager : MonoBehaviour
 {
     [SerializeField] List<List<FixedPart>> fixedParts = new List<List<FixedPart>>();
     [SerializeField] DataBase dataBase;
+    [SerializeField] MovingPartDataBase movingPartDataBase;
     [SerializeField] GameObject MovingPartExample;
     [SerializeField] List<Transform> spawnPoints;
     [SerializeField] Material HighlightMaterial;
@@ -47,7 +48,9 @@ public class ConstractingManager : MonoBehaviour
             }
 
             int PartIndex = fixedParts[depth].Count;
+            Transform spawnPos = spawnPoints[PartIndex];
             GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
+            connectedPart.name = part.name;
             GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             connectedPart.transform.SetParent(connectedPartRoot.transform);
             Destroy(connectedPart.GetComponent<FixedPart>());
@@ -89,6 +92,7 @@ public class ConstractingManager : MonoBehaviour
             part.AddComponent<BoxCollider>();
             fixedParts[depth].Add(fixedPart);
 
+            movingPartDataBase.FillArrays(spawnPos, fixedPart.transform, connectedPartRoot);
 
             if (!Education)
             {
