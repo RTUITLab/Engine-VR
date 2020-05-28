@@ -8,24 +8,34 @@ using Photon.Pun;
 public class VisablePart
 {
     public MeshRenderer mesh;
-    public Material startMaterial;
+    public Material[] startMaterials;
     public Collider collider;
     public DisolveScript disolve;
-    public VisablePart(MeshRenderer Mesh, Material StartMaterial, Collider Collider)
+    public VisablePart(MeshRenderer Mesh, Material[] StartMaterials, Collider Collider)
     {
         mesh = Mesh;
-        startMaterial = StartMaterial;
+        startMaterials = StartMaterials;
         collider = Collider;
     }
-    
+
+    public VisablePart(MeshRenderer Mesh, Material[] StartMaterials, Collider Collider, DisolveScript Disolve)
+    {
+        mesh = Mesh;
+        startMaterials = StartMaterials;
+        collider = Collider;
+        disolve = Disolve;
+    }
+
 }
 
 public class FixedPart : MonoBehaviour
 {
     private PhotonView photonView;
 
-    public List<VisablePart> PartMeshes = new List<VisablePart>();
-    public List<VisablePart> AddPartMeshes = new List<VisablePart>();
+    //public List<VisablePart> PartMeshes = new List<VisablePart>();
+    //public List<VisablePart> AddPartMeshes = new List<VisablePart>();
+    public VisablePart PartMeshe;
+    public VisablePart AddPartMeshe;
 
     public Material Highlited;
 
@@ -50,49 +60,48 @@ public class FixedPart : MonoBehaviour
             _currentStage = value; 
             if(value == Stage.Hidden)
             {
-                foreach (VisablePart visablePart in PartMeshes)
+                PartMeshe.collider.enabled = false;
+                PartMeshe.mesh.enabled = false;
+
+                if (AddPartMeshe.disolve != null)
                 {
-                    visablePart.mesh.enabled = false;
-                    visablePart.collider.enabled = false;
+                    AddPartMeshe.collider.enabled = false;
+                    AddPartMeshe.mesh.enabled = false;
                 }
 
-                foreach (VisablePart visablePart in AddPartMeshes)
-                {
-                    visablePart.mesh.enabled = false;
-                    visablePart.collider.enabled = false;
-                }
 
-                gameObject.GetComponent<Collider>().enabled = false;
+                gameObject.GetComponent<BoxCollider>().enabled = false;
             }
             else if (value == Stage.Highlighted)
             {
-                foreach (VisablePart visablePart in PartMeshes)
+                PartMeshe.mesh.enabled = true;
+                Material[] materials = PartMeshe.mesh.materials;
+                for (int i = 0; i < materials.Length; i++)
                 {
-                    visablePart.mesh.enabled = true;
-                    visablePart.mesh.material = Highlited;
+                    materials[i] = Highlited;
                 }
-                gameObject.GetComponent<Collider>().enabled = true;
-                gameObject.GetComponent<Collider>().isTrigger = true;
+                PartMeshe.mesh.materials = materials;
+
+                gameObject.GetComponent<BoxCollider>().enabled = true;
+                gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 if (manager.Education)
                 {
-                    connectingPart.SetActive(true);
+                    connectingPart.GetComponent<Part>().currentStage = Part.Stage.Active;
                 }
             }
             else if (value == Stage.Visable)
             {
-                foreach (VisablePart visablePart in PartMeshes)
+                PartMeshe.mesh.materials = PartMeshe.startMaterials;
+                //PartMeshe.collider.enabled = true;
+
+                if (AddPartMeshe.disolve != null)
                 {
-                    visablePart.mesh.material = visablePart.startMaterial;
-                    visablePart.collider.enabled = true;
+                    AddPartMeshe.mesh.enabled = true;
+                    //AddPartMeshe.collider.enabled = true;
+                    AddPartMeshe.disolve.DisolveProcess(false);
                 }
 
-                foreach (VisablePart visablePart in AddPartMeshes)
-                {
-                    visablePart.mesh.enabled = false;
-                    visablePart.collider.enabled = false;
-                    visablePart.disolve.DisolveProcess(false);
-                }
-                Destroy(GetComponent<Collider>());
+                Destroy(GetComponent<BoxCollider>());
                 connectingPart.SetActive(false);
                 manager.NextFixedPart();
             }
@@ -104,9 +113,9 @@ public class FixedPart : MonoBehaviour
     {
         photonView = gameObject.GetComponent<PhotonView>();
         syncTranshorm = connectingPart.GetComponent<SyncTranshorm>();
+        manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
         currentStage = Stage.Hidden;
         IsReadyToMove = false;
-        manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
         part = connectingPart.GetComponent<Part>();
         part.connecntedFixed = GetComponent<FixedPart>();
     }
@@ -118,10 +127,15 @@ public class FixedPart : MonoBehaviour
             if (IsReadyToMove)
             {
                 syncTranshorm.SendGrav(false);
-                connectingPart.transform.position = Vector3.MoveTowards(connectingPart.transform.position, transform.position, Time.deltaTime);
-                connectingPart.transform.rotation = Quaternion.RotateTowards(connectingPart.transform.rotation, transform.rotation, Time.deltaTime * 360);
+                connectingPart.transform.position = Vector3.MoveTowards(connectingPart.transform.position, transform.position, Time.deltaTime * 2);
+                connectingPart.transform.rotation = Quaternion.RotateTowards(connectingPart.transform.rotation, transform.rotation, Time.deltaTime * 360 * 2);
 
-                if (connectingPart.transform.position == transform.position && connectingPart.transform.rotation == transform.rotation)
+                /*if (connectingPart.transform.position == transform.position && connectingPart.transform.rotation == transform.rotation)
+                {
+                    currentStage = Stage.Visable;
+                    photonView.RPC("EditStage", RpcTarget.OthersBuffered, (int)Stage.Visable);
+                }*/
+                if ((connectingPart.transform.position - transform.position).magnitude < 0.1f && (connectingPart.transform.eulerAngles - transform.eulerAngles).magnitude < 0.1f)
                 {
                     currentStage = Stage.Visable;
                     photonView.RPC("EditStage", RpcTarget.OthersBuffered, (int)Stage.Visable);
@@ -139,7 +153,11 @@ public class FixedPart : MonoBehaviour
         }
     }
 
-
+    public void SetConnected(GameObject connected)
+    {
+        connectingPart = connected;
+        //connected.GetComponent<Part>().part = this;
+    }
 
     // Update is called once per frame
     void Update()
