@@ -9,7 +9,7 @@ public class Part : MonoBehaviour
     Stage _currentStage;
     public Transform Hint;
     Transform camera;
-    //ConstractingManager manager;
+    ConstractingManager manager;
     //public FixedPart part;
 
     public Stage currentStage
@@ -65,7 +65,12 @@ public class Part : MonoBehaviour
 
     private void OnEnable()
     {
-        Hint.gameObject.SetActive(true);
+        manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
+
+        if (manager.Education)
+        {
+            Hint.gameObject.SetActive(true);
+        }
     }
 
     private void OnDisable()
@@ -80,6 +85,6 @@ public class Part : MonoBehaviour
 
         //Hint.transform.parent = transform;
         camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        //manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
+        manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
     }
 }

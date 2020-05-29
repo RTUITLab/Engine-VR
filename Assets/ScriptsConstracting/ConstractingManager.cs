@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using TMPro;
 
 public class ConstractingManager : MonoBehaviour
 {
@@ -118,9 +119,11 @@ public class ConstractingManager : MonoBehaviour
             fixedPart.Highlited = Instantiate(HighlightMaterial);
 
             Color PartColor = Random.ColorHSV(0, 1, 0.176f, 0.196f, 0.196f, 0.216f);
-            fixedPart.Highlited.SetColor("_TintColor", PartColor);
+            if (Education)
+            {
+                fixedPart.Highlited.SetColor("_TintColor", PartColor);
+            }
 
-            fixedPart.Highlited.SetColor("_TintColor", PartColor);
             Material HintMaterail = new Material(HintColor);
             HintMaterail.color = PartColor;
             Hint.transform.GetChild(1).GetComponent<Image>().material = HintMaterail;
@@ -128,12 +131,11 @@ public class ConstractingManager : MonoBehaviour
 
             part.AddComponent<BoxCollider>();
             fixedParts[depth].Add(fixedPart);
-
-            movingPartDataBase.FillArrays(spawnPos, fixedPart.transform, connectedPartRoot);
+            movingPartDataBase.FillArrays(spawnPos, fixedPart.transform, connectedPartRoot, Hint.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
 
             if (!Education)
             {
-                connectedPartRoot.SetActive(true);
+                //connectedPartRoot.SetActive(true);
             }
         }
     }

@@ -84,10 +84,8 @@ public class FixedPart : MonoBehaviour
 
                 gameObject.GetComponent<BoxCollider>().enabled = true;
                 gameObject.GetComponent<BoxCollider>().isTrigger = true;
-                if (manager.Education)
-                {
-                    connectingPart.GetComponent<Part>().currentStage = Part.Stage.Active;
-                }
+                connectingPart.GetComponent<Part>().currentStage = Part.Stage.Active;
+
             }
             else if (value == Stage.Visable)
             {

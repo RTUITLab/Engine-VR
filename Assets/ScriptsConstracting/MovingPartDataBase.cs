@@ -183,7 +183,7 @@ public class MovingPartDataBase : MonoBehaviour
     public List<Moving_Part> moving_Part = new List<Moving_Part>();
 
 
-    public void FillArrays(Transform Spawn, Transform Placing, GameObject Moving)
+    public void FillArrays(Transform Spawn, Transform Placing, GameObject Moving, string Hint)
     {
         Position Pposition = new Position();
         Pposition.GetPosition(Placing);
@@ -222,7 +222,7 @@ public class MovingPartDataBase : MonoBehaviour
         string name = Moving.transform.GetChild(0).name;
         name = name.Replace("(Close)", "");
 
-        Moving_Part _Part = new Moving_Part(PlacingT, SpawningT, state_, "hint", name);
+        Moving_Part _Part = new Moving_Part(PlacingT, SpawningT, state_, Hint, name);
         moving_Part.Add(_Part);
     }
 
