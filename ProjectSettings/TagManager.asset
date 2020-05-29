@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Manager
   - smallPart
+  - Hints
   layers:
   - Default
   - TransparentFX

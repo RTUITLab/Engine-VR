@@ -7,6 +7,8 @@ public class Part : MonoBehaviour
 {
     [HideInInspector] public enum Stage { Hidden , Visable , Active}
     Stage _currentStage;
+    public Transform Hint;
+    Transform camera;
     //ConstractingManager manager;
     //public FixedPart part;
 
@@ -47,15 +49,37 @@ public class Part : MonoBehaviour
     {
 
     }
+    Vector3 LastPos = Vector3.zero;
 
     // Update is called once per frame
     void Update()
     {
-        
+        Hint.LookAt(camera);
+        Vector3 diff = transform.position - LastPos;
+        if (LastPos != Vector3.zero)
+        {
+            Hint.transform.position += diff;
+        }
+        LastPos = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        Hint.gameObject.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        Hint.gameObject.SetActive(false);
     }
 
     private void Start()
     {
+
+
+
+        //Hint.transform.parent = transform;
+        camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         //manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
     }
 }

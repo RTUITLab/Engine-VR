@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-
+using UnityEngine.UI;
 
 public class ConstractingManager : MonoBehaviour
 {
@@ -13,7 +13,9 @@ public class ConstractingManager : MonoBehaviour
     [SerializeField] List<Transform> spawnPoints;
     [SerializeField] Material HighlightMaterial;
     [SerializeField] Material GlowMaterial;
+    [SerializeField] Material HintColor;
     [SerializeField] Material DisolveMaterial;
+    [SerializeField] Transform Hints;
     
     int ID = 20;
 
@@ -27,6 +29,11 @@ public class ConstractingManager : MonoBehaviour
     {
         SettingUpEngine();
         Invoke("StartFunc", 1);
+        //foreach (Transform transform in GameObject.FindGameObjectWithTag("Hints").transform)
+        //{
+        //   Hints.Add(transform);
+        //}
+        
     }
 
     void SettingUpEngine()
@@ -59,6 +66,8 @@ public class ConstractingManager : MonoBehaviour
 
 
             GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
+            Transform Hint = Hints.Find(structure.name);
+            connectedPartRoot.GetComponent<Part>().Hint = Hint;
 
             GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             connectedPart.name = part.name;
@@ -66,6 +75,8 @@ public class ConstractingManager : MonoBehaviour
             glow.GlowMaterial = GlowMaterial;
             glow.Listener = connectedPartRoot;
             connectedPart.transform.SetParent(connectedPartRoot.transform);
+            Hint.position = connectedPart.transform.position;
+            Hint.position += new Vector3(0, 0.7f, 0);
 
             Destroy(connectedPart.GetComponent<FixedPart>());
             connectedPart.GetComponent<MeshCollider>().convex = true;
@@ -104,9 +115,17 @@ public class ConstractingManager : MonoBehaviour
             ID++;
 
             fixedPart.SetConnected(connectedPartRoot);
-
             fixedPart.Highlited = Instantiate(HighlightMaterial);
-            fixedPart.Highlited.SetColor("_TintColor", Random.ColorHSV(0,1, 0.176f, 0.196f,  0.196f, 0.216f));
+
+            Color PartColor = Random.ColorHSV(0, 1, 0.176f, 0.196f, 0.196f, 0.216f);
+            fixedPart.Highlited.SetColor("_TintColor", PartColor);
+
+            fixedPart.Highlited.SetColor("_TintColor", PartColor);
+            Material HintMaterail = new Material(HintColor);
+            HintMaterail.color = PartColor;
+            Hint.transform.GetChild(1).GetComponent<Image>().material = HintMaterail;
+            Hint.gameObject.SetActive(false);
+
             part.AddComponent<BoxCollider>();
             fixedParts[depth].Add(fixedPart);
 
