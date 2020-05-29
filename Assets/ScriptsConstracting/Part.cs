@@ -7,6 +7,8 @@ public class Part : MonoBehaviour
 {
     [HideInInspector] public enum Stage { Hidden , Visable , Active}
     Stage _currentStage;
+    //ConstractingManager manager;
+    //public FixedPart part;
 
     public Stage currentStage
     {
@@ -19,7 +21,7 @@ public class Part : MonoBehaviour
             _currentStage = value;
             if (value == Stage.Hidden)
             {
-                transform.parent.gameObject.SetActive(false);
+                gameObject.SetActive(false);
                 GetComponent<Rigidbody>().isKinematic = true;
             }
             else if (value == Stage.Visable)
@@ -28,7 +30,7 @@ public class Part : MonoBehaviour
             }
             else
             {
-                transform.parent.gameObject.SetActive(true);
+                gameObject.SetActive(true);
                 GetComponent<Rigidbody>().isKinematic = false;
             }
         }
@@ -38,11 +40,22 @@ public class Part : MonoBehaviour
     public void IsReadyChanger(bool IsReady)
     {
         connecntedFixed.IsReadyToMove = IsReady;
+
+    }
+
+    public void EnablePhys()
+    {
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void Start()
+    {
+        //manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
     }
 }

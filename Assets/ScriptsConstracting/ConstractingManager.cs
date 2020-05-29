@@ -7,18 +7,21 @@ using Photon.Pun;
 public class ConstractingManager : MonoBehaviour
 {
     [SerializeField] List<List<FixedPart>> fixedParts = new List<List<FixedPart>>();
-    [SerializeField] DataBase dataBase;
+    [SerializeField] DBForOptimizedEngine dataBase;
     [SerializeField] MovingPartDataBase movingPartDataBase;
     [SerializeField] GameObject MovingPartExample;
     [SerializeField] List<Transform> spawnPoints;
     [SerializeField] Material HighlightMaterial;
+    [SerializeField] Material GlowMaterial;
     [SerializeField] Material DisolveMaterial;
     
     int ID = 20;
 
     public bool Education;
 
-    int currentFixedPartIndex;
+    int currentFixedPartDepth;
+    int LeftFixedParts;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +31,7 @@ public class ConstractingManager : MonoBehaviour
 
     void SettingUpEngine()
     {
-        foreach (DataBase.ObjStructure structure in dataBase.objStructures)
+        foreach (DBForOptimizedEngine.ObjStructure structure in dataBase.objStructures)
         {
             GameObject part = GameObject.Find(structure.name);
             int depth = structure.depth.count;
@@ -39,38 +42,52 @@ public class ConstractingManager : MonoBehaviour
                 fixedParts.Add(new List<FixedPart>());
             }
 
-            foreach (GameObject smallPart in structure.parts.parts)
+            SetPartsProps(structure.mainRoot, ref fixedPart.PartMeshe, false);
+            
+
+            /*foreach (GameObject smallPart in structure.parts.parts)
             {
                 if (smallPart.GetComponent<MeshRenderer>())
                 {
                     SetPartsProps(smallPart, fixedPart.PartMeshes, false);
                 }
-            }
+            }*/
 
             int PartIndex = fixedParts[depth].Count;
             Transform spawnPos = spawnPoints[PartIndex];
+
+
+
+            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
+
             GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             connectedPart.name = part.name;
-            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
+            GlowNearGrab glow = connectedPart.AddComponent<GlowNearGrab>();
+            glow.GlowMaterial = GlowMaterial;
+            glow.Listener = connectedPartRoot;
             connectedPart.transform.SetParent(connectedPartRoot.transform);
+
             Destroy(connectedPart.GetComponent<FixedPart>());
+            connectedPart.GetComponent<MeshCollider>().convex = true;
             if (structure.additionalRoot)
             {
                 Destroy(connectedPart.transform.Find(structure.additionalRoot.name).gameObject);
+
+                SetPartsProps(structure.additionalRoot, ref fixedPart.AddPartMeshe, true);
             }
 
 
-            foreach (GameObject addPart in structure.additionalParts.parts)
+            /*foreach (GameObject addPart in structure.additionalParts.parts)
             {
                 if (addPart.GetComponent<MeshRenderer>())
                 {
                     SetPartsProps(addPart, fixedPart.AddPartMeshes, true);
                 }
-            }
+            }*/
 
             foreach (Transform child in connectedPart.transform)
             {
-                foreach (DataBase.ObjStructure name in dataBase.objStructures)
+                foreach (DBForOptimizedEngine.ObjStructure name in dataBase.objStructures)
                 {
                     if (child.name == name.name)
                     {
@@ -86,9 +103,10 @@ public class ConstractingManager : MonoBehaviour
             connectedPartRoot.GetComponent<PhotonView>().ViewID = ID;
             ID++;
 
-            fixedPart.connectingPart = connectedPartRoot;
+            fixedPart.SetConnected(connectedPartRoot);
+
             fixedPart.Highlited = Instantiate(HighlightMaterial);
-            fixedPart.Highlited.SetColor("_TintColor", Random.ColorHSV(0,1,0.2f,0.5f,0.2f,0.5f));
+            fixedPart.Highlited.SetColor("_TintColor", Random.ColorHSV(0,1, 0.176f, 0.196f,  0.196f, 0.216f));
             part.AddComponent<BoxCollider>();
             fixedParts[depth].Add(fixedPart);
 
@@ -103,34 +121,47 @@ public class ConstractingManager : MonoBehaviour
 
     void StartFunc()
     { 
-        currentFixedPartIndex = 0;
+        currentFixedPartDepth = 4;
         NextFixedPart();
     }
 
-    void SetPartsProps(GameObject part, List<VisablePart> PartsList, bool AddDisolving)
+    void SetPartsProps(GameObject part, ref VisablePart visablePart, bool AddDisolving)
     {
         MeshRenderer mesh = part.GetComponent<MeshRenderer>();
         MeshCollider collider = part.AddComponent<MeshCollider>();
+        //List<Material> materials = new List<Material>();
+        //mesh.GetMaterials(materials);
         part.tag = "smallPart";
-        collider.convex = true;
+        //collider.convex = true;
         if (AddDisolving)
         {
-            part.AddComponent<DisolveScript>().DisolveMaterial = DisolveMaterial;
-            part.GetComponent<DisolveScript>().DisolveProcess(true);
-
+            DisolveScript disolve = part.AddComponent<DisolveScript>();
+            disolve.DisolveMaterial = DisolveMaterial;
+            disolve.DisolveProcess(true);
+            visablePart = new VisablePart(mesh, mesh.materials, collider, disolve);
         }
-        PartsList.Add(new VisablePart(mesh, mesh.material, collider));
+        else
+        {
+            visablePart = new VisablePart(mesh, mesh.materials, collider);
+        }
+        //PartsList.Add(new VisablePart(mesh, mesh.material, collider));
     }
 
     public void NextFixedPart()
     {
-        if (fixedParts.Count > currentFixedPartIndex)
+        if (fixedParts.Count > currentFixedPartDepth)
         {
-            foreach(FixedPart fixedParts in fixedParts[currentFixedPartIndex])
+            LeftFixedParts--;
+            if (LeftFixedParts <= 0)
             {
-                fixedParts.currentStage = FixedPart.Stage.Highlighted;
+                foreach (FixedPart fixedParts in fixedParts[currentFixedPartDepth])
+                {
+                    fixedParts.currentStage = FixedPart.Stage.Highlighted;
+                }
+                LeftFixedParts = fixedParts[currentFixedPartDepth].Count;
+                currentFixedPartDepth++;
+
             }
-            currentFixedPartIndex++;
         }        
     }
 
