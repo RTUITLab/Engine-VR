@@ -45,10 +45,6 @@ public class Part : MonoBehaviour
 
     }
 
-    public void EnablePhys()
-    {
-
-    }
     Vector3 LastPos = Vector3.zero;
 
     // Update is called once per frame
@@ -80,9 +76,6 @@ public class Part : MonoBehaviour
 
     private void Start()
     {
-
-
-
         //Hint.transform.parent = transform;
         camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();

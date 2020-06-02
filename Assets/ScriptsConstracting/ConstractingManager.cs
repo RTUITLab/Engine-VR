@@ -142,7 +142,7 @@ public class ConstractingManager : MonoBehaviour
 
     void StartFunc()
     { 
-        currentFixedPartDepth = 4;
+        currentFixedPartDepth = 0;
         NextFixedPart();
     }
 
