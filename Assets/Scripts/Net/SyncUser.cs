@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лучше, его можно будет потом не так сложно переделать под множество игроков.
 {
     [Header("Префабы для создания чужого юзера")]
-    [SerializeField] private GameObject CapsulePrefab;
+    [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private GameObject HeadsetPrefab;
     [SerializeField] private GameObject[] HandsPrefabs;
 
@@ -87,7 +87,7 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
 
     [PunRPC] private void CreateCapsule(int id)
     {
-        Players.Add(new GamePerson(CapsulePrefab, HandsPrefabs[0], HandsPrefabs[1], HeadsetPrefab));
+        Players.Add(new GamePerson(PlayerPrefab, HandsPrefabs[0], HandsPrefabs[1], HeadsetPrefab));
         Debug.LogError($"Добавляем капсулу. Кол во игроков в листе {Players.Count}.");
     }
 
@@ -98,11 +98,13 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
 
         private GameObject LeftHand;
         private Transform LeftHandTransform;
+        private Transform BodyLeftHand;
 
         private GameObject RightHand;
         private Transform RightHandTransform;
+        private Transform BodyRightHand;
 
-        private GameObject Headset;
+        //private GameObject Headset;
         private Transform HeadsetTransform;
 
         public GamePerson(GameObject Body, GameObject LeftHand, GameObject RightHand, GameObject Headset)
@@ -113,10 +115,12 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
             this.LeftHand = Instantiate(LeftHand, BodyTransform);
             this.RightHand = Instantiate(RightHand, BodyTransform);
             LeftHandTransform = this.LeftHand.GetComponent<Transform>();
+            BodyLeftHand = this.Body.transform.Find("leftHand").gameObject.transform;
             RightHandTransform = this.RightHand.GetComponent<Transform>();
+            BodyRightHand = this.Body.transform.Find("rightHand").gameObject.transform;
 
-            this.Headset = Instantiate(Headset, BodyTransform);
-            HeadsetTransform = this.Headset.transform;
+            //this.Headset = Instantiate(Headset, BodyTransform);
+            HeadsetTransform = this.Body.transform.Find("head").gameObject.transform;
         }
 
         ~GamePerson()
@@ -150,11 +154,11 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
         {
             if (IsRightHand)
             {
-                RightHandTransform.position = position;
+                BodyRightHand.position = RightHandTransform.position = position;
             }
             else
             {
-                LeftHandTransform.position = position;
+                BodyLeftHand.position = LeftHandTransform.position = position;
             }
         }
 
@@ -162,11 +166,11 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
         {
             if (IsRightHand)
             {
-                RightHandTransform.rotation = rotation;
+                BodyRightHand.rotation = RightHandTransform.rotation = rotation;
             }
             else
             {
-                LeftHandTransform.rotation = rotation;
+                BodyLeftHand.rotation = LeftHandTransform.rotation = rotation;
             }
         }
 
@@ -175,7 +179,7 @@ public class SyncUser : MonoBehaviourPunCallbacks //Этот вариант лу
             HeadsetTransform.rotation = rotation;
         }
 
-        public void SetHeadsetPosition(Vector3 position) 
+        public void SetHeadsetPosition(Vector3 position)
         {
             HeadsetTransform.position = position;
         }
