@@ -223,7 +223,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5753585303121273345}
   - component: {fileID: 5753585303121273558}
-  - component: {fileID: 5753585303121273561}
   m_Layer: 0
   m_Name: 'Player Body '
   m_TagString: Untagged
@@ -287,7 +286,7 @@ MonoBehaviour:
   solver:
     IKPosition: {x: 0, y: 0, z: 0}
     IKPositionWeight: 1
-    root: {fileID: 5753585303121273345}
+    root: {fileID: 0}
     LOD: 0
     plantFeet: 1
     spine:
@@ -322,7 +321,7 @@ MonoBehaviour:
         axis: {x: 0, y: 0, z: 0}
       headTarget: {fileID: 891042137750264673}
       pelvisTarget: {fileID: 0}
-      positionWeight: 0.5
+      positionWeight: 1
       rotationWeight: 1
       pelvisPositionWeight: 0
       pelvisRotationWeight: 0
@@ -371,7 +370,7 @@ MonoBehaviour:
       shoulderTwistWeight: 1
       bendGoalWeight: 0
       swivelOffset: 0
-      wristToPalmAxis: {x: -2, y: -1.4, z: 6.6}
+      wristToPalmAxis: {x: -2, y: 0, z: 0}
       palmToThumbAxis: {x: 0, y: 0, z: 1}
       armLengthMlp: 1
       stretchCurve:
@@ -412,7 +411,7 @@ MonoBehaviour:
       shoulderTwistWeight: 1
       bendGoalWeight: 0
       swivelOffset: 0
-      wristToPalmAxis: {x: -2, y: -1.4, z: -5.85}
+      wristToPalmAxis: {x: -2, y: 0, z: 0}
       palmToThumbAxis: {x: -0, y: -0, z: -1}
       armLengthMlp: 1
       stretchCurve:
@@ -590,27 +589,6 @@ MonoBehaviour:
       onRightFootstep:
         m_PersistentCalls:
           m_Calls: []
---- !u!114 &5753585303121273561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5753585303121273030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e20e77260369594fba15a934a5bb31a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VRCamera: {fileID: 5753585303121273432}
-  action:
-    actionPath: /actions/default/in/ChangeSize
-    needsReinit: 0
-  source: 0
-  ChangeSize:
-  - {fileID: 5753585303121273345}
-  - {fileID: 5753585303121273433}
-  - {fileID: 5753585303121273435}
 --- !u!1 &5753585303121273031
 GameObject:
   m_ObjectHideFlags: 0
