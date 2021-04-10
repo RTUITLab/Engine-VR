@@ -5,11 +5,9 @@ using Photon.Pun;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private string Version = "1.0";
+    [SerializeField] private string Version = "1.1";
     [SerializeField] [Range(2, 20)] private byte maxPlayers = 2;
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private GameObject MasterPlayer;
-    [SerializeField] private GameObject Player;
+    [SerializeField] private int PhotonLimit = 20; //Лимит максимального кол-ва подключений.
     void Start()
     {
         PhotonNetwork.GameVersion = Version;
@@ -23,34 +21,28 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = maxPlayers });
+        Debug.LogError(message);
+        byte FreeSlots = (byte)(PhotonLimit - PhotonNetwork.CountOfPlayers); //Колчичество свободных мест в данном приложении.
+        if (FreeSlots > 0)
+        {
+            PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = (FreeSlots > maxPlayers ? maxPlayers : FreeSlots), PublishUserId = true });
+        }
+        else
+        {
+            Debug.LogError("Свободных мест нет. Сервер приложения переполнен.");
+        }
     }
 
     public override void OnJoinedRoom()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Player.GetComponent<PlayerOnline>().Disable();
-            MasterPlayer.GetComponent<PlayerOnline>().isLocal();
-        }
-        else
-        {
-            Player.GetComponent<PlayerOnline>().isLocal();
-            MasterPlayer.GetComponent<PlayerOnline>().Disable();
-        }
-        
+        Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
     }
 
     private void Update()
     {
-
-        try
+        if(PhotonNetwork.InRoom)
         {
             Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-        }
-        catch
-        {
-
         }
     }
 }

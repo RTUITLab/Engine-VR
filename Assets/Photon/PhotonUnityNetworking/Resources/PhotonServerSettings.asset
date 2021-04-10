@@ -21,22 +21,32 @@ MonoBehaviour:
     FixedRegion: 
     Server: 
     Port: 0
-    Protocol: 1
+    Protocol: 0
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
+  DevRegion: ru
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
   - ClickRpc
+  - CreateCapsule
   - DestroyRpc
   - DestroySpaceship
+  - EditStage
   - Fire
+  - Interactable
   - RespawnSpaceship
-  - SyncKinrmatic
+  - sendGrav
+  - SendVelocity
+  - SyncCapsulePos
+  - SyncCapsuleRotation
+  - SyncHandsPos
+  - SyncHandsRot
+  - SyncHeadsetPosition
+  - SyncHeadsetRotation
   - SyncPosition
   - SyncRotation
   DisableAutoOpenWizard: 1
