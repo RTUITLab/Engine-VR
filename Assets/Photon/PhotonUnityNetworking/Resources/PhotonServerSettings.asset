@@ -30,7 +30,23 @@ MonoBehaviour:
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
+<<<<<<< HEAD
   RpcList: []
   DisableAutoOpenWizard: 0
+=======
+  RpcList:
+  - ClickRpc
+  - DestroyRpc
+  - DestroySpaceship
+  - EditStage
+  - Fire
+  - Interactable
+  - RespawnSpaceship
+  - sendGrav
+  - SendVelocity
+  - SyncPosition
+  - SyncRotation
+  DisableAutoOpenWizard: 1
+>>>>>>> remotes/origin/Issue#3
   ShowSettings: 0
   DevRegionSetOnce: 0
