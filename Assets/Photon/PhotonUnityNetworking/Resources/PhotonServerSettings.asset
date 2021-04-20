@@ -30,10 +30,6 @@ MonoBehaviour:
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-<<<<<<< HEAD
-  RpcList: []
-  DisableAutoOpenWizard: 0
-=======
   RpcList:
   - ClickRpc
   - DestroyRpc
@@ -46,7 +42,7 @@ MonoBehaviour:
   - SendVelocity
   - SyncPosition
   - SyncRotation
+  - sendNickname
   DisableAutoOpenWizard: 1
->>>>>>> remotes/origin/Issue#3
   ShowSettings: 0
   DevRegionSetOnce: 0
