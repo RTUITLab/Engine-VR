@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 
 using Valve.VR.InteractionSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Interactable))]
@@ -15,6 +16,7 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     [SerializeField] private PhotonView photonView;
     [SerializeField] private Interactable interaclable;
     [SerializeField] private Throwable throwable;
+    [SerializeField] private Text nicknameOutput;
     [SerializeField] private Collider colider;
     private Rigidbody _rigidbody;
     private Transform _transform;
@@ -111,11 +113,24 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom() //Запускаеться только при локальномКоннекте, что бы можно было передвигать предметы.
     {
         lastOwner = PhotonNetwork.IsMasterClient;
+
+        string nickname = PlayerPrefs.GetString("Nickname");
+        SendNickname(nickname);
     }
 
     public bool isLastOwner()
     {
         return lastOwner;
+    }
+
+    public void SendNickname(string nickname)
+    {
+        photonView.RPC("sendNickname", RpcTarget.All, nickname);
+    }
+
+    [PunRPC] private void sendNickname(string nickname)
+    {
+        nicknameOutput.text = nickname;
     }
 
     public void SendGrav(bool grav) //Изменение гравитайии в Rigidbody
