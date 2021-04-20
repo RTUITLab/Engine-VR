@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRKeys;
 
 public class NicknameChoose : MonoBehaviour
 {
@@ -10,10 +11,13 @@ public class NicknameChoose : MonoBehaviour
     private string defaultName = "Сборщик";
     private string nickname;
 
+    [SerializeField] private Keyboard keyboard;
+
     private void Start()
     {
-        string savedNickname = PlayerPrefs.GetString("Nickname");
+        keyboard.Enable();
 
+        string savedNickname = PlayerPrefs.GetString("Nickname");
         LoadNickname();
     }
 
@@ -43,5 +47,7 @@ public class NicknameChoose : MonoBehaviour
     public void SaveNickname()
     {
         PlayerPrefs.SetString("Nickname", nickname);
+
+        K
     }
 }
