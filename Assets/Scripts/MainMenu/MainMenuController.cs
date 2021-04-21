@@ -17,12 +17,12 @@ public class MainMenuController : MonoBehaviour
     [Header("Выбор комнат и сетевой код")]
     [SerializeField] private Networking networking;
 
-    private void Start()
+    private void LateUpdate()
     {
         // Центруем интерфейс относительно положения игрока
-        //position = target.transform.position;
-        //position.y = -0.83f;
-        //canvasCenter.transform.position = position;
+        position = target.transform.position;
+        position.y = -0.83f;
+        canvasCenter.transform.position = position;
     }
 
     public void JoinRandomRoom()
