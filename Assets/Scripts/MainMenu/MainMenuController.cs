@@ -17,6 +17,11 @@ public class MainMenuController : MonoBehaviour
     [Header("Выбор комнат и сетевой код")]
     [SerializeField] private Networking networking;
 
+    private void Start()
+    {
+        JoinRandomRoom(); // TODO its a test!
+    }
+
     private void LateUpdate()
     {
         // Центруем интерфейс относительно положения игрока
