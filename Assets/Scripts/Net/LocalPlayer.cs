@@ -11,6 +11,8 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
     private Transform transform;
     private OnlinePlayer onlinePlayer = null;
 
+    private List<GameObject> nicknames;
+
     private void Awake()
     {
         transform = gameObject.transform;
@@ -21,6 +23,20 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
         GameObject onlineBody = PhotonNetwork.Instantiate(onlineBodyPref.name, transform.position, Quaternion.identity);
         onlinePlayer = onlineBody.GetComponent<OnlinePlayer>();
         onlinePlayer.hideBody();
+    }
+
+    // Добавление никнейма в список объектов, которые будут поворачиваться к камере
+    public void AddNickname(GameObject nickname)
+    {
+        nicknames.Add(nickname);
+    }
+
+    private void LateUpdate()
+    {
+        for (int i = 0; i < nicknames.Count; i++)
+        {
+            nicknames[i].transform.LookAt(transform.position + new Vector3(0, 1.8f));
+        }
     }
 
     private void Update()   //Меняет положение своего тела, которое отрпавляеться всем остальным.
