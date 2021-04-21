@@ -19,9 +19,9 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         // Центруем интерфейс относительно положения игрока
-        position = target.transform.position;
-        position.y = -0.83f;
-        canvasCenter.transform.position = position;
+        //position = target.transform.position;
+        //position.y = -0.83f;
+        //canvasCenter.transform.position = position;
     }
 
     public void JoinRandomRoom()
