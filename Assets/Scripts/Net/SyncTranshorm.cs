@@ -5,6 +5,7 @@ using Photon.Pun;
 
 using Valve.VR.InteractionSystem;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Interactable))]
@@ -16,7 +17,7 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     [SerializeField] private PhotonView photonView;
     [SerializeField] private Interactable interaclable;
     [SerializeField] private Throwable throwable;
-    [SerializeField] private Text nicknameOutput;
+
     [SerializeField] private Collider colider;
     private Rigidbody _rigidbody;
     private Transform _transform;
@@ -25,6 +26,9 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     private Vector3 lastPosition = Vector3.zero;
     [SerializeField] private bool rotation = true;
     private Quaternion lastRotation = Quaternion.identity;
+
+    [SerializeField] private TMP_Text nicknameOutput;
+    [SerializeField] private GameObject nickname;
 
     private bool cathed = false; //Локальная переменная, если обьект схвачен, то true.
     private bool syncCathed = false; //Если кто то другой хватает, то у всех это истино.
@@ -113,9 +117,6 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom() //Запускаеться только при локальномКоннекте, что бы можно было передвигать предметы.
     {
         lastOwner = PhotonNetwork.IsMasterClient;
-
-        string nickname = PlayerPrefs.GetString("Nickname");
-        SendNickname(nickname);
     }
 
     public bool isLastOwner()
