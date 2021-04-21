@@ -55,9 +55,4 @@ public class SceneHandler : MonoBehaviour
             }
         }
     }
-
-    public void Method()
-    {
-        Debug.Log("works");
-    }
 }
