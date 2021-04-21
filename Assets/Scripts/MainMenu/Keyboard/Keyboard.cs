@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Keyboard : MonoBehaviour
 {
     [SerializeField] private InputField inputField;
+    [SerializeField] private float alertShowTime = 5f;
+    [SerializeField] private GameObject successAlert;
 
     public void SetInputText(string text)
     {
@@ -25,5 +27,14 @@ public class Keyboard : MonoBehaviour
     public void ClearAll()
     {
         inputField.text = "";
+    }
+
+    public IEnumerator ShowSuccess()
+    {
+        successAlert.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(alertShowTime);
+
+        successAlert.SetActive(false);
     }
 }

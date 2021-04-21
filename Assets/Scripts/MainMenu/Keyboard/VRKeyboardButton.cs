@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class VRKeyboardButton : VRButton
 {
-    private Keyboard keyboard;
-
     [Header("Параметры клавиши")]
+    [SerializeField] private Keyboard keyboard;
     [SerializeField] private Keys key;
 
     private void Start()
@@ -15,7 +14,7 @@ public class VRKeyboardButton : VRButton
 
         if (keyboard == null)
         {
-            Debug.Log("Клавиатура не найдена! Клавиша должна подчиняться объекту с Keyboard.");
+            Debug.Log($"Клавиатура не найдена! {gameObject.name}");
         }
 
         EventClick.AddListener(KeyClicked);
@@ -37,12 +36,12 @@ public class VRKeyboardButton : VRButton
             case Keys.minus: // Минус
                 keyboard.AddChar('-');
                 break;
+            case Keys.equals: // Равно
+                keyboard.AddChar('=');
+                break;
             case Keys.dot: // Точка
                 keyboard.AddChar('.');
                 break; 
-            case Keys.comma: // Запятая
-                keyboard.AddChar(',');
-                break;
             default:
                 if (key.ToString().Contains("num"))
                 { // Число
@@ -60,7 +59,7 @@ public class VRKeyboardButton : VRButton
 public enum Keys
 {
     Б, В, Г, Д, Ж, З, Й, К, Л, М, Н, П, Р, С, Т, Ф, Х, Ч, Ц, Ш, Щ,
-    А, Е, Ё, И, О, У, Ы, Э, Ю, Я, Ь, Ъ, _,
-    Clear, Backspace, Space, minus, dot, comma,
+    А, Е, Ё, И, О, У, Ы, Э, Ю, Я, Ь, Ъ,
+    Clear, Backspace, Space, minus, equals, dot,
     num1, num2, num3, num4, num5, num6, num7, num8, num9, num0
 }

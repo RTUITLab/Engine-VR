@@ -35,7 +35,7 @@ public class NicknameChoose : MonoBehaviour
             SaveNickname();
         }
 
-
+        keyboard.SetInputText(nickname);
     }
 
     private string RandomNickname()
