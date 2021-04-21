@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR.Extras;
 using Valve.VR.InteractionSystem;
 
 public class MainMenuController : MonoBehaviour
@@ -16,7 +17,7 @@ public class MainMenuController : MonoBehaviour
 
     [Header("Выбор комнат и сетевой код")]
     [SerializeField] private Networking networking;
-
+   
     private void LateUpdate()
     {
         // Центруем интерфейс относительно положения игрока
@@ -34,15 +35,19 @@ public class MainMenuController : MonoBehaviour
 
     public void StartGame()
     {
+
         foreach (var gObject in enableOnGameStart)
         {
             gObject.SetActive(true);
         }
-        
+
         foreach (var gObject in disableOnGameStart)
         {
             gObject.SetActive(false);
         }
+
+        Destroy(GameObject.Find("PointerLine"));
+        Destroy(GameObject.Find("PointerLine"));
     }
 
     public void OpenList()

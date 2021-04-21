@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
@@ -11,6 +12,7 @@ public class Networking : MonoBehaviourPunCallbacks
     [SerializeField] private int PhotonLimit = 20; //Лимит максимального кол-ва подключений.
     Dictionary<string, RoomInfo> myRoomList = new Dictionary<string, RoomInfo>();
 
+    public Text text;
     void Start()
     {
         PhotonNetwork.GameVersion = Version;
@@ -19,7 +21,7 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        // PhotonNetwork.JoinRandomRoom();
+         PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -35,6 +37,9 @@ public class Networking : MonoBehaviourPunCallbacks
             Debug.LogError("Свободных мест нет. Сервер приложения переполнен.");
         }
     }
+    
+
+    
 
     public override void OnJoinedRoom()
     {
@@ -81,30 +86,16 @@ public class Networking : MonoBehaviourPunCallbacks
             }
         }
 
-       /* foreach (var r in myRoomList.Values)
+       foreach (var r in myRoomList.Values)
         {
-            //This function is used to add room ui on canvas, define it yourself
-            UpdateRoomList(r.Name);
+            text.text += " " + r.Name;
         }
 
-        Debug.Log("===roomList count:" + roomList.Count + "===myRoomList count:" + myRoomList.Count);
+       /* Debug.Log("===roomList count:" + roomList.Count + "===myRoomList count:" + myRoomList.Count);
         messageText.text = "===roomList count:" + roomList.Count + "===myRoomList count:" + myRoomList.Count;*/
     }
 
-   /* public void UpdateRoomList(string name)
-    {
-        //Here I have made the room ui into a prefab and saved it in the Resources folder
-        GameObject go = Instantiate(Resources.Load("CustomRoom") as GameObject);
-        go.transform.parent = roomInLobbyPanel.transform;//roomInLobbyPanel is the panel I use to display the room list
-        go.transform.localScale = Vector3.one;
-        go.name = name;
-        go.transform.Find("RoomName").GetComponent<Text>().text = name;//Set the text as the room name
-                                                                       //Binding select room event (custom)
-        go.GetComponent<Button>().onClick.AddListener(delegate ()
-        {
-            this.ChooseRoom(go.name);
-        });
-    }*/
+   
 
 
 
