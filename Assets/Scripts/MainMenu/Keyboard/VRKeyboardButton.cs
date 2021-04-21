@@ -14,6 +14,8 @@ public class VRKeyboardButton : VRButton
         {
             Debug.LogError($"Клавиатура не найдена! {gameObject.name}");
         }
+
+        EventClick.AddListener(KeyClicked);
     }
 
     public void KeyClicked()
