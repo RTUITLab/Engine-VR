@@ -9,6 +9,13 @@ public class Keyboard : MonoBehaviour
     [SerializeField] private float alertShowTime = 5f;
     [SerializeField] private GameObject successAlert;
 
+    private NicknameChoose nickname;
+
+    private void Start()
+    {
+        nickname = FindObjectOfType<NicknameChoose>();
+    }
+
     public void SetInputText(string text)
     {
         inputField.text = text;
@@ -17,11 +24,15 @@ public class Keyboard : MonoBehaviour
     public void AddChar(char input)
     {
         inputField.text += input;
+
+        nickname.SaveNickname(false);
     }
 
     public void RemoveChar()
     {
         inputField.text = inputField.text.Remove(inputField.text.Length-1);
+
+        nickname.SaveNickname(false);
     }
 
     public void ClearAll()

@@ -11,7 +11,7 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
     private Transform transform;
     private OnlinePlayer onlinePlayer = null;
 
-    private List<GameObject> nicknames;
+    public List<GameObject> nicknames;
 
     private void Awake()
     {
@@ -23,12 +23,6 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
         GameObject onlineBody = PhotonNetwork.Instantiate(onlineBodyPref.name, transform.position, Quaternion.identity);
         onlinePlayer = onlineBody.GetComponent<OnlinePlayer>();
         onlinePlayer.hideBody();
-    }
-
-    // Добавление никнейма в список объектов, которые будут поворачиваться к камере
-    public void AddNickname(GameObject nickname)
-    {
-        nicknames.Add(nickname);
     }
 
     private void LateUpdate()
