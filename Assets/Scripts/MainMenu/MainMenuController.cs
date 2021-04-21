@@ -16,6 +16,8 @@ public class MainMenuController : MonoBehaviour
         position = target.transform.position;
         position.y = -0.83f;
         canvasCenter.transform.position = position;
+
+        // test
     }
 
     public void JoinRandomRoom()
