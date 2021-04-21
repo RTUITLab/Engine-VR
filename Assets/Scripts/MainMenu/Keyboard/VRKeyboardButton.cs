@@ -17,6 +17,8 @@ public class VRKeyboardButton : VRButton
         {
             Debug.Log("Клавиатура не найдена! Клавиша должна подчиняться объекту с Keyboard.");
         }
+
+        EventClick.AddListener(KeyClicked);
     }
 
     private void KeyClicked()
