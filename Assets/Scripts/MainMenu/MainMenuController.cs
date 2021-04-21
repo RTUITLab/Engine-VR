@@ -6,10 +6,14 @@ using Valve.VR.InteractionSystem;
 
 public class MainMenuController : MonoBehaviour
 {
+    [Header("Другое")]
     [SerializeField] private Transform target;
     [SerializeField] private GameObject canvasCenter;
     private Vector3 position;
 
+    [SerializeField] private GameObject[] startGameObjects;
+
+    [Header("Выбор комнат и сетевой код")]
     [SerializeField] private Networking networking;
 
     private void Start()
@@ -22,9 +26,17 @@ public class MainMenuController : MonoBehaviour
 
     public void JoinRandomRoom()
     {
-        SceneManager.LoadScene(1);
+        // Вызов рандомной комнаты в Networking
 
-        Destroy(FindObjectOfType<Player>());
+        StartGame();
+    }
+
+    public void StartGame()
+    {
+        foreach (var startGameObject in startGameObjects)
+        {
+            startGameObject.SetActive(true);
+        }
     }
 
     public void OpenList()
