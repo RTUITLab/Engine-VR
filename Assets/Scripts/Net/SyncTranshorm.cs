@@ -28,7 +28,6 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     private Quaternion lastRotation = Quaternion.identity;
 
     [SerializeField] private TMP_Text nicknameOutput;
-    [SerializeField] private GameObject nickname;
 
     private bool cathed = false; //Локальная переменная, если обьект схвачен, то true.
     private bool syncCathed = false; //Если кто то другой хватает, то у всех это истино.
@@ -132,6 +131,8 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     [PunRPC] private void sendNickname(string nickname)
     {
         nicknameOutput.text = nickname;
+        Debug.Log("Send Nickname executed: nickname - " + nickname);
+        FindObjectOfType<LocalPlayer>().nicknames.Add(nicknameOutput.transform.parent.gameObject);
     }
 
     public void SendGrav(bool grav) //Изменение гравитайии в Rigidbody
