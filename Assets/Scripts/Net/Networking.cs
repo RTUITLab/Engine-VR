@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
@@ -42,6 +43,15 @@ public class Networking : MonoBehaviourPunCallbacks
         string nickname = PlayerPrefs.GetString("Nickname");  
         transforms[0].SendNickname(nickname);
     }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        base.OnRoomListUpdate(roomList);
+    }
+
+    
+
+
 
 
     private void Update()
