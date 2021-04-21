@@ -33,9 +33,12 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
 
     private void LateUpdate()
     {
-        for (int i = 0; i < nicknames.Count; i++)
+        if (PhotonNetwork.IsConnected)
         {
-            nicknames[i].transform.LookAt(transform.position + new Vector3(0, 1.8f));
+            for (int i = 0; i < nicknames.Count; i++)
+            {
+                nicknames[i].transform.LookAt(transform.position + new Vector3(0, 1.8f));
+            }
         }
     }
 
