@@ -11,17 +11,18 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject canvasCenter;
     private Vector3 position;
 
-    [SerializeField] private GameObject[] startGameObjects;
+    [SerializeField] private GameObject[] enableOnGameStart;
+    [SerializeField] private GameObject[] disableOnGameStart;
 
     [Header("Выбор комнат и сетевой код")]
     [SerializeField] private Networking networking;
 
-    private void Start()
+    private void LateUpdate()
     {
         // Центруем интерфейс относительно положения игрока
-        //position = target.transform.position;
-        //position.y = -0.83f;
-        //canvasCenter.transform.position = position;
+        position = target.transform.position;
+        position.y = -0.83f;
+        canvasCenter.transform.position = position;
     }
 
     public void JoinRandomRoom()
@@ -33,9 +34,14 @@ public class MainMenuController : MonoBehaviour
 
     public void StartGame()
     {
-        foreach (var startGameObject in startGameObjects)
+        foreach (var gObject in enableOnGameStart)
         {
-            startGameObject.SetActive(true);
+            gObject.SetActive(true);
+        }
+        
+        foreach (var gObject in disableOnGameStart)
+        {
+            gObject.SetActive(false);
         }
     }
 
