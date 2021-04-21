@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRKeys;
 
 public class NicknameChoose : MonoBehaviour
 {
-    [Header("Позволяет сбрасывать никнейм каждый раз при входе в главное меню." +
+    [Tooltip("Позволяет сбрасывать никнейм каждый раз при входе в главное меню.\n" +
         "Полезно на демонстрационных стендах, чтобы не сохранять чужие ники.")]
     [SerializeField] private bool resetNicknameAfterRestart = true;
     private string defaultName = "Сборщик";
@@ -15,8 +14,6 @@ public class NicknameChoose : MonoBehaviour
 
     private void Start()
     {
-        keyboard.Enable();
-
         string savedNickname = PlayerPrefs.GetString("Nickname");
         LoadNickname();
     }
@@ -37,6 +34,8 @@ public class NicknameChoose : MonoBehaviour
             nickname = RandomNickname();
             SaveNickname();
         }
+
+
     }
 
     private string RandomNickname()
@@ -47,7 +46,5 @@ public class NicknameChoose : MonoBehaviour
     public void SaveNickname()
     {
         PlayerPrefs.SetString("Nickname", nickname);
-
-        K
     }
 }
