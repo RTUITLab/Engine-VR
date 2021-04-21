@@ -45,7 +45,7 @@ public class VRKeyboardButton : VRButton
                     // Берем последнюю букву: num5 -> 5
                 } else 
                 { // Буква
-                    keyboard.AddChar((char)key);
+                    keyboard.AddChar(key.ToString()[0]);
                 }       
                 break;
         }
