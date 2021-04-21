@@ -41,7 +41,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenList()
     {
-
+        
     }
 
     public void CreateRoom()
