@@ -10,11 +10,9 @@ public class VRKeyboardButton : VRButton
 
     private void Start()
     {
-        keyboard = transform.parent.GetComponent<Keyboard>();
-
         if (keyboard == null)
         {
-            Debug.Log($"Клавиатура не найдена! {gameObject.name}");
+            Debug.LogError($"Клавиатура не найдена! {gameObject.name}");
         }
 
         EventClick.AddListener(KeyClicked);
