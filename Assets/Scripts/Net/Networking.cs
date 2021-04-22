@@ -41,9 +41,6 @@ public class Networking : MonoBehaviourPunCallbacks
         Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
 
         var transforms = FindObjectsOfType<SyncTranshorm>();
-
-        string nickname = PlayerPrefs.GetString("Nickname");  
-        transforms[0].SendNickname(nickname);
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
