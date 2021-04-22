@@ -17,7 +17,7 @@ public class ConstractingManager : MonoBehaviour
     [SerializeField] Material HintColor;
     [SerializeField] Material DisolveMaterial;
     [SerializeField] Transform Hints;
-    
+
     int ID = 20;
 
     public bool Education;
@@ -181,7 +181,8 @@ public class ConstractingManager : MonoBehaviour
                 }
                 LeftFixedParts = fixedParts[currentFixedPartDepth].Count;
                 currentFixedPartDepth++;
-
+                Debug.Log("In NFP: " + currentFixedPartDepth);
+                // Новая стадия сборки
             }
         }        
     }
