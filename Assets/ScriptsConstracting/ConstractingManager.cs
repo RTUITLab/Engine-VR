@@ -85,7 +85,6 @@ public class ConstractingManager : MonoBehaviour
             Hint.position += new Vector3(0, 0.7f, 0);
 
             Destroy(connectedPart.GetComponent<FixedPart>());
-            connectedPart.GetComponent<MeshCollider>().convex = true;
             if (structure.additionalRoot)
             {
                 Destroy(connectedPart.transform.Find(structure.additionalRoot.name).gameObject);
@@ -154,11 +153,14 @@ public class ConstractingManager : MonoBehaviour
     void SetPartsProps(GameObject part, ref VisablePart visablePart, bool AddDisolving)
     {
         MeshRenderer mesh = part.GetComponent<MeshRenderer>();
+
         MeshCollider collider = part.AddComponent<MeshCollider>();
+
+        collider.convex = true;
+
         //List<Material> materials = new List<Material>();
         //mesh.GetMaterials(materials);
         part.tag = "smallPart";
-        //collider.convex = true;
         if (AddDisolving)
         {
             DisolveScript disolve = part.AddComponent<DisolveScript>();
