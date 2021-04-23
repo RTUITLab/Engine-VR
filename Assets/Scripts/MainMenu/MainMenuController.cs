@@ -19,7 +19,7 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        JoinRandomRoom(); // TODO its a test!
+        // JoinRandomRoom(); // TODO its a test!
     }
 
     private void LateUpdate()
