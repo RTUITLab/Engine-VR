@@ -18,7 +18,6 @@ public class SceneHandler : MonoBehaviour
 
     public void PointerClick(object sender, PointerEventArgs e)
     {
-
         VRButton button = e.target.GetComponent<VRButton>();
 
         if (button != null)
