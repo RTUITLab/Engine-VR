@@ -59,7 +59,7 @@ public class Networking : MonoBehaviourPunCallbacks
         }
     }
 
-
+    
     public void JoinRandomRoom()
     {
         PhotonNetwork.JoinRandomRoom();
@@ -105,6 +105,7 @@ public class Networking : MonoBehaviourPunCallbacks
     {
         mainMenu.StartGame();
         Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
+        
         var transforms = FindObjectsOfType<SyncTranshorm>();
     }
 
