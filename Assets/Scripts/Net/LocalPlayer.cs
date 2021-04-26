@@ -4,14 +4,13 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 
+// Eloren1: Этот скрипт вообще работает? На сцене его не найти при запуске игры. Как и OnlinePlayer. (TODO:)
 public class LocalPlayer : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject onlineBodyPref;     //Префаб онлайн тела.
     [SerializeField] private Transform[] bodyPoints;    //Точки тела, которые нужно синхронизировать с оналйн телом.
     private Transform transform;
     private OnlinePlayer onlinePlayer = null;
-
-    public List<GameObject> nicknames;
 
     private void Awake()
     {
@@ -23,17 +22,9 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
         GameObject onlineBody = PhotonNetwork.Instantiate(onlineBodyPref.name, transform.position, Quaternion.identity);
         onlinePlayer = onlineBody.GetComponent<OnlinePlayer>();
         onlinePlayer.hideBody();
-    }
 
-    private void LateUpdate()
-    {
-        if (PhotonNetwork.IsConnected)
-        {
-            for (int i = 0; i < nicknames.Count; i++)
-            {
-                nicknames[i].transform.LookAt(transform.position + new Vector3(0, 1.8f));
-            }
-        }
+        string nickname = PlayerPrefs.GetString("Nickname");
+        onlinePlayer.SendNickname(nickname);
     }
 
     private void Update()   //Меняет положение своего тела, которое отрпавляеться всем остальным.

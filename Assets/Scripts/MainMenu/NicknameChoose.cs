@@ -23,7 +23,6 @@ public class NicknameChoose : MonoBehaviour
         if (resetNicknameAfterRestart)
         { // См. описание флага
             nickname = RandomNickname();
-            SaveNickname(false);
         }
         else if (PlayerPrefs.HasKey("Nickname"))
         { // Загружаем сохраненный никнейм
@@ -32,20 +31,29 @@ public class NicknameChoose : MonoBehaviour
         else // Ни один никнейм пока не был сохранен
         {
             nickname = RandomNickname();
-            SaveNickname(false);
         }
 
-        keyboard.SetInputText(nickname.ToUpper());
+        SaveNickname(false);
+    }
+
+    /// <summary>
+    // Вызывается при нажатии кнопки с предложенным именем, например: «инженер» или «помощник»
+    /// </summary>
+    public void CustomRandomNickname(string name) 
+    {
+        nickname = name + "-" + Random.Range(100, 1000);
+        SaveNickname(false);
     }
 
     private string RandomNickname()
     {
-        return defaultName + "-" + Random.Range(1000, 10000);
+        return defaultName + "-" + Random.Range(100, 1000);
     }
 
     public void SaveNickname(bool showSuccess)
     {
         PlayerPrefs.SetString("Nickname", nickname);
+        keyboard.SetInputText(nickname.ToUpper());
 
         if (showSuccess)
             keyboard.StartCoroutine(keyboard.ShowSuccess());

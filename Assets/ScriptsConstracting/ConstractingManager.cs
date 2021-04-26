@@ -17,7 +17,10 @@ public class ConstractingManager : MonoBehaviour
     [SerializeField] Material HintColor;
     [SerializeField] Material DisolveMaterial;
     [SerializeField] Transform Hints;
-    
+
+    private BuildProgress progress;
+    [SerializeField] private Animator[] presentationAnimations; // Начинают проигрываться при завершении сборки
+
     int ID = 20;
 
     public bool Education;
@@ -30,17 +33,20 @@ public class ConstractingManager : MonoBehaviour
     {
         SettingUpEngine();
         Invoke("StartFunc", 1);
+        progress = FindObjectOfType<BuildProgress>();
+
         //foreach (Transform transform in GameObject.FindGameObjectWithTag("Hints").transform)
         //{
         //   Hints.Add(transform);
         //}
-        
+
     }
 
     void SettingUpEngine()
     {
         foreach (DBForOptimizedEngine.ObjStructure structure in dataBase.objStructures)
         {
+            partsCount++;
             GameObject part = GameObject.Find(structure.name);
             int depth = structure.depth.count;
             FixedPart fixedPart = part.AddComponent<FixedPart>();
@@ -51,7 +57,7 @@ public class ConstractingManager : MonoBehaviour
             }
 
             SetPartsProps(structure.mainRoot, ref fixedPart.PartMeshe, false);
-            
+
 
             /*foreach (GameObject smallPart in structure.parts.parts)
             {
@@ -80,7 +86,6 @@ public class ConstractingManager : MonoBehaviour
             Hint.position += new Vector3(0, 0.7f, 0);
 
             Destroy(connectedPart.GetComponent<FixedPart>());
-            connectedPart.GetComponent<MeshCollider>().convex = true;
             if (structure.additionalRoot)
             {
                 Destroy(connectedPart.transform.Find(structure.additionalRoot.name).gameObject);
@@ -141,7 +146,7 @@ public class ConstractingManager : MonoBehaviour
     }
 
     void StartFunc()
-    { 
+    {
         currentFixedPartDepth = 0;
         NextFixedPart();
     }
@@ -149,11 +154,14 @@ public class ConstractingManager : MonoBehaviour
     void SetPartsProps(GameObject part, ref VisablePart visablePart, bool AddDisolving)
     {
         MeshRenderer mesh = part.GetComponent<MeshRenderer>();
+
         MeshCollider collider = part.AddComponent<MeshCollider>();
+
+        collider.convex = true;
+
         //List<Material> materials = new List<Material>();
         //mesh.GetMaterials(materials);
         part.tag = "smallPart";
-        //collider.convex = true;
         if (AddDisolving)
         {
             DisolveScript disolve = part.AddComponent<DisolveScript>();
@@ -170,25 +178,58 @@ public class ConstractingManager : MonoBehaviour
 
     public void NextFixedPart()
     {
+        currentPlacedPartsCount++;
+        placedPartsCount++;
+
         if (fixedParts.Count > currentFixedPartDepth)
         {
             LeftFixedParts--;
             if (LeftFixedParts <= 0)
             {
-                foreach (FixedPart fixedParts in fixedParts[currentFixedPartDepth])
+                if (partsCount <= placedPartsCount)
                 {
-                    fixedParts.currentStage = FixedPart.Stage.Highlighted;
+                    BuildFinished();
                 }
-                LeftFixedParts = fixedParts[currentFixedPartDepth].Count;
-                currentFixedPartDepth++;
-
+                else
+                {
+                    NextStage();
+                }
             }
-        }        
+        }
+
+        DisplayProgress();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void NextStage()
     {
-        
+        foreach (FixedPart fixedParts in fixedParts[currentFixedPartDepth])
+        {
+            fixedParts.currentStage = FixedPart.Stage.Highlighted;
+        }
+        LeftFixedParts = fixedParts[currentFixedPartDepth].Count;
+        currentPartsCount = LeftFixedParts;
+        currentPlacedPartsCount = 0;
+        currentFixedPartDepth++;
+    }
+
+    private void BuildFinished()
+    {
+        foreach (var anim in presentationAnimations)
+        {
+            anim.enabled = true;
+        }
+    }
+
+    [Header("Прогресс")]
+    private int partsCount = 0;
+    private int placedPartsCount = -1;
+    private int currentPartsCount = 0;
+    private int currentPlacedPartsCount = -1;
+
+    private void DisplayProgress()
+    {
+        int currentStage = currentFixedPartDepth;
+
+        progress.ChangeData(partsCount, placedPartsCount, currentStage, currentPartsCount, currentPlacedPartsCount);
     }
 }
