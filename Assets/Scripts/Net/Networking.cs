@@ -28,7 +28,8 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        JoinLobby();
+        //JoinLobby();
+
     }
 
     private void JoinLobby()
@@ -43,14 +44,14 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        int number = cachedRoomList.Count + 1;
-        string roomName = "Room_" + number;
+        /*int number = cachedRoomList.Count + 1;
+        string roomName = "Room_" + number;*/
         
         byte FreeSlots =
             (byte) (PhotonLimit - PhotonNetwork.CountOfPlayers); //Колчичество свободных мест в данном приложении.
-        if (FreeSlots > 0)
+        if (FreeSlots > 0 )
         {
-            PhotonNetwork.CreateRoom(roomName,
+            PhotonNetwork.CreateRoom(null,
                 new Photon.Realtime.RoomOptions
                     {MaxPlayers = (FreeSlots > maxPlayers ? maxPlayers : FreeSlots), PublishUserId = true});
             
