@@ -37,7 +37,7 @@ public class Networking : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
-    {
+    {        
         CreateRoom();
     }
 
@@ -45,6 +45,7 @@ public class Networking : MonoBehaviourPunCallbacks
     {
         int number = cachedRoomList.Count + 1;
         string roomName = "Room_" + number;
+        
         byte FreeSlots =
             (byte) (PhotonLimit - PhotonNetwork.CountOfPlayers); //Колчичество свободных мест в данном приложении.
         if (FreeSlots > 0)
@@ -52,6 +53,7 @@ public class Networking : MonoBehaviourPunCallbacks
             PhotonNetwork.CreateRoom(roomName,
                 new Photon.Realtime.RoomOptions
                     {MaxPlayers = (FreeSlots > maxPlayers ? maxPlayers : FreeSlots), PublishUserId = true});
+            
         }
         else
         {
@@ -103,9 +105,9 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        Debug.Log(PhotonNetwork.CurrentRoom.Name);
         mainMenu.StartGame();
         Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
-        
         var transforms = FindObjectsOfType<SyncTranshorm>();
     }
 
