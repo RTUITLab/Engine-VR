@@ -1688,7 +1688,7 @@ MonoBehaviour:
   - {fileID: 5753585303121273649}
   - {fileID: 1596853343654156910}
   - {fileID: 5969958367356351375}
-  photonView: {fileID: 0}
+  photonView: {fileID: 1415722950529174253}
   nicknameOutput: {fileID: 3335203699790928846}
 --- !u!114 &1415722950529174253
 MonoBehaviour:
