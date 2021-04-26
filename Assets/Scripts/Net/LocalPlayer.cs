@@ -25,6 +25,11 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
         onlinePlayer = onlineBody.GetComponent<OnlinePlayer>();
         onlinePlayer.hideBody();
 
+        SendNickname();
+    }
+
+    public void SendNickname()
+    {
         string nickname = PlayerPrefs.GetString("Nickname");
         onlinePlayer.SendNickname(nickname);
     }
