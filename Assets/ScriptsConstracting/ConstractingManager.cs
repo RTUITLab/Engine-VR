@@ -19,6 +19,7 @@ public class ConstractingManager : MonoBehaviour
     [SerializeField] Transform Hints;
 
     private BuildProgress progress;
+    [SerializeField] private Animator[] presentationAnimations; // Начинают проигрываться при завершении сборки
 
     int ID = 20;
 
@@ -185,7 +186,14 @@ public class ConstractingManager : MonoBehaviour
             LeftFixedParts--;
             if (LeftFixedParts <= 0)
             {
-                NextStage();
+                if (partsCount <= placedPartsCount)
+                {
+                    BuildFinished();
+                }
+                else
+                {
+                    NextStage();
+                }
             }
         }
 
@@ -204,6 +212,14 @@ public class ConstractingManager : MonoBehaviour
         currentFixedPartDepth++;
     }
 
+    private void BuildFinished()
+    {
+        foreach (var anim in presentationAnimations)
+        {
+            anim.enabled = true;
+        }
+    }
+
     [Header("Прогресс")]
     private int partsCount = 0;
     private int placedPartsCount = -1;
@@ -215,10 +231,5 @@ public class ConstractingManager : MonoBehaviour
         int currentStage = currentFixedPartDepth;
 
         progress.ChangeData(partsCount, placedPartsCount, currentStage, currentPartsCount, currentPlacedPartsCount);
-    }
-
-    private void BuildFinished()
-    {
-
     }
 }
