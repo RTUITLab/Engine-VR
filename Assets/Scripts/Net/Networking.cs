@@ -106,7 +106,8 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log(PhotonNetwork.CurrentRoom.Name);
+        Debug.Log("Networking");
+        Debug.LogError(PhotonNetwork.CurrentRoom.Name);
         mainMenu.StartGame();
         Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
         var transforms = FindObjectsOfType<SyncTranshorm>();

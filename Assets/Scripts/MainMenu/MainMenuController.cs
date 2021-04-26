@@ -13,6 +13,8 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField] private GameObject[] enableOnGameStart;
     [SerializeField] private GameObject[] disableOnGameStart;
+    [SerializeField] private SteamVR_LaserPointer leftLaserPointer;
+    [SerializeField] private SteamVR_LaserPointer rightLaserPointer;
 
     [Header("Выбор комнат и сетевой код")] [SerializeField]
     private Networking networking;
@@ -36,6 +38,8 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        Destroy(leftLaserPointer.pointer);
+        Destroy(rightLaserPointer.pointer);
         foreach (var gObject in enableOnGameStart)
         {
             gObject.SetActive(true);
@@ -46,8 +50,7 @@ public class MainMenuController : MonoBehaviour
             gObject.SetActive(false);
         }
 
-        Destroy(GameObject.Find("PointerLine"));
-        Destroy(GameObject.Find("PointerLine"));
+       
     }
 
     public void OpenList()
