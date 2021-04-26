@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class OnlinePlayer : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class OnlinePlayer : MonoBehaviour
     [SerializeField] private GameObject[] want2Hide;    //Элементы тела, которые не должны быть видны у локального плеера.
 
     [SerializeField] private PhotonView photonView;
-    [SerializeField] private TMP_Text nicknameOutput;
+    [SerializeField] private Text nicknameOutput;
 
     public void SetTransform(Transform transform, int id)  
     {
