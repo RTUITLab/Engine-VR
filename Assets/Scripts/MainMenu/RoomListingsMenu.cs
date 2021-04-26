@@ -40,6 +40,7 @@ public class RoomListingsMenu : MonoBehaviour
         foreach (var info in listings)
         {
             Destroy(info.gameObject);
+            listings.Remove(info);
         }
     }
 }
