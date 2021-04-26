@@ -23,7 +23,6 @@ public class RoomListing : MonoBehaviour
     }
     public void JoinChosenRoom()
     {
-        Debug.LogError("Pressed");
         networking.JoinRoom(text.text);
     }
 }
