@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 7410376735640240508}
   - component: {fileID: 2028552049178959439}
   - component: {fileID: 4040169912488366864}
+  - component: {fileID: 7166782673369600833}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -253,13 +254,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EventClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7166782673369600833}
+        m_MethodName: JoinChosenRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   EventInside:
     m_PersistentCalls:
       m_Calls: []
   EventOutside:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7166782673369600833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5058907264955635813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94053ebd154683440bb6585943d92e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 7024463767152026064}
 --- !u!1 &6848644175005241240
 GameObject:
   m_ObjectHideFlags: 0

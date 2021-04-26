@@ -53,8 +53,9 @@ public class MainMenuController : MonoBehaviour
        
     }
 
-    public void OpenList()
+    public void JoinRoom()
     {
+
     }
 
     public void CreateRoom()
@@ -65,7 +66,6 @@ public class MainMenuController : MonoBehaviour
     public void JoinRandomRoom()
     {
         networking.JoinRandomRoom();
-        //networking.JoinRoom("Room_1");
     }
     // TODO Реализовать остальные методы из меню и навесить их на кнопки
 }
