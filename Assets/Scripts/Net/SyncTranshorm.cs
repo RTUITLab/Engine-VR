@@ -108,6 +108,9 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
     {
         photonView.RPC("SyncPosition", RpcTarget.All, _transform.position.x, _transform.position.y, _transform.position.z);
         photonView.RPC("SyncRotation", RpcTarget.All, _transform.rotation.x, _transform.rotation.y, _transform.rotation.z, _transform.rotation.w);
+
+        FindObjectOfType<LocalPlayer>().SendNickname();
+
         Debug.Log(newPlayer.UserId);
     }
 
