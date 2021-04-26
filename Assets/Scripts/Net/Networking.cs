@@ -12,49 +12,26 @@ public class Networking : MonoBehaviourPunCallbacks
 
     [SerializeField] private int PhotonLimit = 20; //Лимит максимального кол-ва подключений.
 
-    //private TypedLobby customLobby = new TypedLobby("customLobby", LobbyType.Default);
-    public Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
-    private MainMenuController mainMenu;
-
-    public Text text;
+    
 
     void Start()
     {
         PhotonNetwork.GameVersion = Version;
         PhotonNetwork.ConnectUsingSettings();
-
-        mainMenu = FindObjectOfType<MainMenuController>();
     }
 
     public override void OnConnectedToMaster()
     {
-        //JoinLobby();
-
-    }
-
-    private void JoinLobby()
-    {
-        PhotonNetwork.JoinLobby();
+        PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
-    {        
-        CreateRoom();
-    }
-
-    public void CreateRoom()
     {
-        /*int number = cachedRoomList.Count + 1;
-        string roomName = "Room_" + number;*/
-        
-        byte FreeSlots =
-            (byte) (PhotonLimit - PhotonNetwork.CountOfPlayers); //Колчичество свободных мест в данном приложении.
-        if (FreeSlots > 0 )
+        Debug.LogError(message);
+        byte FreeSlots = (byte)(PhotonLimit - PhotonNetwork.CountOfPlayers); //Колчичество свободных мест в данном приложении.
+        if (FreeSlots > 0)
         {
-            PhotonNetwork.CreateRoom(null,
-                new Photon.Realtime.RoomOptions
-                    {MaxPlayers = (FreeSlots > maxPlayers ? maxPlayers : FreeSlots), PublishUserId = true});
-            
+            PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = (FreeSlots > maxPlayers ? maxPlayers : FreeSlots), PublishUserId = true });
         }
         else
         {
@@ -62,66 +39,16 @@ public class Networking : MonoBehaviourPunCallbacks
         }
     }
 
-    
-    public void JoinRandomRoom()
-    {
-        PhotonNetwork.JoinRandomRoom();
-    }
-
-    public void JoinRoom(string roomName)
-    {
-        PhotonNetwork.JoinRoom(roomName);
-    }
-
-    private void UpdateCachedRoomList(List<RoomInfo> roomList)
-    {
-        for (int i = 0; i < roomList.Count; i++)
-        {
-            RoomInfo info = roomList[i];
-            if (info.RemovedFromList)
-            {
-                cachedRoomList.Remove(info.Name);
-            }
-            else
-            {
-                cachedRoomList[info.Name] = info;
-            }
-        }
-    }
-
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
-    {
-        UpdateCachedRoomList(roomList);
-    }
-
-    public override void OnLeftLobby()
-    {
-        cachedRoomList.Clear();
-    }
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        cachedRoomList.Clear();
-    }
-
     public override void OnJoinedRoom()
     {
-        Debug.Log(PhotonNetwork.CurrentRoom.Name);
-        mainMenu.StartGame();
         Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
-        var transforms = FindObjectsOfType<SyncTranshorm>();
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        base.OnJoinRoomFailed(returnCode, message);
     }
 
     private void Update()
     {
-/*if(PhotonNetwork.InRoom)
-{
-    Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-}*/
+        if (PhotonNetwork.InRoom)
+        {
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+        }
     }
 }
