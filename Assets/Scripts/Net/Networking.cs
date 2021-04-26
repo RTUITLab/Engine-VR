@@ -14,6 +14,7 @@ public class Networking : MonoBehaviourPunCallbacks
 
     //private TypedLobby customLobby = new TypedLobby("customLobby", LobbyType.Default);
     public Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
+    private MainMenuController mainMenu;
 
     public Text text;
 
@@ -21,6 +22,8 @@ public class Networking : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.GameVersion = Version;
         PhotonNetwork.ConnectUsingSettings();
+
+        mainMenu = FindObjectOfType<MainMenuController>();
     }
 
     public override void OnConnectedToMaster()
@@ -100,6 +103,7 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        mainMenu.StartGame();
         Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
         var transforms = FindObjectsOfType<SyncTranshorm>();
     }

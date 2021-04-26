@@ -30,7 +30,10 @@ public class MainMenuController : MonoBehaviour
         canvasCenter.transform.position = position;
     }
 
-
+    /// <summary>
+    /// Вызывается при подключении к комнате из Networking. 
+    /// Убирает меню и включает нужные объекты
+    /// </summary>
     public void StartGame()
     {
         foreach (var gObject in enableOnGameStart)
@@ -61,7 +64,4 @@ public class MainMenuController : MonoBehaviour
         networking.JoinRandomRoom();
     }
     // TODO Реализовать остальные методы из меню и навесить их на кнопки
-
-    // Нужно сохранять выбор (случайная комната, определенная комната), и при переходе на новую сцену
-    // в классе Networking обрабатывать желаемое действие (там частично есть методы)
 }
