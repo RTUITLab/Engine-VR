@@ -32,6 +32,7 @@ public class NicknameChoose : MonoBehaviour
         {
             nickname = RandomNickname();
         }
+        keyboard.SetInputText(nickname.ToUpper());
 
         SaveNickname(false);
     }
@@ -42,6 +43,8 @@ public class NicknameChoose : MonoBehaviour
     public void CustomRandomNickname(string name) 
     {
         nickname = name + "-" + Random.Range(100, 1000);
+        keyboard.SetInputText(nickname.ToUpper());
+
         SaveNickname(false);
     }
 
@@ -52,8 +55,8 @@ public class NicknameChoose : MonoBehaviour
 
     public void SaveNickname(bool showSuccess)
     {
+        nickname = keyboard.inputField.text;
         PlayerPrefs.SetString("Nickname", nickname);
-        keyboard.SetInputText(nickname.ToUpper());
 
         if (showSuccess)
             keyboard.StartCoroutine(keyboard.ShowSuccess());

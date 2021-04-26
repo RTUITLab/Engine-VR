@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Keyboard : MonoBehaviour
 {
-    [SerializeField] private InputField inputField;
+    public InputField inputField;
     [SerializeField] private float alertShowTime = 5f;
     [SerializeField] private GameObject successAlert;
 
