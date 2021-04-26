@@ -28,7 +28,7 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        //JoinLobby();
+        JoinLobby();
 
     }
 
@@ -44,14 +44,14 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        /*int number = cachedRoomList.Count + 1;
-        string roomName = "Room_" + number;*/
+        
+        string roomName = "Комната " + PlayerPrefs.GetString("Nickname");
 
         byte FreeSlots =
             (byte)(PhotonLimit - PhotonNetwork.CountOfPlayers); //Колчичество свободных мест в данном приложении.
         if (FreeSlots > 0)
         {
-            PhotonNetwork.CreateRoom(null,
+            PhotonNetwork.CreateRoom(roomName,
                 new Photon.Realtime.RoomOptions
                 { MaxPlayers = (FreeSlots > maxPlayers ? maxPlayers : FreeSlots), PublishUserId = true });
 
@@ -104,14 +104,7 @@ public class Networking : MonoBehaviourPunCallbacks
         cachedRoomList.Clear();
     }
 
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("Networking");
-        Debug.LogError(PhotonNetwork.CurrentRoom.Name);
-        mainMenu.StartGame();
-        Debug.LogError($"Количесто игроков в комнате: {PhotonNetwork.CurrentRoom.PlayerCount}");
-        var transforms = FindObjectsOfType<SyncTranshorm>();
-    }
+    
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
