@@ -39,6 +39,11 @@ public class OnlinePlayer : MonoBehaviour
         }
     }
 
+    public void HideNickname()
+    { // Скрывает никнейм самого игрока, оставляя только никнеймы напарников
+        nicknameOutput.gameObject.SetActive(false);
+    }
+
     public void SendNickname(string nickname)
     {
         photonView.RPC("sendNickname", RpcTarget.All, nickname);

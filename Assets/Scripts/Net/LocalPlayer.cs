@@ -19,7 +19,6 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom() //При входе, создаёт своё тело и запоминает его, что бы менять ему положение.
     {
-        Debug.Log("LocalPlayer");
         FindObjectOfType<MainMenuController>().StartGame();
         GameObject onlineBody = PhotonNetwork.Instantiate(onlineBodyPref.name, transform.position, Quaternion.identity);
         onlinePlayer = onlineBody.GetComponent<OnlinePlayer>();
@@ -31,6 +30,7 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
     public void SendNickname()
     {
         string nickname = PlayerPrefs.GetString("Nickname");
+        onlinePlayer.HideNickname();
         onlinePlayer.SendNickname(nickname);
     }
 

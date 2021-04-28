@@ -16,12 +16,14 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private SteamVR_LaserPointer leftLaserPointer;
     [SerializeField] private SteamVR_LaserPointer rightLaserPointer;
 
-    [Header("Выбор комнат и сетевой код")] [SerializeField]
-    private Networking networking;
+    [Header("Выбор комнат и сетевой код")]
+    [Tooltip("Поставьте галочку в PlayMode, чтобы вызвался метод входа в случайную комнату")]
+    [SerializeField] private bool executeJoinRandomRoom = false;
+    [SerializeField] private Networking networking;
 
     private void Start()
     {
-        //JoinRandomRoom(); // TODO its a test!
+        executeJoinRandomRoom = false;
     }
 
     private void LateUpdate()
@@ -30,6 +32,12 @@ public class MainMenuController : MonoBehaviour
         position = target.transform.position;
         position.y = -0.83f;
         canvasCenter.transform.position = position;
+
+        if (executeJoinRandomRoom)
+        {
+            executeJoinRandomRoom = false;
+            JoinRandomRoom();
+        }
     }
 
     /// <summary>
