@@ -25,7 +25,7 @@ public class MainMenuController : MonoBehaviour
     {
         executeJoinRandomRoom = false;
     }
-
+    
     private void LateUpdate()
     {
         // Центруем интерфейс относительно положения игрока
@@ -61,6 +61,7 @@ public class MainMenuController : MonoBehaviour
        
     }
 
+    
     
 
     public void JoinRandomRoom()
