@@ -743,7 +743,7 @@ namespace Valve.VR.InteractionSystem
 				}
 
 				//Keep track of any existing hovering interactable on the hand
-				originalHoverLockState = pointerHand.hoverLocked;
+				//originalHoverLockState = pointerHand.hoverLocked;
 				originalHoveringInteractable = pointerHand.hoveringInteractable;
 
 				if ( ShouldOverrideHoverLock() )
