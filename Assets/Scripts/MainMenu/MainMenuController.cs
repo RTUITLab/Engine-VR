@@ -13,13 +13,17 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField] private GameObject[] enableOnGameStart;
     [SerializeField] private GameObject[] disableOnGameStart;
+    [SerializeField] private SteamVR_LaserPointer leftLaserPointer;
+    [SerializeField] private SteamVR_LaserPointer rightLaserPointer;
 
-    [Header("Выбор комнат и сетевой код")] [SerializeField]
-    private Networking networking;
+    [Header("Выбор комнат и сетевой код")]
+    [Tooltip("Поставьте галочку в PlayMode, чтобы вызвался метод входа в случайную комнату")]
+    [SerializeField] private bool executeJoinRandomRoom = false;
+    [SerializeField] private Networking networking;
 
     private void Start()
     {
-        //JoinRandomRoom(); // TODO its a test!
+        executeJoinRandomRoom = false;
     }
 
     private void LateUpdate()
@@ -28,6 +32,12 @@ public class MainMenuController : MonoBehaviour
         position = target.transform.position;
         position.y = -0.83f;
         canvasCenter.transform.position = position;
+
+        if (executeJoinRandomRoom)
+        {
+            executeJoinRandomRoom = false;
+            JoinRandomRoom();
+        }
     }
 
     /// <summary>
@@ -36,6 +46,8 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        /*Destroy(leftLaserPointer.pointer);
+        Destroy(rightLaserPointer.pointer);*/
         foreach (var gObject in enableOnGameStart)
         {
             gObject.SetActive(true);
@@ -46,18 +58,10 @@ public class MainMenuController : MonoBehaviour
             gObject.SetActive(false);
         }
 
-        Destroy(GameObject.Find("PointerLine"));
-        Destroy(GameObject.Find("PointerLine"));
+       
     }
 
-    public void OpenList()
-    {
-    }
-
-    public void CreateRoom()
-    {
-        networking.CreateRoom();
-    }
+    
 
     public void JoinRandomRoom()
     {
