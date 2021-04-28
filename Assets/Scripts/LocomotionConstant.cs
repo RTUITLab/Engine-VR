@@ -51,7 +51,7 @@ public class LocomotionConstant : MonoBehaviour
         float M_speed = M_action.GetAxis(Locomition_source).magnitude * speed;
 
 
-        Vector3 movement = orientation * (M_speed * Vector3.forward) * Time.deltaTime;
+        Vector3 movement = orientation * Vector3.forward * (M_speed * Time.deltaTime);
 
         //movement.y = -9.8f * Time.deltaTime;
 
