@@ -135,6 +135,13 @@ public class ConstractingManager : MonoBehaviour
             Hint.gameObject.SetActive(false);
 
             part.AddComponent<BoxCollider>();
+
+            // Деталь слишком маленькая, поэтому увеличиваем ее коллайдер
+            if (part.name == "УправляющийГенератор") 
+            {
+                part.GetComponent<BoxCollider>().size *= 1.5f;
+            }
+
             fixedParts[depth].Add(fixedPart);
             movingPartDataBase.FillArrays(spawnPos, fixedPart.transform, connectedPartRoot, Hint.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
 

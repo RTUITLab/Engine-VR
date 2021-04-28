@@ -61,15 +61,7 @@ public class MainMenuController : MonoBehaviour
        
     }
 
-    public void JoinRoom()
-    {
-
-    }
-
-    public void CreateRoom()
-    {
-        networking.CreateRoom();
-    }
+    
 
     public void JoinRandomRoom()
     {
