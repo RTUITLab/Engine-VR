@@ -193,15 +193,13 @@ public class ConstractingManager : MonoBehaviour
             LeftFixedParts--;
             if (LeftFixedParts <= 0)
             {
-                if (partsCount <= placedPartsCount)
-                {
-                    BuildFinished();
-                }
-                else
-                {
-                    NextStage();
-                }
+                NextStage();
             }
+        }
+
+        if (partsCount <= placedPartsCount)
+        {
+            BuildFinished();
         }
 
         DisplayProgress();

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using RootMotion.FinalIK;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Valve.VR.Extras;
@@ -11,6 +12,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject canvasCenter;
     private Vector3 position;
 
+    [SerializeField] private LocomotionConstant locomotion;
     [SerializeField] private GameObject[] enableOnGameStart;
     [SerializeField] private GameObject[] disableOnGameStart;
     [SerializeField] private SteamVR_LaserPointer leftLaserPointer;
@@ -51,13 +53,15 @@ public class MainMenuController : MonoBehaviour
 
         foreach (var gObject in enableOnGameStart)
         {
-            gObject.SetActive(true);
+            if (gObject) gObject.SetActive(true);
         }
 
         foreach (var gObject in disableOnGameStart)
         {
-            gObject.SetActive(false);
+            if (gObject) gObject.SetActive(false);
         }
+
+        locomotion.enabled = true;
     }
 
     
