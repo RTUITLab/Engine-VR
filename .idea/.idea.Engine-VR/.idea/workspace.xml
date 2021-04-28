@@ -21,10 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="91790ed0-3152-4834-8585-25a237faba40" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BodyOnline.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BodyOnline.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DisableIK.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DisableIK.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Net/Networking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Net/Networking.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Teleport/Scripts/Teleport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Teleport/Scripts/Teleport.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +41,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Networking.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BuildProgress.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/RoomListing.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.xr.mock-hmd@1.2.0-preview.1/Runtime/MockHMDBuildSettings.cs" root0="SKIP_HIGHLIGHTING" />
@@ -59,10 +56,11 @@
       <option value="$PROJECT_DIR$/Assets/Plugins/RootMotion/Shared Scripts/SolverManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Components/VRIK.cs" />
       <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Player.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Net/Networking.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DisableIK.cs" />
       <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Teleport/Scripts/Teleport.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1rc4Z4uSj37iz9GgTWN3SFw6lNE" />
@@ -116,7 +114,7 @@
       <workItem from="1619381888577" duration="12666000" />
       <workItem from="1619608057739" duration="2854000" />
       <workItem from="1619610980936" duration="28000" />
-      <workItem from="1619611071599" duration="10162000" />
+      <workItem from="1619611071599" duration="11524000" />
     </task>
     <servers />
   </component>
