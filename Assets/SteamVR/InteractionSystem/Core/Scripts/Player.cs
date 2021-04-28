@@ -7,7 +7,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
 namespace Valve.VR.InteractionSystem
 {
 	//-------------------------------------------------------------------------
@@ -16,6 +15,7 @@ namespace Valve.VR.InteractionSystem
 	//-------------------------------------------------------------------------
 	public class Player : MonoBehaviour
 	{
+		
 		[Tooltip( "Virtual transform corresponding to the meatspace tracking origin. Devices are tracked relative to this." )]
 		public Transform trackingOriginTransform;
 
@@ -39,9 +39,8 @@ namespace Valve.VR.InteractionSystem
 
         [Tooltip("This action lets you know when the player has placed the headset on their head")]
         public SteamVR_Action_Boolean headsetOnHead = SteamVR_Input.GetBooleanAction("HeadsetOnHead");
-
+        
 		public bool allowToggleTo2D = true;
-
 
 		//-------------------------------------------------
 		// Singleton instance of the Player. Only one can exist at a time.
@@ -281,7 +280,7 @@ namespace Valve.VR.InteractionSystem
 
         protected virtual void Update()
         {
-            if (SteamVR.initializedState != SteamVR.InitializedStates.InitializeSuccess)
+	        if (SteamVR.initializedState != SteamVR.InitializedStates.InitializeSuccess)
                 return;
 
             if (headsetOnHead != null)

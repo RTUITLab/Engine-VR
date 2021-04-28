@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.PlayerLoop;
 
 namespace RootMotion.FinalIK {
 	
@@ -9,8 +10,9 @@ namespace RootMotion.FinalIK {
 	/// </summary>
 	//[HelpURL("http://www.root-motion.com/finalikdox/html/page16.html")]
 	[AddComponentMenu("Scripts/RootMotion.FinalIK/IK/VR IK")]
-	public class VRIK : IK {
-
+	
+	public class VRIK : IK
+	{
 		/// <summary>
 		/// VRIK-specific definition of a humanoid biped.
 		/// </summary>
@@ -256,5 +258,8 @@ namespace RootMotion.FinalIK {
 
 			base.UpdateSolver();
 		}
+
+		
 	}
+	
 }
