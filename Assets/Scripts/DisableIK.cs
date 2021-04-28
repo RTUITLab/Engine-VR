@@ -24,12 +24,15 @@ public class DisableIK : MonoBehaviour
         {
             StartCoroutine(DisableVRIK());
         }
+
+        lastPlayerPosition = playerTransform.position;
     }
 
     private IEnumerator DisableVRIK()
     {
+        Debug.Log("VRIK");
         vrik.enabled = false;
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.3f);
         vrik.enabled = true;
     }
 }
