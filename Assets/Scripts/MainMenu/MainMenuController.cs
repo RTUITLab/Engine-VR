@@ -25,7 +25,7 @@ public class MainMenuController : MonoBehaviour
     {
         executeJoinRandomRoom = false;
     }
-
+    
     private void LateUpdate()
     {
         // Центруем интерфейс относительно положения игрока
@@ -46,8 +46,9 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        /*Destroy(leftLaserPointer.pointer);
-        Destroy(rightLaserPointer.pointer);*/
+        Destroy(leftLaserPointer.pointer);
+        Destroy(rightLaserPointer.pointer);
+
         foreach (var gObject in enableOnGameStart)
         {
             gObject.SetActive(true);
@@ -57,10 +58,9 @@ public class MainMenuController : MonoBehaviour
         {
             gObject.SetActive(false);
         }
-
-       
     }
 
+    
     
 
     public void JoinRandomRoom()

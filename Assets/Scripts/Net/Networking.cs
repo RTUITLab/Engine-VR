@@ -111,11 +111,11 @@ public class Networking : MonoBehaviourPunCallbacks
         base.OnJoinRoomFailed(returnCode, message);
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (PhotonNetwork.InRoom)
         {
             Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         }
-    }
+    }*/
 }
