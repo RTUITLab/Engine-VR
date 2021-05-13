@@ -21,8 +21,11 @@
   <component name="ChangeListManager">
     <list default="true" id="91790ed0-3152-4834-8585-25a237faba40" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Online.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Online.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptsConstracting/Part.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptsConstracting/Part.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SteamVR/Extras/SteamVR_LaserPointer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SteamVR/Extras/SteamVR_LaserPointer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Throwable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Throwable.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +69,11 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Net/SyncTranshorm.cs" />
       <option value="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs" />
+      <option value="$PROJECT_DIR$/Assets/SteamVR/Extras/SteamVR_LaserPointer.cs" />
+      <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/InteractableHoverEvents.cs" />
+      <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Throwable.cs" />
+      <option value="$PROJECT_DIR$/Assets/ScriptsConstracting/ConstractingManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/ScriptsConstracting/Part.cs" />
       <option value="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" />
     </changedPaths>
   </component>
@@ -121,7 +129,8 @@
       <workItem from="1619608057739" duration="2854000" />
       <workItem from="1619610980936" duration="28000" />
       <workItem from="1619611071599" duration="16891000" />
-      <workItem from="1619793199772" duration="7476000" />
+      <workItem from="1619793199772" duration="7546000" />
+      <workItem from="1620909412685" duration="6593000" />
     </task>
     <servers />
   </component>
