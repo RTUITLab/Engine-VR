@@ -143,6 +143,8 @@ namespace Valve.VR.Extras
                 OnPointerClick(argsClick);
             }
 
+            if (pointer == null) return;
+            
             if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
             {
                 pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist);

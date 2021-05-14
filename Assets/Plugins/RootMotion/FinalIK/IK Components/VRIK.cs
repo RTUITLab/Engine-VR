@@ -13,6 +13,7 @@ namespace RootMotion.FinalIK {
 	
 	public class VRIK : IK
 	{
+		
 		/// <summary>
 		/// VRIK-specific definition of a humanoid biped.
 		/// </summary>
@@ -258,8 +259,22 @@ namespace RootMotion.FinalIK {
 
 			base.UpdateSolver();
 		}
-
 		
+		public override void Start()
+		{
+			base.Start();
+			StartCoroutine(DisableLocomotion());
+		}
+
+		private IEnumerator DisableLocomotion()
+		{
+			yield return new WaitForSeconds(1f);
+			solver.locomotion.weight = 0f;
+			
+		}
+
+
+
 	}
 	
 }

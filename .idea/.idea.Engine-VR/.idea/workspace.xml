@@ -19,7 +19,20 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91790ed0-3152-4834-8585-25a237faba40" name="Default Changelist" comment="" />
+    <list default="true" id="91790ed0-3152-4834-8585-25a237faba40" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/Robot.mask" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Robot.mask" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Left.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Left.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Left.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Left.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Right.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Right.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Right.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Right.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Components/VRIK.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Components/VRIK.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Solvers/IKSolverVR.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Solvers/IKSolverVR.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/RootMotion/Shared Scripts/SolverManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/RootMotion/Shared Scripts/SolverManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Online.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Online.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SteamVR/Extras/SteamVR_LaserPointer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SteamVR/Extras/SteamVR_LaserPointer.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,15 +64,17 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/Plugins/RootMotion/Shared Scripts/SolverManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Components/VRIK.cs" />
       <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Player.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Net/Networking.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DisableIK.cs" />
       <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Teleport/Scripts/Teleport.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" />
+      <option value="$PROJECT_DIR$/Assets/SteamVR/Extras/SteamVR_LaserPointer.cs" />
+      <option value="$PROJECT_DIR$/Assets/Plugins/RootMotion/Shared Scripts/SolverManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Solvers/IKSolverVR.cs" />
+      <option value="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Components/VRIK.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1rc4Z4uSj37iz9GgTWN3SFw6lNE" />
@@ -114,7 +129,7 @@
       <workItem from="1619608057739" duration="2854000" />
       <workItem from="1619610980936" duration="28000" />
       <workItem from="1619611071599" duration="16890000" />
-      <workItem from="1621003567617" duration="624000" />
+      <workItem from="1621003567617" duration="7289000" />
     </task>
     <servers />
   </component>

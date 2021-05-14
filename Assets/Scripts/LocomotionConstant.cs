@@ -7,18 +7,18 @@ public class LocomotionConstant : MonoBehaviour
 {
 
     [SerializeField] SteamVR_Action_Vector2 M_action;
-
+    [SerializeField] private Animator animator;
     SteamVR_Action_Boolean snapRightAction = SteamVR_Input.GetBooleanAction("SnapTurnRight");
     SteamVR_Action_Boolean snapLeftAction = SteamVR_Input.GetBooleanAction("SnapTurnLeft");
-
-
-
+    
     [SerializeField] SteamVR_Input_Sources Locomition_source;
 
     [SerializeField] float Rotating_angle = 45;
 
     [SerializeField] float speed = 1;
-
+    [SerializeField] private float walkingSmoothness = 0.2f;
+    
+    
     Transform MainCamera;
 
 
@@ -46,16 +46,23 @@ public class LocomotionConstant : MonoBehaviour
     {
 
         Quaternion orientation = CalculateOrientation();
-
-        //Calculatind forward and side speeds
         float M_speed = M_action.GetAxis(Locomition_source).magnitude * speed;
 
+        Vector2 direction = M_action.GetAxis(Locomition_source);
+        // direction.z *= -1;
+        if (M_speed == 0)
+        {
+            direction = Vector2.zero;
+        }
+        
+        
+        // Сглаживание
+        Vector3 oldDirection = new Vector2(animator.GetFloat("PosX"), animator.GetFloat("PosY"));
+        Vector3 smoothed = Vector3.Lerp(oldDirection, direction, walkingSmoothness);
+        animator.SetFloat("PosX", smoothed.x);
+        animator.SetFloat("PosY", smoothed.y);
 
         Vector3 movement = orientation * Vector3.forward * (M_speed * Time.deltaTime);
-
-        //movement.y = -9.8f * Time.deltaTime;
-
-
         transform.position += movement;
     }
 

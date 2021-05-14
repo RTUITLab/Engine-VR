@@ -644,6 +644,7 @@ namespace RootMotion.FinalIK {
 		private Vector3 debugPos3;
 		private Vector3 debugPos4;
 
+		
 		private void Write() {
 			solvedPositions[0] = rootBone.solverPosition;
 			solvedRotations[0] = rootBone.solverRotation;

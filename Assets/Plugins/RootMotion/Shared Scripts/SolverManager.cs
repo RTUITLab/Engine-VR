@@ -39,9 +39,10 @@ namespace RootMotion {
 		void OnDisable() {
 			if (!Application.isPlaying) return;
 			Initiate();
+			
 		}
 
-		void Start() {
+		public virtual void Start() {
 			Initiate();
 		}
 
