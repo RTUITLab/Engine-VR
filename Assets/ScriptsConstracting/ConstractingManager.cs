@@ -136,11 +136,17 @@ public class ConstractingManager : MonoBehaviour
 
             part.AddComponent<BoxCollider>();
 
-            // Деталь слишком маленькая, поэтому увеличиваем ее коллайдер
-            if (part.name == "УправляющийГенератор") 
-            {
-                part.GetComponent<BoxCollider>().size *= 1.5f;
-            }
+            // Если деталь слишком маленькая, то увеличиваем ее коллайдер
+            BoxCollider installRange = part.GetComponent<BoxCollider>();
+            float minSize = 0.3f;
+            Vector3 newSize = installRange.size;
+            if (newSize.x < minSize)
+                newSize.x *= 1.5f;
+            if (newSize.y < minSize)
+                newSize.y *= 1.5f;
+            if (newSize.z < minSize)
+                newSize.z *= 1.5f;
+            installRange.size = newSize;
 
             fixedParts[depth].Add(fixedPart);
             movingPartDataBase.FillArrays(spawnPos, fixedPart.transform, connectedPartRoot, Hint.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
