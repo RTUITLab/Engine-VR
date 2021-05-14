@@ -21,17 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="91790ed0-3152-4834-8585-25a237faba40" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Robot.mask" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Robot.mask" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Left.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Left.fbx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Left.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Left.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Right.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Right.fbx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Right.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/xbot@Walk Strafe Right.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Components/VRIK.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Components/VRIK.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Solvers/IKSolverVR.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/RootMotion/FinalIK/IK Solvers/IKSolverVR.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/RootMotion/Shared Scripts/SolverManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/RootMotion/Shared Scripts/SolverManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Online.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Online.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SteamVR/Extras/SteamVR_LaserPointer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SteamVR/Extras/SteamVR_LaserPointer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,15 +41,18 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Net/Networking.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BuildProgress.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Editor/TMP_EditorTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@7.1.8/Runtime/Inputs/InputRegistering.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/RoomListing.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/RoomListingsMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerAdjust.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@7.1.8/Runtime/Camera/FreeCamera.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BuildProgress.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.xr.mock-hmd@1.2.0-preview.1/Runtime/MockHMDBuildSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/Keyboard/Keyboard.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/RoomListingsMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerAdjust.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DisableIK.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -70,6 +63,7 @@
       <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Teleport/Scripts/Teleport.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" />
+      <option value="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1rc4Z4uSj37iz9GgTWN3SFw6lNE" />

@@ -154,13 +154,9 @@ public class FixedPart : MonoBehaviour
     private IEnumerator TeleportConnectingPart()
     {
         yield return new WaitForSeconds(0.3f);
-        if (connectingPart != null)
-        {
-            connectingPart.GetComponent<Part>().SetInitialPosition();
-            connectingPart.SetActive(true);
-            syncTranshorm.SendGrav(true);
-        }
-
+        
+        syncTranshorm.SendGrav(true);
+        connectingPart.GetComponent<Part>().SetInitialPosition();
     }
 
     public void SetConnected(GameObject connected)

@@ -94,6 +94,7 @@ public class Part : MonoBehaviour
     {
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = true;
         transform.SetPositionAndRotation(partPosition, partRotation);
     }
 }
