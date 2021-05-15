@@ -21,11 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="91790ed0-3152-4834-8585-25a237faba40" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/BodyOnline.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BodyOnline.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Online.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Online.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Net/OnlinePlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Net/OnlinePlayer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +123,7 @@
       <workItem from="1619608057739" duration="2854000" />
       <workItem from="1619610980936" duration="28000" />
       <workItem from="1619611071599" duration="16890000" />
-      <workItem from="1621083569380" duration="16599000" />
+      <workItem from="1621083569380" duration="17691000" />
     </task>
     <servers />
   </component>

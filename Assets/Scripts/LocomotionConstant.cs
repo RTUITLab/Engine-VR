@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
@@ -74,5 +75,11 @@ public class LocomotionConstant : MonoBehaviour
 
         Vector3 orientationEuler = new Vector3(0, MainCamera.transform.eulerAngles.y + rotation, 0);
         return Quaternion.Euler(orientationEuler);
+    }
+
+    private void Update()
+    {
+        CalculateRotation();
+        CalculateMovement();
     }
 }
