@@ -58,10 +58,13 @@ public class LocomotionConstant : MonoBehaviour
         Vector2 oldDirection = new Vector2(animator.GetFloat("PosX"), animator.GetFloat("PosY"));
         Vector2 smoothed = Vector2.Lerp(oldDirection, direction, walkingSmoothness);
 
-        onlinePlayer.SendMovementDirection(smoothed);
-
         animator.SetFloat("PosX", smoothed.x);
         animator.SetFloat("PosY", smoothed.y);
+
+        if (onlinePlayer != null)
+        {
+            onlinePlayer.SendMovementDirection(smoothed);
+        }
 
         Vector3 movement = orientation * Vector3.forward * (M_speed * Time.deltaTime);
         transform.position += movement;
