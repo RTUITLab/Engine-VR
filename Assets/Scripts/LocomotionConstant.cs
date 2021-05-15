@@ -17,7 +17,9 @@ public class LocomotionConstant : MonoBehaviour
 
     [SerializeField] float speed = 1;
     [SerializeField] private float walkingSmoothness = 0.2f;
-    
+
+    [SerializeField] private Transform robot;
+    private Vector3 previousPosition;
     
     Transform MainCamera;
 
@@ -75,10 +77,20 @@ public class LocomotionConstant : MonoBehaviour
         return Quaternion.Euler(orientationEuler);
     }
 
+    private Vector3 animatorVector;
     // Update is called once per frame
     void Update()
     {
         CalculateMovement();
         CalculateRotation();
+        Vector3 positionOffset = Vector3.Normalize(robot.position - previousPosition);
+        Vector3 localPosition = robot.InverseTransformDirection(positionOffset);
+        //Vector3 oldDirection = new Vector3(animator.GetFloat("PosX"), 0f, animator.GetFloat("PosY"));
+        Vector3 smoothed = Vector3.Lerp(animatorVector, localPosition, 0.2f);
+        //animator.SetFloat("PosX", smoothed.x);
+        //animator.SetFloat("PosY", smoothed.z);
+        animatorVector = new Vector3(localPosition.x, 0, localPosition.z);
+        //Debug.Log(smoothed.x + "   " +  smoothed.z);
+        previousPosition = robot.position;
     }
 }

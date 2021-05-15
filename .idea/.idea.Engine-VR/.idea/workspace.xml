@@ -21,7 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="91790ed0-3152-4834-8585-25a237faba40" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Engine-VR/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/Robot.mask" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Robot.mask" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BodyOnline.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BodyOnline.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Online.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Online.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Net/OnlinePlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Net/OnlinePlayer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,9 +66,14 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Net/Networking.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DisableIK.cs" />
       <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Teleport/Scripts/Teleport.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/Bound.cs" />
       <option value="$PROJECT_DIR$/Assets/ScriptsConstracting/FixedPart.cs" />
+      <option value="$PROJECT_DIR$/Assets/SteamVR/InteractionSystem/Core/Scripts/Throwable.cs" />
+      <option value="$PROJECT_DIR$/Assets/ScriptsConstracting/Part.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Net/LocalPlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/MainMenu/MainMenuController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Net/OnlinePlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/LocomotionConstant.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1rc4Z4uSj37iz9GgTWN3SFw6lNE" />
@@ -77,7 +87,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -118,6 +128,7 @@
       <workItem from="1619608057739" duration="2854000" />
       <workItem from="1619610980936" duration="28000" />
       <workItem from="1619611071599" duration="16890000" />
+      <workItem from="1621083569380" duration="7949000" />
     </task>
     <servers />
   </component>
@@ -140,5 +151,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

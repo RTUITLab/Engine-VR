@@ -61,7 +61,7 @@ public class MainMenuController : MonoBehaviour
             if (gObject) gObject.SetActive(false);
         }
 
-        locomotion.enabled = true;
+        //locomotion.enabled = true;
     }
 
     
