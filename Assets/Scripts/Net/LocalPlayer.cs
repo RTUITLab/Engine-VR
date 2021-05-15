@@ -43,4 +43,6 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    public OnlinePlayer hisOnlinePlayer() { return onlinePlayer; }
 }

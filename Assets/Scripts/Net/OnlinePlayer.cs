@@ -15,13 +15,6 @@ public class OnlinePlayer : MonoBehaviour
     [SerializeField] private PhotonView photonView;
     [SerializeField] private Text nicknameOutput;
     [SerializeField] private Animator animator;
-    [SerializeField] private Transform robot;
-    [SerializeField] private float walkingSmoothness = 0.2f;
-
-    private Vector3 previousPosition;
-    private Vector3 positionOffset;
-    private Vector3 oldDirection;
-    private Vector3 smoothed;
 
     public void SetTransform(Transform transform, int id)  
     {
@@ -64,19 +57,15 @@ public class OnlinePlayer : MonoBehaviour
         Debug.Log("Send Nickname executed: nickname - " + nickname);
     }
 
-    private void Start()
+    public void SendMovementDirection(Vector2 dir)
     {
-        previousPosition = transform.position;
+        photonView.RPC("sendNickname", RpcTarget.All, dir);
     }
 
-    private void Update()
+    [PunRPC]
+    private void sendMovementDirection(Vector2 dir)
     {
-        positionOffset = Vector3.Normalize(previousPosition - robot.position);
-        Vector3 localPosition = transform.InverseTransformDirection(positionOffset);
-        oldDirection = new Vector3(animator.GetFloat("PosX"), 0f, animator.GetFloat("PosY"));
-        smoothed = Vector3.Lerp(oldDirection, localPosition, walkingSmoothness);
-        animator.SetFloat("PosX", smoothed.x);
-        animator.SetFloat("PosY", smoothed.z);
-        previousPosition = robot.position;
+        animator.SetFloat("PosX", dir.x);
+        animator.SetFloat("PosY", dir.y);
     }
 }
