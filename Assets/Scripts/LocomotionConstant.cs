@@ -31,7 +31,11 @@ public class LocomotionConstant : MonoBehaviour
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
         if (keyboardInput)
-            Debug.LogWarning("Установлен метод перемещения через кнопки клавиатуры!");
+        {
+            Debug.LogWarning("<b>Установлен метод перемещения через кнопки клавиатуры!</b>");
+            FindObjectOfType<Valve.VR.InteractionSystem.FallbackCameraController>().enabled = false;
+            Debug.LogWarning("Конфликтное управление камерой в 2D режиме отключено");
+        }
     }
 
     void CalculateRotation()

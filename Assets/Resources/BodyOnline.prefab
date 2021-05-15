@@ -1556,8 +1556,6 @@ MonoBehaviour:
   photonView: {fileID: 1415722950529174253}
   nicknameOutput: {fileID: 7098955126731684440}
   animator: {fileID: 6077965033382176233}
-  robot: {fileID: 5753585303121273345}
-  walkingSmoothness: 0.2
 --- !u!114 &1415722950529174253
 MonoBehaviour:
   m_ObjectHideFlags: 0
