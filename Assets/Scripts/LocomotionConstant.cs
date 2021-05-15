@@ -16,6 +16,8 @@ public class LocomotionConstant : MonoBehaviour
 
     [SerializeField] float Rotating_angle = 45;
 
+    [SerializeField] private bool keyboardInput;
+
     [SerializeField] float speed = 1;
     [SerializeField] private float walkingSmoothness = 0.2f;
 
@@ -27,6 +29,9 @@ public class LocomotionConstant : MonoBehaviour
     void Start()
     {
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+
+        if (keyboardInput)
+            Debug.LogWarning("Установлен метод перемещения через кнопки клавиатуры!");
     }
 
     void CalculateRotation()
@@ -46,9 +51,9 @@ public class LocomotionConstant : MonoBehaviour
     void CalculateMovement()
     {
         Quaternion orientation = CalculateOrientation();
-        float M_speed = M_action.GetAxis(Locomition_source).magnitude * speed;
+        Vector2 direction = Input.GetAxis("Horizontal") * Vector2.right + Input.GetAxis("Vertical") * Vector2.up;
+        float M_speed = direction.magnitude * speed;
 
-        Vector2 direction = M_action.GetAxis(Locomition_source);
         if (M_speed == 0)
         {
             direction = Vector2.zero;
@@ -72,7 +77,13 @@ public class LocomotionConstant : MonoBehaviour
 
     private Quaternion CalculateOrientation()
     {
-        float rotation = Mathf.Atan2(M_action.GetAxis(Locomition_source).x, M_action.GetAxis(Locomition_source).y);
+        float rotation; 
+        
+        if (keyboardInput)
+            rotation = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        else        
+            rotation = Mathf.Atan2(M_action.GetAxis(Locomition_source).x, M_action.GetAxis(Locomition_source).y);
+
         rotation *= Mathf.Rad2Deg;
 
         Vector3 orientationEuler = new Vector3(0, MainCamera.transform.eulerAngles.y + rotation, 0);
