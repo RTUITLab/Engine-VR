@@ -59,7 +59,7 @@ public class OnlinePlayer : MonoBehaviour
 
     public void SendMovementDirection(Vector2 dir)
     {
-        photonView.RPC("sendNickname", RpcTarget.All, dir);
+        photonView.RPC("sendMovementDirection", RpcTarget.All, dir);
     }
 
     [PunRPC]
