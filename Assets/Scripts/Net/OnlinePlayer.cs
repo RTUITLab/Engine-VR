@@ -71,12 +71,12 @@ public class OnlinePlayer : MonoBehaviour
 
     private void Update()
     {
-        positionOffset = Vector3.Normalize(previousPosition - robot.position);
-        Vector3 localPosition = transform.InverseTransformDirection(positionOffset);
-        oldDirection = new Vector3(animator.GetFloat("PosX"), 0f, animator.GetFloat("PosY"));
-        smoothed = Vector3.Lerp(oldDirection, localPosition, walkingSmoothness);
-        animator.SetFloat("PosX", smoothed.x);
-        animator.SetFloat("PosY", smoothed.z);
+        positionOffset = (robot.position - previousPosition);
+        Vector3 localPosition = Vector3.Normalize(robot.InverseTransformDirection(positionOffset));
+        //oldDirection = new Vector3(animator.GetFloat("PosX"), 0f, animator.GetFloat("PosY"));
+        //smoothed = Vector3.Lerp(oldDirection, localPosition, walkingSmoothness);
+        animator.SetFloat("PosX", localPosition.x);
+        animator.SetFloat("PosY", -localPosition.z);
         previousPosition = robot.position;
     }
 }

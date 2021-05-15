@@ -79,18 +79,19 @@ public class LocomotionConstant : MonoBehaviour
 
     private Vector3 animatorVector;
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         CalculateMovement();
         CalculateRotation();
-        Vector3 positionOffset = Vector3.Normalize(robot.position - previousPosition);
-        Vector3 localPosition = robot.InverseTransformDirection(positionOffset);
+        Vector3 positionOffset = Vector3.Normalize(previousPosition - robot.position);
+        Vector3 localPosition = (robot.InverseTransformDirection(positionOffset));
+        //localPosition.z *= -1f;
         //Vector3 oldDirection = new Vector3(animator.GetFloat("PosX"), 0f, animator.GetFloat("PosY"));
         Vector3 smoothed = Vector3.Lerp(animatorVector, localPosition, 0.2f);
         //animator.SetFloat("PosX", smoothed.x);
         //animator.SetFloat("PosY", smoothed.z);
-        animatorVector = new Vector3(localPosition.x, 0, localPosition.z);
-        //Debug.Log(smoothed.x + "   " +  smoothed.z);
+        animatorVector = new Vector3(smoothed.x, 0, smoothed.z);
+        Debug.Log(localPosition.x + "   " +  localPosition.z);
         previousPosition = robot.position;
     }
 }
