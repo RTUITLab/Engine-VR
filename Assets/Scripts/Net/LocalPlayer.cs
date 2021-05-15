@@ -23,6 +23,8 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
         onlinePlayer = onlineBody.GetComponent<OnlinePlayer>();
         onlinePlayer.hideBody();
 
+        FindObjectOfType<LocomotionConstant>().onlinePlayer = this.onlinePlayer;
+
         SendNickname();
     }
 
@@ -43,6 +45,4 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
             }
         }
     }
-
-    public OnlinePlayer hisOnlinePlayer() { return onlinePlayer; }
 }

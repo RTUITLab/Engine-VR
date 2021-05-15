@@ -19,7 +19,7 @@ public class LocomotionConstant : MonoBehaviour
     [SerializeField] float speed = 1;
     [SerializeField] private float walkingSmoothness = 0.2f;
 
-    private OnlinePlayer onlinePlayer;
+    public OnlinePlayer onlinePlayer;
     private Transform MainCamera;
 
 
@@ -27,7 +27,6 @@ public class LocomotionConstant : MonoBehaviour
     void Start()
     {
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        onlinePlayer = GetComponent<LocalPlayer>().hisOnlinePlayer();
     }
 
     void CalculateRotation()
