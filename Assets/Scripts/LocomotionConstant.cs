@@ -18,16 +18,15 @@ public class LocomotionConstant : MonoBehaviour
     [SerializeField] float speed = 1;
     [SerializeField] private float walkingSmoothness = 0.2f;
 
-    [SerializeField] private Transform robot;
-    private Vector3 previousPosition;
-    
-    Transform MainCamera;
+    private OnlinePlayer onlinePlayer;
+    private Transform MainCamera;
 
 
     // Start is called before the first frame update
     void Start()
     {
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        onlinePlayer = GetComponent<LocalPlayer>().hisOnlinePlayer();
     }
 
     void CalculateRotation()
@@ -46,21 +45,21 @@ public class LocomotionConstant : MonoBehaviour
 
     void CalculateMovement()
     {
-
         Quaternion orientation = CalculateOrientation();
         float M_speed = M_action.GetAxis(Locomition_source).magnitude * speed;
 
         Vector2 direction = M_action.GetAxis(Locomition_source);
-        // direction.z *= -1;
         if (M_speed == 0)
         {
             direction = Vector2.zero;
         }
         
-        
         // Сглаживание
-        Vector3 oldDirection = new Vector2(animator.GetFloat("PosX"), animator.GetFloat("PosY"));
-        Vector3 smoothed = Vector3.Lerp(oldDirection, direction, walkingSmoothness);
+        Vector2 oldDirection = new Vector2(animator.GetFloat("PosX"), animator.GetFloat("PosY"));
+        Vector2 smoothed = Vector2.Lerp(oldDirection, direction, walkingSmoothness);
+
+        onlinePlayer.SendMovementDirection(smoothed);
+
         animator.SetFloat("PosX", smoothed.x);
         animator.SetFloat("PosY", smoothed.y);
 
@@ -75,23 +74,5 @@ public class LocomotionConstant : MonoBehaviour
 
         Vector3 orientationEuler = new Vector3(0, MainCamera.transform.eulerAngles.y + rotation, 0);
         return Quaternion.Euler(orientationEuler);
-    }
-
-    private Vector3 animatorVector;
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        CalculateMovement();
-        CalculateRotation();
-        Vector3 positionOffset = Vector3.Normalize(previousPosition - robot.position);
-        Vector3 localPosition = (robot.InverseTransformDirection(positionOffset));
-        //localPosition.z *= -1f;
-        //Vector3 oldDirection = new Vector3(animator.GetFloat("PosX"), 0f, animator.GetFloat("PosY"));
-        Vector3 smoothed = Vector3.Lerp(animatorVector, localPosition, 0.2f);
-        //animator.SetFloat("PosX", smoothed.x);
-        //animator.SetFloat("PosY", smoothed.z);
-        animatorVector = new Vector3(smoothed.x, 0, smoothed.z);
-        Debug.Log(localPosition.x + "   " +  localPosition.z);
-        previousPosition = robot.position;
     }
 }
