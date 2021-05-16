@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
@@ -7,25 +8,34 @@ public class LocomotionConstant : MonoBehaviour
 {
 
     [SerializeField] SteamVR_Action_Vector2 M_action;
-
+    [SerializeField] private Animator animator;
     SteamVR_Action_Boolean snapRightAction = SteamVR_Input.GetBooleanAction("SnapTurnRight");
     SteamVR_Action_Boolean snapLeftAction = SteamVR_Input.GetBooleanAction("SnapTurnLeft");
-
-
-
+    
     [SerializeField] SteamVR_Input_Sources Locomition_source;
 
     [SerializeField] float Rotating_angle = 45;
 
-    [SerializeField] float speed = 1;
+    [SerializeField] private bool keyboardInput;
 
-    Transform MainCamera;
+    [SerializeField] float speed = 1;
+    [SerializeField] private float walkingSmoothness = 0.2f;
+
+    public OnlinePlayer onlinePlayer;
+    private Transform MainCamera;
 
 
     // Start is called before the first frame update
     void Start()
     {
         MainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+
+        if (keyboardInput)
+        {
+            Debug.LogWarning("<b>Установлен метод перемещения через кнопки клавиатуры!</b>");
+            FindObjectOfType<Valve.VR.InteractionSystem.FallbackCameraController>().enabled = false;
+            Debug.LogWarning("Конфликтное управление камерой в 2D режиме отключено");
+        }
     }
 
     void CalculateRotation()
@@ -44,34 +54,49 @@ public class LocomotionConstant : MonoBehaviour
 
     void CalculateMovement()
     {
-
         Quaternion orientation = CalculateOrientation();
+        Vector2 direction = Input.GetAxis("Horizontal") * Vector2.right + Input.GetAxis("Vertical") * Vector2.up;
+        float M_speed = direction.magnitude * speed;
 
-        //Calculatind forward and side speeds
-        float M_speed = M_action.GetAxis(Locomition_source).magnitude * speed;
+        if (M_speed == 0)
+        {
+            direction = Vector2.zero;
+        }
+        
+        // Сглаживание
+        Vector2 oldDirection = new Vector2(animator.GetFloat("PosX"), animator.GetFloat("PosY"));
+        Vector2 smoothed = Vector2.Lerp(oldDirection, direction, walkingSmoothness);
 
+        animator.SetFloat("PosX", smoothed.x);
+        animator.SetFloat("PosY", smoothed.y);
 
-        Vector3 movement = orientation * (M_speed * Vector3.forward) * Time.deltaTime;
+        if (onlinePlayer != null)
+        {
+            onlinePlayer.SendMovementDirection(smoothed);
+        }
 
-        //movement.y = -9.8f * Time.deltaTime;
-
-
+        Vector3 movement = orientation * Vector3.forward * (M_speed * Time.deltaTime);
         transform.position += movement;
     }
 
     private Quaternion CalculateOrientation()
     {
-        float rotation = Mathf.Atan2(M_action.GetAxis(Locomition_source).x, M_action.GetAxis(Locomition_source).y);
+        float rotation; 
+        
+        if (keyboardInput)
+            rotation = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        else        
+            rotation = Mathf.Atan2(M_action.GetAxis(Locomition_source).x, M_action.GetAxis(Locomition_source).y);
+
         rotation *= Mathf.Rad2Deg;
 
         Vector3 orientationEuler = new Vector3(0, MainCamera.transform.eulerAngles.y + rotation, 0);
         return Quaternion.Euler(orientationEuler);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        CalculateMovement();
         CalculateRotation();
+        CalculateMovement();
     }
 }

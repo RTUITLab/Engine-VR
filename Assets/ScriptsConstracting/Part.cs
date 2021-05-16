@@ -5,11 +5,15 @@ using Photon.Pun;
 
 public class Part : MonoBehaviour
 {
+    
     [HideInInspector] public enum Stage { Hidden , Visable , Active}
     Stage _currentStage;
     public Transform Hint;
     Transform camera;
     ConstractingManager manager;
+
+    private Vector3 partPosition;
+    private Quaternion partRotation;
     //public FixedPart part;
 
     public Stage currentStage
@@ -57,6 +61,7 @@ public class Part : MonoBehaviour
             Hint.transform.position += diff;
         }
         LastPos = transform.position;
+        //Debug.Log(currentStage);
     }
 
     private void OnEnable()
@@ -77,7 +82,19 @@ public class Part : MonoBehaviour
     private void Start()
     {
         //Hint.transform.parent = transform;
+        partPosition = transform.position;
+        partRotation = transform.rotation;
         camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
+    }
+
+    
+
+    public void SetInitialPosition()
+    {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = true;
+        transform.SetPositionAndRotation(partPosition, partRotation);
     }
 }

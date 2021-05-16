@@ -4,7 +4,6 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 
-// Eloren1: Этот скрипт вообще работает? На сцене его не найти при запуске игры. Как и OnlinePlayer. (TODO:)
 public class LocalPlayer : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject onlineBodyPref;     //Префаб онлайн тела.
@@ -23,6 +22,8 @@ public class LocalPlayer : MonoBehaviourPunCallbacks
         GameObject onlineBody = PhotonNetwork.Instantiate(onlineBodyPref.name, transform.position, Quaternion.identity);
         onlinePlayer = onlineBody.GetComponent<OnlinePlayer>();
         onlinePlayer.hideBody();
+
+        FindObjectOfType<LocomotionConstant>().onlinePlayer = this.onlinePlayer;
 
         SendNickname();
     }

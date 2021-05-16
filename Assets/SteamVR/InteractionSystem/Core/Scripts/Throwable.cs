@@ -4,9 +4,11 @@
 //
 //=============================================================================
 
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+
 
 namespace Valve.VR.InteractionSystem
 {
@@ -65,6 +67,7 @@ namespace Valve.VR.InteractionSystem
         //-------------------------------------------------
         protected virtual void Awake()
 		{
+			
 			velocityEstimator = GetComponent<VelocityEstimator>();
             interactable = GetComponent<Interactable>();
 
@@ -143,6 +146,7 @@ namespace Valve.VR.InteractionSystem
             attached = true;
 
 			onPickUp.Invoke();
+			GetComponent<Rigidbody>().isKinematic = false;
 
 			hand.HoverLock( null );
 

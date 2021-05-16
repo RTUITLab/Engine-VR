@@ -14,6 +14,7 @@ public class OnlinePlayer : MonoBehaviour
 
     [SerializeField] private PhotonView photonView;
     [SerializeField] private Text nicknameOutput;
+    [SerializeField] private Animator animator;
 
     public void SetTransform(Transform transform, int id)  
     {
@@ -54,5 +55,17 @@ public class OnlinePlayer : MonoBehaviour
     {
         nicknameOutput.text = nickname;
         Debug.Log("Send Nickname executed: nickname - " + nickname);
+    }
+
+    public void SendMovementDirection(Vector2 dir)
+    {
+        photonView.RPC("sendMovementDirection", RpcTarget.All, dir);
+    }
+
+    [PunRPC]
+    private void sendMovementDirection(Vector2 dir)
+    {
+        animator.SetFloat("PosX", dir.x);
+        animator.SetFloat("PosY", dir.y);
     }
 }

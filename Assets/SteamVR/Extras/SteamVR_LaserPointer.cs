@@ -143,17 +143,24 @@ namespace Valve.VR.Extras
                 OnPointerClick(argsClick);
             }
 
+            if (pointer == null) return;
+            
             if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
             {
-                pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist);
-                pointer.GetComponent<MeshRenderer>().material.color = clickColor;
+
+                if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
+                {
+                    pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist);
+                    pointer.GetComponent<MeshRenderer>().material.color = clickColor;
+                }
+                else
+                {
+                    pointer.transform.localScale = new Vector3(thickness, thickness, dist);
+                    pointer.GetComponent<MeshRenderer>().material.color = color;
+                }
+
+                pointer.transform.localPosition = new Vector3(0f, 0f, dist / 2f);
             }
-            else
-            {
-                pointer.transform.localScale = new Vector3(thickness, thickness, dist);
-                pointer.GetComponent<MeshRenderer>().material.color = color;
-            }
-            pointer.transform.localPosition = new Vector3(0f, 0f, dist / 2f);
         }
     }
 
