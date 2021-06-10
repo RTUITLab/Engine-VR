@@ -8,6 +8,7 @@ namespace Valve.VR.Extras
     {
         public SteamVR_Behaviour_Pose pose;
 
+        public Material pointerMaterial;
         //public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.__actions_default_in_InteractUI;
         public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetBooleanAction("InteractUI");
 
@@ -66,9 +67,9 @@ namespace Valve.VR.Extras
                     Object.Destroy(collider);
                 }
             }
-            Material newMaterial = new Material(Shader.Find("Unlit/Color"));
-            newMaterial.SetColor("_Color", color);
-            pointer.GetComponent<MeshRenderer>().material = newMaterial;
+
+            pointerMaterial.SetColor("_Color", color);
+            pointer.GetComponent<MeshRenderer>().material = pointerMaterial;
         }
 
         public virtual void OnPointerIn(PointerEventArgs e)
