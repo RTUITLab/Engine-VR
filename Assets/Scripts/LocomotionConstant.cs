@@ -11,7 +11,7 @@ public class LocomotionConstant : MonoBehaviour
     [SerializeField] private Animator animator;
     SteamVR_Action_Boolean snapRightAction = SteamVR_Input.GetBooleanAction("SnapTurnRight");
     SteamVR_Action_Boolean snapLeftAction = SteamVR_Input.GetBooleanAction("SnapTurnLeft");
-    
+
     [SerializeField] SteamVR_Input_Sources Locomition_source;
 
     [SerializeField] float Rotating_angle = 45;
@@ -55,14 +55,22 @@ public class LocomotionConstant : MonoBehaviour
     void CalculateMovement()
     {
         Quaternion orientation = CalculateOrientation();
-        Vector2 direction = Input.GetAxis("Horizontal") * Vector2.right + Input.GetAxis("Vertical") * Vector2.up;
+
+        Vector2 direction;
+        if (keyboardInput)
+            direction = Input.GetAxis("Horizontal") * Vector2.right + Input.GetAxis("Vertical") * Vector2.up;
+        else
+            direction = M_action.GetAxis(Locomition_source).x * Vector2.right + M_action.GetAxis(Locomition_source).y * Vector2.up;
+        Debug.Log(M_action.GetAxis(Locomition_source));
+
+
         float M_speed = direction.magnitude * speed;
 
         if (M_speed == 0)
         {
             direction = Vector2.zero;
         }
-        
+
         // Сглаживание
         Vector2 oldDirection = new Vector2(animator.GetFloat("PosX"), animator.GetFloat("PosY"));
         Vector2 smoothed = Vector2.Lerp(oldDirection, direction, walkingSmoothness);
@@ -81,11 +89,11 @@ public class LocomotionConstant : MonoBehaviour
 
     private Quaternion CalculateOrientation()
     {
-        float rotation; 
-        
+        float rotation;
+
         if (keyboardInput)
             rotation = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        else        
+        else
             rotation = Mathf.Atan2(M_action.GetAxis(Locomition_source).x, M_action.GetAxis(Locomition_source).y);
 
         rotation *= Mathf.Rad2Deg;
