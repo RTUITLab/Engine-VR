@@ -61,7 +61,7 @@ public class LocomotionConstant : MonoBehaviour
             direction = Input.GetAxis("Horizontal") * Vector2.right + Input.GetAxis("Vertical") * Vector2.up;
         else
             direction = M_action.GetAxis(Locomition_source).x * Vector2.right + M_action.GetAxis(Locomition_source).y * Vector2.up;
-        Debug.Log(M_action.GetAxis(Locomition_source));
+        // Debug.Log(M_action.GetAxis(Locomition_source));
 
 
         float M_speed = direction.magnitude * speed;

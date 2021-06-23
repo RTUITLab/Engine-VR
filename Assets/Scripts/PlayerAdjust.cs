@@ -51,7 +51,7 @@ public class PlayerAdjust : MonoBehaviour
             float multiplayer = VRCamera.localPosition.y / 1.7f;
             foreach(Transform transform in ChangeSize)
             {
-                transform.localScale = new Vector3(multiplayer, multiplayer, multiplayer);           
+                transform.localScale = new Vector3(multiplayer, multiplayer, multiplayer);
             }
         }
         if (ModelWristLeft && ModelWristRight)
@@ -63,7 +63,5 @@ public class PlayerAdjust : MonoBehaviour
             if (WristsDistanceRight > 0.02f) ChangeHandScale(WristsDistanceRight, upperArmBoneRight, lowerArmBoneRight);
 
         }
-
-
     }
 }
