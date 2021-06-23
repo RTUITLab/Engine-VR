@@ -23,7 +23,15 @@ public class Networking : MonoBehaviourPunCallbacks
         PhotonNetwork.GameVersion = Version;
         PhotonNetwork.ConnectUsingSettings();
 
+        Debug.developerConsoleVisible = false;
+
         mainMenu = FindObjectOfType<MainMenuController>();
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.C)) {
+            Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
+        }
     }
 
     public override void OnConnectedToMaster()
@@ -44,7 +52,7 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        
+
         string roomName = "Комната " + PlayerPrefs.GetString("Nickname");
 
         byte FreeSlots =
@@ -104,7 +112,7 @@ public class Networking : MonoBehaviourPunCallbacks
         cachedRoomList.Clear();
     }
 
-    
+
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
