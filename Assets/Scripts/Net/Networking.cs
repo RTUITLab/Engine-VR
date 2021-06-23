@@ -20,10 +20,11 @@ public class Networking : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        Debug.developerConsoleVisible = false;
+
+Debug.Log("9");
         PhotonNetwork.GameVersion = Version;
         PhotonNetwork.ConnectUsingSettings();
-
-        Debug.developerConsoleVisible = false;
 
         mainMenu = FindObjectOfType<MainMenuController>();
     }

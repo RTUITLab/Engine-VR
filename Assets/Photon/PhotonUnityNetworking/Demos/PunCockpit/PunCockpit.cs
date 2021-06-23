@@ -170,9 +170,10 @@ namespace Photon.Pun.Demo.Cockpit
 
 
 			// check the current network status
-
+Debug.Log("1");
 			if (PhotonNetwork.IsConnected)
 			{
+                Debug.Log("2");
 				if (PhotonNetwork.Server == ServerConnection.GameServer)
 				{
 					this.OnJoinedRoom ();
@@ -180,13 +181,15 @@ namespace Photon.Pun.Demo.Cockpit
 				}
 				else if (PhotonNetwork.Server == ServerConnection.MasterServer || PhotonNetwork.Server == ServerConnection.NameServer)
 				{
-			
+Debug.Log("3");
 					if (PhotonNetwork.InLobby)
 					{
+                        Debug.Log("5");
 						this.OnJoinedLobby ();
 					}
 					else
 					{
+                        Debug.Log("4");
 						this.OnConnectedToMaster ();
 					}
 
@@ -394,7 +397,7 @@ namespace Photon.Pun.Demo.Cockpit
 				regionHandler.PingMinimumOfRegions (OnRegionsPinged, null);
 			}
         }
-        
+
 
 		private void OnRegionsPinged(RegionHandler regionHandler)
 		{
@@ -632,7 +635,7 @@ namespace Photon.Pun.Demo.Cockpit
 
         #endregion
 
-        #region IN ROOM UI 
+        #region IN ROOM UI
 
         public void OnSelectPlayer()
         {
