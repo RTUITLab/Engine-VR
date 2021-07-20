@@ -48,8 +48,8 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        Destroy(leftLaserPointer.pointer);
-        Destroy(rightLaserPointer.pointer);
+        leftLaserPointer.pointer.SetActive(false);
+        rightLaserPointer.pointer.SetActive(false);
 
         foreach (var gObject in enableOnGameStart)
         {
@@ -64,12 +64,8 @@ public class MainMenuController : MonoBehaviour
         //locomotion.enabled = true;
     }
 
-    
-    
-
     public void JoinRandomRoom()
     {
         networking.JoinRandomRoom();
     }
-    // TODO Реализовать остальные методы из меню и навесить их на кнопки
 }

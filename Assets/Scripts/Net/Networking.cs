@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
@@ -74,6 +75,10 @@ Debug.Log("9");
         }
     }
 
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
 
     public void JoinRandomRoom()
     {
