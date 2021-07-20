@@ -16,12 +16,12 @@ public class Networking : MonoBehaviourPunCallbacks
     public Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
     private MainMenuController mainMenu;
 
+    private bool displayDevConsole = false;
+
     public Text text;
 
     void Start()
     {
-        Debug.developerConsoleVisible = false;
-
 Debug.Log("9");
         PhotonNetwork.GameVersion = Version;
         PhotonNetwork.ConnectUsingSettings();
@@ -31,8 +31,11 @@ Debug.Log("9");
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.C)) {
+            displayDevConsole = !displayDevConsole;
             Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
         }
+
+        Debug.developerConsoleVisible = displayDevConsole;
     }
 
     public override void OnConnectedToMaster()
