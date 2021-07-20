@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class RoomUI : MonoBehaviour
 {
-    public void ClickLeaveRoom()
+    public void OnTriggerEnter(Collider other)
     {
-        Application.Quit();
+        HandUIControllers hand = other.gameObject.GetComponentInParent<HandUIControllers>();
+        if (hand)
+        {
+            Application.Quit();
+        }
     }
 }
