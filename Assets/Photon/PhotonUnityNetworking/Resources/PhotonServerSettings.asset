@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 
+    AppIdRealtime: 55974742-51cb-4dfc-9baa-9ce543614d89
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -25,12 +25,25 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
+  DevRegion: ru
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-  RpcList: []
-  DisableAutoOpenWizard: 0
-  ShowSettings: 0
-  DevRegionSetOnce: 0
+  RpcList:
+  - ClickRpc
+  - DestroyRpc
+  - DestroySpaceship
+  - EditStage
+  - Fire
+  - Interactable
+  - RespawnSpaceship
+  - sendGrav
+  - sendMovementDirection
+  - sendNickname
+  - SendVelocity
+  - SyncPosition
+  - SyncRotation
+  DisableAutoOpenWizard: 1
+  ShowSettings: 1
+  DevRegionSetOnce: 1

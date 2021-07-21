@@ -11,6 +11,9 @@ public class RoomListing : MonoBehaviour
     private Networking networking;
     public RoomInfo RoomInfo { get; private set; }
 
+    [SerializeField] private GameObject roomOpened;
+    [SerializeField] private GameObject roomClosed;
+
     private void Start()
     {
         networking = FindObjectOfType<Networking>();
@@ -20,9 +23,14 @@ public class RoomListing : MonoBehaviour
     {
         RoomInfo = roominfo;
         text.text = roominfo.Name;
+
+        roomOpened.SetActive(roominfo.IsOpen);
+        roomClosed.SetActive(!roominfo.IsOpen);
     }
+    
     public void JoinChosenRoom()
     {
-        networking.JoinRoom(text.text);
+        if (RoomInfo.IsOpen)
+            networking.JoinRoom(RoomInfo.Name);
     }
 }
