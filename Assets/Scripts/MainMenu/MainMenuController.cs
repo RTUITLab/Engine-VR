@@ -18,14 +18,22 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private SteamVR_LaserPointer leftLaserPointer;
     [SerializeField] private SteamVR_LaserPointer rightLaserPointer;
 
+    [SerializeField] private GameObject engine;
+    [SerializeField] private DBForOptimizedEngine engineScript;
+
     [Header("Выбор комнат и сетевой код")]
     [Tooltip("Поставьте галочку в PlayMode, чтобы вызвался метод входа в случайную комнату")]
     [SerializeField] private bool executeJoinRandomRoom = false;
     [SerializeField] private Networking networking;
 
-    private void Start()
+    private IEnumerator Start()
     {
         executeJoinRandomRoom = false;
+
+        yield return new WaitForSeconds(0.1f);
+
+        // Генерируем коллайдеры и отключаем объект.
+        engine.SetActive(false);
     }
     
     private void LateUpdate()
@@ -54,6 +62,8 @@ public class MainMenuController : MonoBehaviour
         foreach (var gObject in enableOnGameStart)
         {
             if (gObject) gObject.SetActive(true);
+
+            if (gObject == engine) engineScript.enabled = true;
         }
 
         foreach (var gObject in disableOnGameStart)
