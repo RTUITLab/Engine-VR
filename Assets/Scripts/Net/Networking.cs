@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
@@ -16,14 +17,26 @@ public class Networking : MonoBehaviourPunCallbacks
     public Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
     private MainMenuController mainMenu;
 
+    private bool displayDevConsole = false;
+
     public Text text;
 
     void Start()
     {
+Debug.Log("9");
         PhotonNetwork.GameVersion = Version;
         PhotonNetwork.ConnectUsingSettings();
 
         mainMenu = FindObjectOfType<MainMenuController>();
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.C)) {
+            displayDevConsole = !displayDevConsole;
+            Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
+        }
+
+        Debug.developerConsoleVisible = displayDevConsole;
     }
 
     public override void OnConnectedToMaster()
@@ -44,7 +57,7 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        
+
         string roomName = "Комната " + PlayerPrefs.GetString("Nickname");
 
         byte FreeSlots =
@@ -62,6 +75,10 @@ public class Networking : MonoBehaviourPunCallbacks
         }
     }
 
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
 
     public void JoinRandomRoom()
     {
@@ -104,7 +121,7 @@ public class Networking : MonoBehaviourPunCallbacks
         cachedRoomList.Clear();
     }
 
-    
+
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {

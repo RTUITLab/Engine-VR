@@ -374,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fixTransforms: 1
+  headTracked: {fileID: 5753585303121273659}
   references:
     root: {fileID: 5753585303121273345}
     pelvis: {fileID: 5753585303121273459}

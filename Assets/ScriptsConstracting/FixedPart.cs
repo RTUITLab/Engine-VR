@@ -147,7 +147,7 @@ public class FixedPart : MonoBehaviour
     {
         if (other.gameObject == connectingPart && syncTranshorm.isLastOwner())
         {
-            StartCoroutine(TeleportConnectingPart());
+            // StartCoroutine(TeleportConnectingPart());
         }
     }
 

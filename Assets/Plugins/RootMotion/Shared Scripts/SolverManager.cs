@@ -1,5 +1,8 @@
+using System.Numerics;
 using UnityEngine;
 using System.Collections;
+using Vector3 = UnityEngine.Vector3;
+using UnityEngine.XR.WSA;
 
 namespace RootMotion {
 
@@ -7,9 +10,9 @@ namespace RootMotion {
 	/// Manages solver initiation and updating
 	/// </summary>
 	public class SolverManager: MonoBehaviour {
-		
+
 		#region Main Interface
-		
+
 		/// <summary>
 		/// If true, will fix all the Transforms used by the solver to their initial state in each Update. This prevents potential problems with unanimated bones and animator culling with a small cost of performance. Not recommended for CCD and FABRIK solvers.
 		/// </summary>
@@ -30,7 +33,7 @@ namespace RootMotion {
 		protected virtual void InitiateSolver() {}
 		protected virtual void UpdateSolver() {}
 		protected virtual void FixTransforms() {}
-		
+
 		private Animator animator;
 		private Animation legacy;
 		private bool updateFrame;
@@ -39,7 +42,7 @@ namespace RootMotion {
 		void OnDisable() {
 			if (!Application.isPlaying) return;
 			Initiate();
-			
+
 		}
 
 		public virtual void Start() {
@@ -58,12 +61,23 @@ namespace RootMotion {
 			if (componentInitiated) return;
 
 			FindAnimatorRecursive(transform, true);
-			
+
 			InitiateSolver();
 			componentInitiated = true;
 		}
 
+		public GameObject headTracked;
 		void Update() {
+			// Отключение фиксации ног в одном положении
+			if (headTracked) {
+            	var position = headTracked.transform.position;
+            	transform.position = position;
+
+				position = transform.localPosition;
+				position.y = 0;
+				transform.localPosition = position;
+			}
+
 			if (skipSolverUpdate) return;
 			if (animatePhysics) return;
 
@@ -121,7 +135,7 @@ namespace RootMotion {
 			if (!enabled) return;
 
 			skipSolverUpdate = true;
-			
+
 			UpdateSolver();
 		}
 	}

@@ -8,7 +8,6 @@ namespace Valve.VR.Extras
     {
         public SteamVR_Behaviour_Pose pose;
 
-        public Material pointerMaterial;
         //public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.__actions_default_in_InteractUI;
         public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetBooleanAction("InteractUI");
 
@@ -68,7 +67,8 @@ namespace Valve.VR.Extras
                 }
             }
 
-            pointerMaterial.SetColor("_Color", color);
+            var pointerMaterial = new Material(Shader.Find("Unlit/Color"));
+            pointerMaterial.SetColor("_Color", clickColor);
             pointer.GetComponent<MeshRenderer>().material = pointerMaterial;
         }
 
@@ -145,7 +145,7 @@ namespace Valve.VR.Extras
             }
 
             if (pointer == null) return;
-            
+
             if (interactWithUI != null && interactWithUI.GetState(pose.inputSource))
             {
 

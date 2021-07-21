@@ -56,7 +56,7 @@
     {
       "name": "/actions/default/in/Vector2Inut",
       "type": "vector2",
-      "requirement": "suggested"
+      "requirement": "mandatory"
     },
     {
       "name": "/actions/default/out/Haptic",
