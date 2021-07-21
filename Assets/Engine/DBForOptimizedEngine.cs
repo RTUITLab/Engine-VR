@@ -142,7 +142,6 @@ public class DBForOptimizedEngine : MonoBehaviour
             {
                 if (!child.name.Contains("дополнительно"))
                 {
-                    child.gameObject.GetComponent<MeshCollider>().enabled = false;
                     objects.Add(new ObjStructure(child.gameObject,child.name, new Depth(Depth.FindDepth(child, 0)), new NameContainer("Visible"), Parts.PartCollection(child.gameObject), Parts.AdditionalPartCollection(child.gameObject), Parts.AdditionalPartRoot(child.gameObject)));
                 }
             }

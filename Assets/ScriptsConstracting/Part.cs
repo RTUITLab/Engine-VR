@@ -76,7 +76,7 @@ public class Part : MonoBehaviour
 
     private void OnDisable()
     {
-        Hint.gameObject.SetActive(false);
+        if (Hint.gameObject) Hint.gameObject.SetActive(false);
     }
 
     private void Start()

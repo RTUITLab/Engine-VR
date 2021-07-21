@@ -26,14 +26,14 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private bool executeJoinRandomRoom = false;
     [SerializeField] private Networking networking;
 
-    private IEnumerator Start()
+    private void Start()
     {
         executeJoinRandomRoom = false;
 
-        yield return new WaitForSeconds(0.1f);
+        // yield return new WaitForSeconds(0.1f);
 
         // Генерируем коллайдеры и отключаем объект.
-        engine.SetActive(false);
+        // engine.SetActive(false);
     }
     
     private void LateUpdate()
@@ -56,8 +56,8 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        leftLaserPointer.pointer.SetActive(false);
-        rightLaserPointer.pointer.SetActive(false);
+        if (leftLaserPointer.pointer) leftLaserPointer.enabled = false;
+        if (rightLaserPointer.pointer) rightLaserPointer.enabled = false;
 
         foreach (var gObject in enableOnGameStart)
         {

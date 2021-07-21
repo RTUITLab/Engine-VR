@@ -56,6 +56,8 @@ public class ConstractingManager : MonoBehaviour
                 fixedParts.Add(new List<FixedPart>());
             }
 
+           ;
+
             SetPartsProps(structure.mainRoot, ref fixedPart.PartMeshe, false);
 
 
@@ -73,7 +75,7 @@ public class ConstractingManager : MonoBehaviour
 
 
             GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
-            Transform Hint = Hints.Find(structure.name);
+            Transform Hint = Hints.Find(structure.name); // TODO: Get hint text for canvas from here.
             connectedPartRoot.GetComponent<Part>().Hint = Hint;
 
             GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
@@ -93,14 +95,8 @@ public class ConstractingManager : MonoBehaviour
                 SetPartsProps(structure.additionalRoot, ref fixedPart.AddPartMeshe, true);
             }
 
-
-            /*foreach (GameObject addPart in structure.additionalParts.parts)
-            {
-                if (addPart.GetComponent<MeshRenderer>())
-                {
-                    SetPartsProps(addPart, fixedPart.AddPartMeshes, true);
-                }
-            }*/
+            if (connectedPart.GetComponent<DBForOptimizedEngine>())
+                Destroy(connectedPart.GetComponent<DBForOptimizedEngine>());
 
             foreach (Transform child in connectedPart.transform)
             {
@@ -155,6 +151,8 @@ public class ConstractingManager : MonoBehaviour
             {
                 //connectedPartRoot.SetActive(true);
             }
+
+            part.GetComponent<MeshCollider>().enabled = false;
         }
     }
 
@@ -168,9 +166,7 @@ public class ConstractingManager : MonoBehaviour
     {
         MeshRenderer mesh = part.GetComponent<MeshRenderer>();
 
-        MeshCollider collider = part.AddComponent<MeshCollider>();
-
-        collider.convex = true;
+        MeshCollider collider = part.GetComponent<MeshCollider>();
 
         //List<Material> materials = new List<Material>();
         //mesh.GetMaterials(materials);
