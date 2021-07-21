@@ -79,8 +79,14 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
         _transform.rotation = newQuaternion;
     }
 
-    public void CatchObj(bool active) //Вызываеться когда игрок схватил или отпустил предмет.
+    public void CatchObj(bool active) //Вызывается когда игрок схватил или отпустил предмет.
     {
+        if (transform.GetChild(0).name == "Двигатель(ось)")
+        {
+            // Комната закрывается при взятии в руку первой детали.
+            Networking.ConstructionStarted = true;
+        }
+
         cathed = active;
         photonView.RPC("Interactable", RpcTarget.OthersBuffered, active);
         if (active)

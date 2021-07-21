@@ -19,11 +19,14 @@ public class Networking : MonoBehaviourPunCallbacks
 
     private bool displayDevConsole = false;
 
+    public static bool ConstructionStarted = false;
+    private bool roomClosed = false;
+
     public Text text;
 
     void Start()
     {
-Debug.Log("9");
+        Debug.Log("9");
         PhotonNetwork.GameVersion = Version;
         PhotonNetwork.ConnectUsingSettings();
 
@@ -37,6 +40,16 @@ Debug.Log("9");
         }
 
         Debug.developerConsoleVisible = displayDevConsole;
+
+        if (ConstructionStarted && !roomClosed)
+        {
+            Debug.Log("Room closed!");
+
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.CurrentRoom.IsOpen = false;
+
+            roomClosed = true;
+        }
     }
 
     public override void OnConnectedToMaster()
