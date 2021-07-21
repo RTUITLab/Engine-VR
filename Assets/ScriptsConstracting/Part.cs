@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class Part : MonoBehaviour
 {
     
     [HideInInspector] public enum Stage { Hidden , Visable , Active}
     Stage _currentStage;
-    public Transform Hint;
+    [HideInInspector] public Transform Hint;
     Transform camera;
     ConstractingManager manager;
 
     private Vector3 partPosition;
     private Quaternion partRotation;
     //public FixedPart part;
+
+    [SerializeField] private DisplayCurrentHint hintManager;
+    private string hintText;
 
     public Stage currentStage
     {
@@ -54,13 +58,13 @@ public class Part : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Hint.LookAt(camera);
-        Vector3 diff = transform.position - LastPos;
-        if (LastPos != Vector3.zero)
-        {
-            Hint.transform.position += diff;
-        }
-        LastPos = transform.position;
+        // Hint.LookAt(camera);
+        //Vector3 diff = transform.position - LastPos;
+        //if (LastPos != Vector3.zero)
+        //{
+        //    Hint.transform.position += diff;
+        //}
+        //LastPos = transform.position;
         //Debug.Log(currentStage);
     }
 
@@ -68,19 +72,22 @@ public class Part : MonoBehaviour
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
 
-        if (manager.Education)
-        {
-            Hint.gameObject.SetActive(true);
-        }
+        //if (manager.Education)
+        //{
+        //    Hint.gameObject.SetActive(true);
+        //}
+
+        hintText = Hint.gameObject.GetComponentInChildren<TextMeshProUGUI>().text;
     }
 
     private void OnDisable()
     {
-        if (Hint.gameObject) Hint.gameObject.SetActive(false);
+        if (Hint) Hint.gameObject.SetActive(false);
     }
 
     private void Start()
     {
+
         //Hint.transform.parent = transform;
         partPosition = transform.position;
         partRotation = transform.rotation;
@@ -96,5 +103,10 @@ public class Part : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = true;
         transform.SetPositionAndRotation(partPosition, partRotation);
+    }
+
+    public void DisplayHint()
+    {
+        hintManager.DispayHint(hintText);
     }
 }

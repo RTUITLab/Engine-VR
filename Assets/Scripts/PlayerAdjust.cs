@@ -25,8 +25,8 @@ public class PlayerAdjust : MonoBehaviour
     IEnumerator AnjustHands()
     {
         yield return new WaitForSeconds(2);
-        ModelWristLeft = GameObject.FindGameObjectWithTag("LeftWrist").transform;
-        ModelWristRight = GameObject.FindGameObjectWithTag("RightWrist").transform;
+        if (ModelWristLeft) ModelWristLeft = GameObject.FindGameObjectWithTag("LeftWrist").transform;
+        if (ModelWristRight) ModelWristRight = GameObject.FindGameObjectWithTag("RightWrist").transform;
 
     }
 
