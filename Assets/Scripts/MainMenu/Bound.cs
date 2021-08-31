@@ -6,9 +6,17 @@ using UnityEngine;
 public class Bound : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] private float teleportModifier = 0.9f;
+    private float startPositionY;
+
+    private void Start()
+    {
+        startPositionY = player.position.y;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Vector3 direction = player.position - new Vector3(3f, player.position.y, -7f);
-        player.position = player.position -  direction.normalized;
+        player.position = new Vector3(player.position.x, 0, player.position.z) * teleportModifier +
+            new Vector3(0, startPositionY, 0);
     }
 }

@@ -43,7 +43,7 @@ public class MainMenuController : MonoBehaviour
         position.y = -0.83f;
         canvasCenter.transform.position = position;
 
-        if (executeJoinRandomRoom)
+        if (executeJoinRandomRoom || Input.GetKeyDown(KeyCode.X))
         {
             executeJoinRandomRoom = false;
             JoinRandomRoom();
