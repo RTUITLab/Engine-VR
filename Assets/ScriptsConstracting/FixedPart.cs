@@ -116,6 +116,8 @@ public class FixedPart : MonoBehaviour
         IsReadyToMove = false;
         part = connectingPart.GetComponent<Part>();
         part.connecntedFixed = GetComponent<FixedPart>();
+
+        syncTranshorm.SendGrav(false);
     }
 
     private void OnTriggerStay(Collider other)
@@ -147,16 +149,16 @@ public class FixedPart : MonoBehaviour
     {
         if (other.gameObject == connectingPart && syncTranshorm.isLastOwner())
         {
-            // StartCoroutine(TeleportConnectingPart());
+            StartCoroutine(ResetConnectingPart());
         }
     }
 
-    private IEnumerator TeleportConnectingPart()
+    private IEnumerator ResetConnectingPart()
     {
         yield return new WaitForSeconds(0.3f);
         
         syncTranshorm.SendGrav(true);
-        connectingPart.GetComponent<Part>().SetInitialPosition();
+        // connectingPart.GetComponent<Part>().SetInitialPosition();
     }
 
     public void SetConnected(GameObject connected)
