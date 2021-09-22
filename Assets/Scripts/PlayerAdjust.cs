@@ -27,7 +27,6 @@ public class PlayerAdjust : MonoBehaviour
         yield return new WaitForSeconds(2);
         ModelWristLeft = GameObject.FindGameObjectWithTag("LeftWrist").transform;
         ModelWristRight = GameObject.FindGameObjectWithTag("RightWrist").transform;
-
     }
 
     private void Start()

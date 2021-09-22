@@ -75,7 +75,7 @@ public class ConstractingManager : MonoBehaviour
 
 
             GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
-            Transform Hint = Hints.Find(structure.name); // TODO: Get hint text for canvas from here.
+            Transform Hint = Hints.Find(structure.name);
             connectedPartRoot.GetComponent<Part>().Hint = Hint;
 
             GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);

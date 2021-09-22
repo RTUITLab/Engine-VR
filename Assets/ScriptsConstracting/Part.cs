@@ -16,6 +16,9 @@ public class Part : MonoBehaviour
     private Quaternion partRotation;
     //public FixedPart part;
 
+    private HintManager hintManager;
+    private string hintText;
+
     public Stage currentStage
     {
         get
@@ -67,6 +70,7 @@ public class Part : MonoBehaviour
     private void OnEnable()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
+        hintManager = FindObjectOfType<HintManager>();
 
         if (manager.Education)
         {
@@ -96,5 +100,10 @@ public class Part : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = true;
         transform.SetPositionAndRotation(partPosition, partRotation);
+    }
+
+    public void DisplayHint()
+    {
+        hintManager.DisplayHint(hintText);
     }
 }
