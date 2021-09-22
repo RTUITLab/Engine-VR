@@ -77,6 +77,7 @@ public class ConstractingManager : MonoBehaviour
             GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             Transform Hint = Hints.Find(structure.name);
             connectedPartRoot.GetComponent<Part>().Hint = Hint;
+            connectedPartRoot.GetComponent<Part>().HintText = Hint.GetComponentInChildren<TextMeshProUGUI>().text;
 
             GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             connectedPart.name = part.name;

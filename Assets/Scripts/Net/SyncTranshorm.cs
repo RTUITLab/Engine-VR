@@ -87,6 +87,18 @@ public class SyncTranshorm : MonoBehaviourPunCallbacks
             Networking.ConstructionStarted = true;
         }
 
+        Part part = GetComponent<Part>();
+        if (part)
+        {
+            if (active)
+            {
+                part.DisplayHint();
+            } else
+            {
+                part.StopDisplaying();
+            }
+        }
+
         cathed = active;
         photonView.RPC("Interactable", RpcTarget.OthersBuffered, active);
         if (active)

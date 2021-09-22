@@ -17,7 +17,7 @@ public class Part : MonoBehaviour
     //public FixedPart part;
 
     private HintManager hintManager;
-    private string hintText;
+    public string HintText;
 
     public Stage currentStage
     {
@@ -104,6 +104,11 @@ public class Part : MonoBehaviour
 
     public void DisplayHint()
     {
-        hintManager.DisplayHint(hintText);
+        hintManager.DisplayHint(HintText);
+    }
+
+    public void StopDisplaying()
+    {
+        hintManager.StopDisplaying();
     }
 }

@@ -7,13 +7,18 @@ public class HintManager : MonoBehaviour
 {
     [SerializeField] private Text hintOutput;
 
+    private void Start()
+    {
+        StopDisplaying();
+    }
+
     public void DisplayHint(string hint)
     {
         hintOutput.text = hint;
     }
 
-    public void StopDisplayingHint()
+    public void StopDisplaying()
     {
-        // hintOutput.text = "";
+        hintOutput.text = "";
     }
 }
