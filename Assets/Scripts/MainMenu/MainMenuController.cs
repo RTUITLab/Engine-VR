@@ -43,7 +43,7 @@ public class MainMenuController : MonoBehaviour
         position.y = -0.83f;
         canvasCenter.transform.position = position;
 
-        if (executeJoinRandomRoom)
+        if (executeJoinRandomRoom || Input.GetKeyDown(KeyCode.X))
         {
             executeJoinRandomRoom = false;
             JoinRandomRoom();
@@ -56,8 +56,8 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        if (leftLaserPointer.pointer) leftLaserPointer.enabled = false;
-        if (rightLaserPointer.pointer) rightLaserPointer.enabled = false;
+        if (leftLaserPointer.pointer) Destroy(leftLaserPointer.pointer);
+        if (rightLaserPointer.pointer) Destroy(rightLaserPointer.pointer);
 
         foreach (var gObject in enableOnGameStart)
         {
