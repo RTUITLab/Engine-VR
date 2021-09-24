@@ -146,16 +146,16 @@ public class FixedPart : MonoBehaviour
     {
         if (other.gameObject == connectingPart && syncTranshorm.isLastOwner())
         {
-            // StartCoroutine(TeleportConnectingPart());
+            StartCoroutine(ResetConnectingPart());
         }
     }
 
-    private IEnumerator TeleportConnectingPart()
+    private IEnumerator ResetConnectingPart()
     {
         yield return new WaitForSeconds(0.3f);
-        
+
         syncTranshorm.SendGrav(true);
-        connectingPart.GetComponent<Part>().SetInitialPosition();
+        // connectingPart.GetComponent<Part>().SetInitialPosition();
     }
 
     public void SetConnected(GameObject connected)
