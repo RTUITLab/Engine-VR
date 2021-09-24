@@ -14,23 +14,20 @@ public class RoomListingsMenu : MonoBehaviour
 
     public void UpdateRoomListing()
     {
+        listings.Clear();
+
+        foreach (RoomListing old in content.GetComponentsInChildren<RoomListing>())
+        {
+            Destroy(old.gameObject);
+        }
+
         foreach (var info in networking.cachedRoomList)
         {
-            /*int index = listings.FindIndex(x => x.RoomInfo.Name == info.Value.Name);
-            if (index != -1)
-            {
-                Destroy(listings[index].gameObject);
-                listings.RemoveAt(index);
-            }
-            else
-            { */
             RoomListing listing = Instantiate(roomListing, content);
             if (listing != null)
             {
                 listing.SetRoomInfo(info.Value);
                 listings.Add(listing);
-                /*}
-            }*/
             }
         }
     }
