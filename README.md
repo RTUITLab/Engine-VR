@@ -1,2 +1,3 @@
-# RocketVR
-Rocket Vr project by RTU IT Lab
+# Engine-VR (RocketVR)
+
+Read a description of release for build information.
