@@ -76,8 +76,12 @@ public class ConstractingManager : MonoBehaviour
 
             GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             Transform Hint = Hints.Find(structure.name);
-            connectedPartRoot.GetComponent<Part>().Hint = Hint;
-            connectedPartRoot.GetComponent<Part>().HintText = Hint.GetComponentInChildren<TextMeshProUGUI>().text;
+
+            if (Hint)
+            {
+                connectedPartRoot.GetComponent<Part>().Hint = Hint;
+                connectedPartRoot.GetComponent<Part>().HintText = Hint.GetComponentInChildren<TextMeshProUGUI>().text;
+            }
 
             GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
             connectedPart.name = part.name;
@@ -85,8 +89,12 @@ public class ConstractingManager : MonoBehaviour
             glow.GlowMaterial = GlowMaterial;
             glow.Listener = connectedPartRoot;
             connectedPart.transform.SetParent(connectedPartRoot.transform);
-            Hint.position = connectedPart.transform.position;
-            Hint.position += new Vector3(0, 0.7f, 0);
+
+            if (Hint)
+            {
+                Hint.position = connectedPart.transform.position;
+                Hint.position += new Vector3(0, 0.7f, 0);
+            }
 
             Destroy(connectedPart.GetComponent<FixedPart>());
             if (structure.additionalRoot)
@@ -128,8 +136,11 @@ public class ConstractingManager : MonoBehaviour
 
             Material HintMaterail = new Material(HintColor);
             HintMaterail.color = PartColor;
-            Hint.transform.GetChild(1).GetComponent<Image>().material = HintMaterail;
-            Hint.gameObject.SetActive(false);
+            if (Hint)
+            {
+                Hint.transform.GetChild(1).GetComponent<Image>().material = HintMaterail;
+                Hint.gameObject.SetActive(false);
+            }
 
             part.AddComponent<BoxCollider>();
 
@@ -146,7 +157,11 @@ public class ConstractingManager : MonoBehaviour
             installRange.size = newSize;
 
             fixedParts[depth].Add(fixedPart);
-            movingPartDataBase.FillArrays(spawnPos, fixedPart.transform, connectedPartRoot, Hint.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
+            if (Hint)
+                movingPartDataBase.FillArrays(spawnPos, fixedPart.transform, connectedPartRoot, Hint.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text);
+            else
+                movingPartDataBase.FillArrays(spawnPos, fixedPart.transform, connectedPartRoot, "");
+
 
             if (!Education)
             {
