@@ -16,8 +16,7 @@ public class Networking : MonoBehaviourPunCallbacks
     //private TypedLobby customLobby = new TypedLobby("customLobby", LobbyType.Default);
     public Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
     private MainMenuController mainMenu;
-
-    private bool displayDevConsole = false;
+    private RoomListingsMenu roomListingMenu;
 
     public static bool ConstructionStarted = false;
     private bool roomClosed = false;
@@ -29,18 +28,12 @@ public class Networking : MonoBehaviourPunCallbacks
         Debug.Log("9");
         PhotonNetwork.GameVersion = Version;
         PhotonNetwork.ConnectUsingSettings();
+        roomListingMenu = FindObjectOfType<RoomListingsMenu>();
 
         mainMenu = FindObjectOfType<MainMenuController>();
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.C)) {
-            displayDevConsole = !displayDevConsole;
-            Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
-        }
-
-        Debug.developerConsoleVisible = displayDevConsole;
-
         if (ConstructionStarted && !roomClosed)
         {
             Debug.Log("Room closed!");
@@ -55,7 +48,6 @@ public class Networking : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         JoinLobby();
-
     }
 
     private void JoinLobby()
@@ -117,6 +109,8 @@ public class Networking : MonoBehaviourPunCallbacks
                 cachedRoomList[info.Name] = info;
             }
         }
+
+        roomListingMenu.UpdateRoomListing();
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
