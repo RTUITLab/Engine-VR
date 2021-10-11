@@ -70,11 +70,11 @@ public class ConstractingManager : MonoBehaviour
             }*/
 
             int PartIndex = fixedParts[depth].Count;
-            Transform spawnPos = spawnPoints[PartIndex];
+            Transform spawnPos = spawnPoints[PartIndex % spawnPoints.Count];
 
 
 
-            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
+            GameObject connectedPartRoot = Instantiate(MovingPartExample, spawnPoints[PartIndex % spawnPoints.Count].position, spawnPoints[PartIndex % spawnPoints.Count].rotation);
             Transform Hint = Hints.Find(structure.name);
 
             if (Hint)
@@ -83,7 +83,7 @@ public class ConstractingManager : MonoBehaviour
                 connectedPartRoot.GetComponent<Part>().HintText = Hint.GetComponentInChildren<TextMeshProUGUI>().text;
             }
 
-            GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex].position, spawnPoints[PartIndex].rotation);
+            GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex % spawnPoints.Count].position, spawnPoints[PartIndex % spawnPoints.Count].rotation);
             connectedPart.name = part.name;
             GlowNearGrab glow = connectedPart.AddComponent<GlowNearGrab>();
             glow.GlowMaterial = GlowMaterial;

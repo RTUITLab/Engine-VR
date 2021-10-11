@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DBForOptimizedEngine : MonoBehaviour
 {
+    public int depthCount;
+
     // Start is called before the first frame update
     public List<Material> materials = new List<Material>();
     [System.Serializable]
@@ -71,7 +73,7 @@ public class DBForOptimizedEngine : MonoBehaviour
             foreach (Transform child in obj.transform)
             {
                 if (child.name.Contains("Деталь"))
-                objects.Add(child.gameObject);
+                    objects.Add(child.gameObject);
                 if (child.childCount != 0 && child.name.Contains("Деталь"))
                     AllParts(child, objects);
             }
@@ -129,7 +131,7 @@ public class DBForOptimizedEngine : MonoBehaviour
     {
         public string name;
         public Depth depth;
-         NameContainer status;
+        NameContainer status;
         Parts parts;
         Parts additionalParts;
         public GameObject mainRoot;
@@ -142,7 +144,7 @@ public class DBForOptimizedEngine : MonoBehaviour
             {
                 if (!child.name.Contains("дополнительно"))
                 {
-                    objects.Add(new ObjStructure(child.gameObject,child.name, new Depth(Depth.FindDepth(child, 0)), new NameContainer("Visible"), Parts.PartCollection(child.gameObject), Parts.AdditionalPartCollection(child.gameObject), Parts.AdditionalPartRoot(child.gameObject)));
+                    objects.Add(new ObjStructure(child.gameObject, child.name, new Depth(Depth.FindDepth(child, 0)), new NameContainer("Visible"), Parts.PartCollection(child.gameObject), Parts.AdditionalPartCollection(child.gameObject), Parts.AdditionalPartRoot(child.gameObject)));
                 }
             }
         }
@@ -161,7 +163,7 @@ public class DBForOptimizedEngine : MonoBehaviour
 
         }
 
-        public ObjStructure(GameObject MainRoot,string Name, Depth Depth, NameContainer Status, Parts Parts, Parts AdditionalParts,GameObject AdditionalRoot)
+        public ObjStructure(GameObject MainRoot, string Name, Depth Depth, NameContainer Status, Parts Parts, Parts AdditionalParts, GameObject AdditionalRoot)
         {
             mainRoot = MainRoot;
             name = Name;
@@ -191,20 +193,18 @@ public class DBForOptimizedEngine : MonoBehaviour
     public List<NameContainer> sources = new List<NameContainer>();
     void Start()
     {
-        depths.Add(new Depth(0)); depths.Add(new Depth(1)); depths.Add(new Depth(2)); depths.Add(new Depth(3)); depths.Add(new Depth(4)); depths.Add(new Depth(5)); depths.Add(new Depth(6)); depths.Add(new Depth(7)); depths.Add(new Depth(8));
-        statuses.Add(new NameContainer("Visable")); statuses.Add(new NameContainer("Invisible")); statuses.Add(new NameContainer("Highlighted"));
+        for (int i = 0; i < depthCount; i++)
+        {
+            depths.Add(new Depth(i));
+        }
+        statuses.Add(new NameContainer("Visable")); 
+        statuses.Add(new NameContainer("Invisible")); 
+        statuses.Add(new NameContainer("Highlighted"));
+
         for (int i = 0; i <= materials.Count - 1; i++)
             colors.Add(new Colors(materials[i].color.r, materials[i].color.g, materials[i].color.b));
-        //----------------------------------------------------------------------------------------------------------------
+
         ObjStructure.DataCollection(objStructures, transform);
 
-    }
-
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }
