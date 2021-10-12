@@ -17,6 +17,7 @@ public class ConstractingManager : MonoBehaviour
     [SerializeField] Material HintColor;
     [SerializeField] Material DisolveMaterial;
     [SerializeField] Transform Hints;
+    [SerializeField] private bool isGlowNearGrab = true;
 
     private BuildProgress progress;
     [SerializeField] private Animator[] presentationAnimations; // Начинают проигрываться при завершении сборки
@@ -85,9 +86,13 @@ public class ConstractingManager : MonoBehaviour
 
             GameObject connectedPart = Instantiate(part, spawnPoints[PartIndex % spawnPoints.Count].position, spawnPoints[PartIndex % spawnPoints.Count].rotation);
             connectedPart.name = part.name;
-            GlowNearGrab glow = connectedPart.AddComponent<GlowNearGrab>();
-            glow.GlowMaterial = GlowMaterial;
-            glow.Listener = connectedPartRoot;
+
+            if (isGlowNearGrab)
+            {
+                GlowNearGrab glow = connectedPart.AddComponent<GlowNearGrab>();
+                glow.GlowMaterial = GlowMaterial;
+                glow.Listener = connectedPartRoot;
+            }
             connectedPart.transform.SetParent(connectedPartRoot.transform);
 
             if (Hint)
