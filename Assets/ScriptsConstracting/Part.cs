@@ -57,11 +57,14 @@ public class Part : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Hint.LookAt(camera);
+        if (Hint)
+            Hint.LookAt(camera);
+        
         Vector3 diff = transform.position - LastPos;
         if (LastPos != Vector3.zero)
         {
-            Hint.transform.position += diff;
+            if (Hint)
+                Hint.transform.position += diff;
         }
         LastPos = transform.position;
         //Debug.Log(currentStage);
@@ -74,7 +77,8 @@ public class Part : MonoBehaviour
 
         if (manager.Education)
         {
-            Hint.gameObject.SetActive(true);
+            if (Hint.gameObject)
+                Hint.gameObject.SetActive(true);
         }
     }
 

@@ -244,7 +244,8 @@ public class ConstractingManager : MonoBehaviour
     {
         foreach (var anim in presentationAnimations)
         {
-            anim.enabled = true;
+            if (anim.gameObject.activeSelf)
+                anim.enabled = true;
         }
     }
 
