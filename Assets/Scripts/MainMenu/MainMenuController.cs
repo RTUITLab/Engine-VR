@@ -59,6 +59,8 @@ public class MainMenuController : MonoBehaviour
         if (leftLaserPointer.pointer) Destroy(leftLaserPointer.pointer);
         if (rightLaserPointer.pointer) Destroy(rightLaserPointer.pointer);
 
+        locomotion.enabled = true;
+
         foreach (var gObject in enableOnGameStart)
         {
             if (gObject) gObject.SetActive(true);

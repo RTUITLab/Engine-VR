@@ -7,7 +7,6 @@ public class NicknameChoose : MonoBehaviour
     [Tooltip("Позволяет сбрасывать никнейм каждый раз при входе в главное меню.\n" +
         "Полезно на демонстрационных стендах, чтобы не сохранять чужие ники.")]
     [SerializeField] private bool resetNicknameAfterRestart = true;
-    private string defaultName = "Инженер";
     private string nickname;
 
     [SerializeField] private Keyboard keyboard;
@@ -40,9 +39,9 @@ public class NicknameChoose : MonoBehaviour
     /// <summary>
     // Вызывается при нажатии кнопки с предложенным именем, например: «инженер» или «помощник»
     /// </summary>
-    public void CustomRandomNickname(string name) 
+    public void UseNickname(string name) 
     {
-        nickname = name + "-" + Random.Range(100, 1000);
+        nickname = name;
         keyboard.SetInputText(nickname.ToUpper());
 
         SaveNickname(false);
@@ -50,7 +49,8 @@ public class NicknameChoose : MonoBehaviour
 
     private string RandomNickname()
     {
-        return defaultName + "-" + Random.Range(100, 1000);
+        string[] nicknameList = { "Инженер", "Конструктор", "Механик", "Помощник" };
+        return nicknameList[Random.Range(0, nicknameList.Length)];
     }
 
     public void SaveNickname(bool showSuccess)

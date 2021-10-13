@@ -77,7 +77,7 @@ public class Part : MonoBehaviour
 
         if (manager.Education)
         {
-            if (Hint.gameObject)
+            if (Hint)
                 Hint.gameObject.SetActive(true);
         }
     }
