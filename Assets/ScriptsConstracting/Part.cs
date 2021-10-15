@@ -40,7 +40,7 @@ public class Part : MonoBehaviour
             else
             {
                 gameObject.SetActive(true);
-                GetComponent<Rigidbody>().isKinematic = false;
+                //GetComponent<Rigidbody>().isKinematic = false;
             }
         }
     }
@@ -94,6 +94,9 @@ public class Part : MonoBehaviour
         partRotation = transform.rotation;
         camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ConstractingManager>();
+
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<SyncTranshorm>().SendGrav(true);
     }
 
     
