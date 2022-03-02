@@ -1,0 +1,15 @@
+name: Landing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+    paths:
+      - 'LANDING.md'
+
+
+jobs:
+  parse-landing:
+    uses: RTUITLab/.github/.github/workflows/landing-parser.yml@v1.0.2
+    secrets:
+      token: ${{ secrets.RTUITLAB_LANDING_TOKEN }}
