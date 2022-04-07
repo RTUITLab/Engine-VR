@@ -56,3 +56,5 @@
 AppID можно получить на странице Photon Cloud, создав новое приложение: https://dashboard.photonengine.com/en-US/PublicCloud
 
 После введения AppID проект должен работать корректно в VR и 2D режимах.
+
+Рабочая сцена под названием Online находится в папке Scenes.
