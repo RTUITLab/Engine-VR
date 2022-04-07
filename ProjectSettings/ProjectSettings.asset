@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: RTUITLab
   productName: RocketVR
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.1
+  bundleVersion: 1.3.3
   preloadedAssets:
   - {fileID: -3526016268701985577, guid: 95a60379eef2a5046a1e1ee544a5eb2f, type: 2}
   metroInputSource: 0

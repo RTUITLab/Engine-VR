@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private string Version = "1.1";
     [SerializeField] [Range(2, 20)] private byte maxPlayers = 10;
 
     [SerializeField] private int PhotonLimit = 20; //Лимит максимального кол-ва подключений.
@@ -25,7 +24,7 @@ public class Networking : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        PhotonNetwork.GameVersion = Version;
+        PhotonNetwork.GameVersion = "1.3";
         PhotonNetwork.ConnectUsingSettings();
         roomListingMenu = FindObjectOfType<RoomListingsMenu>();
 
